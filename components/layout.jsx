@@ -1,8 +1,8 @@
-import Navbar from './navbar'
-
-import Footer from './footer'
-import Head from 'next/head'
 import React from 'react'
+import Head from 'next/head'
+
+import Navbar from './navbar'
+import Footer from './footer'
 
 const Layout = ({ children }) => {
   return(
@@ -19,13 +19,21 @@ const Layout = ({ children }) => {
                     flexDirection: "column",
                     minHeight: "100vh"}}>
         <Navbar/>
-        <div style={{width: "100%", height:"100%" ,marginTop: "120px", flex: "1"}}>
+        <div style={main_}>
           {children}
         </div>
         <Footer style={{flex: 0}}/>
       </main>
     </div>
     )
+}
+
+const main_ ={
+  width: "90%",
+  itemAlign: "center",
+  height: "100%",
+  margin: "120px auto 0px",
+  flex: 1,
 }
 
 export default Layout
