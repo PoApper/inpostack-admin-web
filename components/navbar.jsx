@@ -38,16 +38,16 @@ const Navbar = () => {
               </Link>
               </Menu.Item>
               <Menu.Item>
-                <a style={NavLink}><Link href="/store">가게 관리</Link></a>
+                <Link href="/store"><a style={{color: 'black'}}>가게 관리</a></Link>
               </Menu.Item>
               <Menu.Item>
-                <a style={NavLink}><Link href="/account">계정 관리</Link></a>
+                <Link href="/account"><a style={{color: 'black'}}>계정 관리</a></Link>
               </Menu.Item>
               <Menu.Item>
-                <a style={NavLink}><Link href="/notice">공지 관리</Link></a>
+                <Link href="/notice"><a style={{color: 'black'}}>공지 관리</a></Link>
               </Menu.Item>
               <Menu.Item>
-                <a style={NavLink}><Link href="/statistics">통계 보기</Link></a>
+                <Link href="/statistics"><a style={{color: 'black'}}>통계 보기</a></Link>
               </Menu.Item>
             {
               //account ?
