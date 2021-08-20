@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import useUser from '../data/useUser'
+import { logout } from '../requests/userApi'
+
 import Link from 'next/link'
 import { Button, Container, Dropdown, Grid, Header, Image, Menu, Sticky, Visibility } from 'semantic-ui-react'
 
@@ -8,6 +11,7 @@ import { useRouter } from 'next/router'
 
 const Navbar = () => {
   const router = useRouter()
+  const { loading, loggedIn, user } = useUser()
   const [dropdownOpen, toggleDropdown] = useState(false)
   var menuFixed = false
   return(
@@ -20,7 +24,7 @@ const Navbar = () => {
               <Link href={"/"}>
                 <Grid columns={2} verticalAlign='middle'>
                   <Grid.Column>
-                    <Image centered src={Logo} style={{width: "24px"}}/>
+                    <Image centered src={Logo} alt="logo" style={{width: "24px"}}/>
                   </Grid.Column>
                   <Grid.Column>
                     <Header as='h1'
@@ -50,19 +54,22 @@ const Navbar = () => {
                 <Link href="/statistics"><a style={{color: 'black'}}>통계 보기</a></Link>
               </Menu.Item>
             {
-              //account ?
+              loggedIn ? 
                 <Menu.Item position={"right"}>
-                  <p>example</p>
-                  {/*<Dropdown item simple
-                            text={`[${account.account_type}] ${account.name} (${account.id})`}>
+                  <Dropdown item simple
+                            text={`[${user.account_type}] ${user.name} (${user.id})`}>
                     <Dropdown.Menu style={{border: "none", boxShadow: "0 2px 5px 0px rgba(0, 0, 0, 0.2)"}}>
-                      <Dropdown.Item text={"로그아웃"} onClick={this.handleLogout} href={"/"}/>
+                      <Dropdown.Item text={"로그아웃"} onClick={() => {
+                        logout()
+                        router.push("/login")
+                      }}/>
                     </Dropdown.Menu>
                   </Dropdown>
-                </Menu.Item> :
-                <Menu.Item position={"right"}> {/*}
+                </Menu.Item> 
+                :
+                <Menu.Item position={"right"}> 
                   <Button style={{border: "none", background: "none"}} href={"/login"}>로그인</Button>
-                */}</Menu.Item>
+                </Menu.Item>
             }
           </Menu>
         </Visibility>

@@ -38,7 +38,7 @@ const BuildRecnt = () => {
 
   const getRecentTableRow = (list) => {
     return list.map((d) =>
-      <Table.Row>
+      <Table.Row key={d}>
         <Table.Cell>{d.name}</Table.Cell>
         <Table.Cell>{d.count}</Table.Cell>
       </Table.Row>)

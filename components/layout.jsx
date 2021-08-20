@@ -29,7 +29,7 @@ const Layout = ({ children }) => {
 }
 
 const main_ ={
-  width: "90%",
+  width: "60rem",
   itemAlign: "center",
   height: "100%",
   margin: "120px auto 0px",
