@@ -3,7 +3,7 @@ import useUser from '../data/useUser'
 import { logout } from '../requests/userApi'
 
 import Link from 'next/link'
-import { Button, Container, Dropdown, Grid, Header, Image, Menu, Sticky, Visibility } from 'semantic-ui-react'
+import { Button, Dropdown, Grid, Header, Image, Menu, Visibility } from 'semantic-ui-react'
 
 const Logo='./inpostack-logo.svg'
 
@@ -12,47 +12,62 @@ import { useRouter } from 'next/router'
 const Navbar = () => {
   const router = useRouter()
   const { loading, loggedIn, user } = useUser()
-  const [dropdownOpen, toggleDropdown] = useState(false)
-  var menuFixed = false
+  const [ menuFixed, useMenuFixed ] = useState(false)
+  
+  const menuStyle = {
+    border: 'none',
+    borderRadius: 0,
+    boxShadow: 'none',
+    transition: 'box-shadow 0.5s ease',
+  }
+  
+  const fixedMenuStyle = {
+    backgroundColor: '#fff',
+    border: 'none',
+    boxShadow: '0 0.4vw 1vh rgba(0, 0, 0, 0.2)',
+    backdropFilter: "blur(8px)",
+    background: "rgba(255, 255, 255, 0.5)"
+  }
+
   return(
     <nav>
-        <Visibility once={false}
-                    /*onBottomPassed={() => {menuFixed: true}} onBottomVisible={() => {menuFixed: true}}*/>
-          <Menu borderless fixed='top'
-                /*style={menuFixed ? fixedMenuStyle : menuStyle}*/>
-            <Menu.Item position={"left"} style={{paddingLeft: "30px"}}>
-              <Link href={"/"}>
-                <Grid columns={2} verticalAlign='middle'>
-                  <Grid.Column>
-                    <Image centered src={Logo} alt="logo" style={{width: "24px"}}/>
-                  </Grid.Column>
-                  <Grid.Column>
-                    <Header as='h1'
-                            style={{
-                              //fontFamily: "Caveat",
-                              textAlign: "center",
-                              marginTop: "-0.2em",
-                              fontSize: "medium",
-                            }}>
-                      Inpostack <br/>
-                      <small>(관리자)</small>
-                    </Header>
-                  </Grid.Column>
-                </Grid>
-              </Link>
-              </Menu.Item>
-              <Menu.Item>
-                <Link href="/store"><a style={{color: 'black'}}>가게 관리</a></Link>
-              </Menu.Item>
-              <Menu.Item>
-                <Link href="/account"><a style={{color: 'black'}}>계정 관리</a></Link>
-              </Menu.Item>
-              <Menu.Item>
-                <Link href="/notice"><a style={{color: 'black'}}>공지 관리</a></Link>
-              </Menu.Item>
-              <Menu.Item>
-                <Link href="/statistics"><a style={{color: 'black'}}>통계 보기</a></Link>
-              </Menu.Item>
+      <Visibility once={false}
+                  onBottomPassed={()=>{ useMenuFixed(true) }} onBottomVisible={()=>{ useMenuFixed(false) }}>
+        <Menu borderless fixed='top'
+                style={menuFixed ? fixedMenuStyle : menuStyle}>
+          <Menu.Item position={"left"} style={{paddingLeft: "30px", paddingRight:"0.5%"}}>
+            <Link href={"/"}>
+              <Grid columns={2} verticalAlign='middle'>
+                <Grid.Column>
+                  <Image centered src={Logo} alt="logo" style={{width: "24px"}}/>
+                </Grid.Column>
+                <Grid.Column>
+                  <Header as='h1'
+                          style={{
+                            //fontFamily: "Caveat",
+                            textAlign: "center",
+                            marginTop: "-0.2em",
+                            fontSize: "medium",
+                          }}>
+                    Inpostack <br/>
+                    <small>(관리자)</small>
+                  </Header>
+                </Grid.Column>
+              </Grid>
+            </Link>
+          </Menu.Item>
+          <Menu.Item>
+            <Link href="/store"><a style={{color: 'black', paddingRight: '15px'}}>가게 관리</a></Link>
+          </Menu.Item>
+          <Menu.Item>
+            <Link href="/account"><a style={{color: 'black', paddingRight: '15px'}}>계정 관리</a></Link>
+          </Menu.Item>
+          <Menu.Item>
+            <Link href="/notice"><a style={{color: 'black', paddingRight: '15px'}}>공지 관리</a></Link>
+          </Menu.Item>
+          <Menu.Item>
+            <Link href="/statistics"><a style={{color: 'black', paddingRight: '15px'}}>통계 보기</a></Link>
+          </Menu.Item>
             {
               loggedIn ? 
                 <Menu.Item position={"right"}>
@@ -76,32 +91,6 @@ const Navbar = () => {
       </nav>
     
   )
-}
-
-const menuStyle = {
-  border: 'none',
-  borderRadius: 0,
-  boxShadow: 'none',
-  transition: 'box-shadow 0.5s ease',
-}
-
-const fixedMenuStyle = {
-  backgroundColor: '#fff',
-  border: '1px solid #ddd',
-  boxShadow: '0 0.4vw 1vh rgba(0, 0, 0, 0.2)',
-  backdropFilter: "blur(8px)",
-  background: "rgba(255, 255, 255, 0.5)"
-}
-
-const NavLinks = {
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'center',
-  width: '100%',
-}
-
-const NavLink = {
-  
 }
 
 export default Navbar

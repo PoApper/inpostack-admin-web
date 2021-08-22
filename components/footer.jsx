@@ -1,6 +1,7 @@
-import { Grid, Image, Container } from 'semantic-ui-react';
+//import Image from 'next/image'
+import { Grid, Image, Container } from 'semantic-ui-react'
 
-const src='./poapper_logo.svg'
+const src='./PoApper_logo.svg'
 
 const Footer = () => {
   return(
@@ -9,12 +10,12 @@ const Footer = () => {
       height: 300,
       backgroundColor: 'white',
       bottom: 0,
-      marginTop: 150,
+      marginTop: 200,
       padding: "5%",
       }}>
-      <Grid style={{fontSize: 12}}>
+      <Grid style={{fontSize: 12, width: '60rem', padding: '0 auto', margin: '0 auto'}}>
         <Grid.Row>
-          <Grid.Column width={7}>
+          <Grid.Column width={8}>
               <Container fluid>
               <p style={{color:'#413930', fontSize: 16}}><b>PoApper, POSTECH 개발자 네트워크</b></p>
               <p>

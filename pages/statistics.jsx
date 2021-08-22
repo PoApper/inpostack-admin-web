@@ -22,7 +22,7 @@ const Statistics = () => {
 
   return (
    <Layout>
-     <h3>통계 보기</h3>
+     <h3>통계 보기 페이지 준비 중 입니다.</h3>
    </Layout> 
   )
 }
