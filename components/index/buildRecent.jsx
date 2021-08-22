@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Grid, Icon, List, Segment, Table } from 'semantic-ui-react'
+import { Button, Grid, Icon, Table } from 'semantic-ui-react'
 
 const BuildRecnt = () => {
   const buildRecentOverview = ({ title, body }) => {
@@ -45,7 +45,7 @@ const BuildRecnt = () => {
   }
 
   return(
-    <Grid columns={2} divided>
+    <Grid columns={2} divided style={{marginTop: '40px'}}>
       <Grid.Row>
         {buildRecentOverview(
           { title: '신규 가게', body: buildNewRestaurants() })}

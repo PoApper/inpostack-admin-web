@@ -5,7 +5,7 @@ import BuildRecnt from '../components/index/buildRecent';
 export default function Home() {
   return (
     <Layout>
-      <h1>개요</h1>
+      <h2>개요</h2>
        <BuildOverview/>
        <BuildRecnt/>
     </Layout>

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Button, Grid, Icon, List, Segment, Table } from 'semantic-ui-react'
+import { Grid, List, Segment } from 'semantic-ui-react'
 
 const BuildOverview = () => {
   const getOverviewElement = ({ header, number }) => {
@@ -17,11 +17,12 @@ const BuildOverview = () => {
   }
 
   return (
-    <Grid columns={3} divided>
+    <Grid columns={4} divided>
       <Grid.Row stretched>
         {getOverviewElement({ header: '전체 사용자 수', number: 100 })}
         {getOverviewElement({ header: '전체 가게 수', number: 50 })}
         {getOverviewElement({ header: '전체 공지 수', number: 10 })}
+        {getOverviewElement({ header: '전체 리뷰 수', number: 27})}
       </Grid.Row>
     </Grid>
   )
