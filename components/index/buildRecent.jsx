@@ -1,13 +1,15 @@
 import React from 'react'
+import styled from 'styled-components'
 import { Button, Grid, Icon, Table } from 'semantic-ui-react'
 
 const BuildRecnt = () => {
   const buildRecentOverview = ({ title, body }) => {
     return (
       <Grid.Column>
+        <MainBox>
         <h2 style={{display: "inline-block"}}>{title}</h2>
-        <Button color="yellow" style={{float: "right"}}>Check<Icon name="arrow right"/></Button>
-        <Table celled selectable>
+        <CheckButton><span>Check</span><Icon name="arrow right"/></CheckButton>
+        <Table basic celled selectable style={{borderRadius: '14px'}}>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>가게 명</Table.HeaderCell>
@@ -16,6 +18,7 @@ const BuildRecnt = () => {
           </Table.Header>
           <Table.Body>{body}</Table.Body>
         </Table>
+        </MainBox>
       </Grid.Column>
     )
   }
@@ -45,7 +48,7 @@ const BuildRecnt = () => {
   }
 
   return(
-    <Grid columns={2} divided style={{marginTop: '40px'}}>
+    <Grid columns={2} style={{marginTop: '40px'}}>
       <Grid.Row>
         {buildRecentOverview(
           { title: '신규 가게', body: buildNewRestaurants() })}
@@ -57,3 +60,35 @@ const BuildRecnt = () => {
 }
 
 export default BuildRecnt
+
+const MainBox = styled.div`
+  border-radius: 14px;
+  background-color: #fff;
+  box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 9%);
+  padding: 25px 24px 25px;
+  transition: all 200ms;
+  &:hover {
+    transform: translateY(-5px) ease-in-out;
+    box-shadow: 3px 11px 28px 4px rgb(0 0 0 / 20%);
+  }
+`
+
+const CheckButton = styled.button`
+  cursor: pointer;
+  width: 100px;
+  height: 35px;
+  float: right;
+  background-color: #265c71;
+  color: #fff;
+  border: 0px;
+  border-radius: 15px;
+  transition: 0.2s ease-in-out;
+  &:hover {
+    background-color: #32738b;
+  }
+
+  span {
+    margin: 0 10px;
+    font-weight: bold;
+  }
+`

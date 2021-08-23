@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
-import { createAccount } from '../requests/accountAPI'
+import { createAccount } from '../../requests/accountAPI'
 import {Button, Form, Modal} from 'semantic-ui-react'
 
 const AccountCreateModal = (props) => {

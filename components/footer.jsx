@@ -12,38 +12,47 @@ const Footer = () => {
                      alt="poapper_logo"/>
             </Grid.Column>
             <Grid.Column width={6}>
-              <p style={{ color: 'gray' }}>경상북도 포항시 남구 청암로 77(효자동 산31) 학생회관 211호
-                <br/>COPYRIGHT 2021 PoApper. ALL RIGHTS RESERVED.</p>
-              <a style={{ color: '#70572b' }} href="mailto:poapper@gmail.com"
-                 target="_blank" rel="noopener noreferrer">Contact Us / </a>
-              <a style={{ color: '#70572b' }} href="mailto:poapper@gmail.com"
-                 target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+              <NonLink>경상북도 포항시 남구 청암로 77(효자동 산31) 학생회관 211호
+                <br/>COPYRIGHT 2021 PoApper. ALL RIGHTS RESERVED.</NonLink>
+              <WithLink 
+                href="mailto:poapper@gmail.com"
+                target="_blank" rel="noopener noreferrer">Contact Us</WithLink>
+              <WithLink> / </WithLink>
+              <WithLink 
+                href="mailto:poapper@gmail.com"
+                target="_blank" rel="noopener noreferrer">Privacy Policy</WithLink>
             </Grid.Column>
             <Grid.Column width={3}>
-              <p style={{ color: '#413930', fontSize: 16 }}><b>POSTECH</b></p>
-              <a style={{ color: '#70572b' }} href="https://www.postech.ac.kr"
-                 target="_blank" rel="noopener noreferrer">포항공대 홈페이지</a>
+              <NonLink><b>POSTECH</b></NonLink>
+              <WithLink
+                href="https://www.postech.ac.kr"
+                target="_blank" rel="noopener noreferrer">포항공대 홈페이지</WithLink>
               <br/>
-              <a style={{ color: '#70572b' }} href="https://povis.postech.ac.kr"
-                 target="_blank" rel="noopener noreferrer">POVIS</a>
+              <WithLink 
+                href="https://povis.postech.ac.kr"
+                target="_blank" rel="noopener noreferrer">POVIS</WithLink>
               <br/>
-              <a style={{ color: '#70572b' }}
+              <WithLink
                  href="https://library.postech.ac.kr/" target="_blank"
-                 rel="noopener noreferrer">박태준 학술정보관</a>
+                 rel="noopener noreferrer">박태준 학술정보관</WithLink>
               <br/>
             </Grid.Column>
-            <Grid.Column width={3}>
-              <p style={{ color: '#413930', fontSize: 16 }}><b>Our Sites</b></p>
-              <a style={{ color: '#70572b' }} href="https://www.postech.ac.kr"
-                 target="_blank" rel="noopener noreferrer">PoApper</a>
+            <Grid.Column width={2}>
+              <NonLink><b>Our Sites</b></NonLink>
+              <WithLink
+                href="https://www.postech.ac.kr"
+                target="_blank" rel="noopener noreferrer">PoApper</WithLink>
               <br/>
-              <a style={{ color: '#70572b' }} href="https://www.postech.ac.kr"
-                 target="_blank" rel="noopener noreferrer">InPoStack</a>
+              <WithLink
+                href="https://www.postech.ac.kr"
+                target="_blank" rel="noopener noreferrer">InPoStack</WithLink>
               <br/><br/>
-              <a style={{ color: '#70572b', backgroundColor: '#f3f0eb' }}
-                 href="mailto:poapper@gmail.com" target="_blank"
-                 rel="noopener noreferrer">Join Our team!</a>
             </Grid.Column>
+            <Grid.Column width={2}>
+              <WithLink
+                  href="mailto:poapper@gmail.com" target="_blank"
+                  rel="noopener noreferrer">Join Our team!</WithLink>
+              </Grid.Column>
           </Grid.Row>
         </Grid>
       </FooterWrapper>
@@ -58,7 +67,7 @@ const _Footer = styled.footer`
   height: ${({ theme }) => theme.footerHeight};
   background-color: white;
   bottom: 0;
-  padding: 1rem;
+  padding: 5rem;
 `
 
 const FooterWrapper = styled.div`
@@ -68,4 +77,17 @@ const FooterWrapper = styled.div`
   margin: auto;
 
   max-width: ${({ theme }) => theme.contentWidth};
+`
+
+const WithLink = styled.a`
+  margin-bottom: 10px;
+  color: #888;
+  transition: all 0.2s;
+  &:hover{
+    color: #000;
+  }
+`
+
+const NonLink = styled.p`
+  color: #000;
 `
