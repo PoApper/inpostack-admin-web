@@ -58,7 +58,7 @@ const Layout = ({ children }) => {
 
 const Wrapper = styled.div`
   height: 100%;
-  min-height: calc(100vh - 300px);
+  min-height: calc(100vh - ${({ theme }) => theme.footerHeight});
   max-width: ${({ theme }) => theme.contentWidth};
   padding: 8rem 1rem 2rem;
   margin: auto;

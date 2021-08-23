@@ -20,6 +20,7 @@ const theme = {
     m: '70rem',
     s: '40rem',
   },
+  footerHeight: '16rem',
   contentWidth: '80rem',
 };
 
