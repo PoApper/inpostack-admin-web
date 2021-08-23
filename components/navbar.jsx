@@ -15,6 +15,7 @@ const Navbar = () => {
   const [ menuFixed, useMenuFixed ] = useState(false)
   
   const menuStyle = {
+    cursor: 'pointer',
     border: 'none',
     borderRadius: 0,
     boxShadow: 'none',
@@ -22,6 +23,7 @@ const Navbar = () => {
   }
   
   const fixedMenuStyle = {
+    cursor: 'pointer',
     backgroundColor: '#fff',
     border: 'none',
     boxShadow: '0 0.4vw 1vh rgba(0, 0, 0, 0.2)',
@@ -32,7 +34,7 @@ const Navbar = () => {
   return(
     <nav>
       <Visibility once={false}
-                  onBottomPassed={()=>{ useMenuFixed(true) }} onBottomVisible={()=>{ useMenuFixed(false) }}>
+                  onBottomPassed={()=>useMenuFixed(true)} onBottomVisible={()=>useMenuFixed(false)}>
         <Menu borderless fixed='top'
                 style={menuFixed ? fixedMenuStyle : menuStyle}>
           <Menu.Item position={"left"} style={{paddingLeft: "30px", paddingRight:"0.5%"}}>
@@ -57,16 +59,16 @@ const Navbar = () => {
             </Link>
           </Menu.Item>
           <Menu.Item>
-            <Link href="/store"><a style={{color: 'black', paddingRight: '15px'}}>가게 관리</a></Link>
+            <Link href='/store'><a style={{color: 'black', paddingRight: '15px'}}>가게 관리</a></Link>
           </Menu.Item>
           <Menu.Item>
-            <Link href="/account"><a style={{color: 'black', paddingRight: '15px'}}>계정 관리</a></Link>
+            <Link href='/account'><a style={{color: 'black', paddingRight: '15px'}}>계정 관리</a></Link>
           </Menu.Item>
           <Menu.Item>
-            <Link href="/notice"><a style={{color: 'black', paddingRight: '15px'}}>공지 관리</a></Link>
+            <Link href='/notice'><a style={{color: 'black', paddingRight: '15px'}}>공지 관리</a></Link>
           </Menu.Item>
           <Menu.Item>
-            <Link href="/statistics"><a style={{color: 'black', paddingRight: '15px'}}>통계 보기</a></Link>
+            <Link href='/statistics'><a style={{color: 'black', paddingRight: '15px'}}>통계 보기</a></Link>
           </Menu.Item>
             {
               loggedIn ? 
@@ -76,7 +78,7 @@ const Navbar = () => {
                     <Dropdown.Menu style={{border: "none", boxShadow: "0 2px 5px 0px rgba(0, 0, 0, 0.2)"}}>
                       <Dropdown.Item text={"로그아웃"} onClick={() => {
                         logout()
-                        router.push("/login")
+                        router.push('/login')
                       }}/>
                     </Dropdown.Menu>
                   </Dropdown>
