@@ -6,8 +6,8 @@ export default function Home() {
   return (
     <Layout>
       <h2>개요</h2>
-       <BuildOverview/>
-       <BuildRecnt/>
+      <BuildOverview/>
+      <BuildRecnt/>
     </Layout>
   );
 }

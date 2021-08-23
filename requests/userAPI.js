@@ -10,12 +10,11 @@ export const login = async ({ id, password }) => {
 export const getUser = async () => {
   try {
     const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_API}/auth/me`, { withCredentials: true })
+      `${process.env.NEXT_PUBLIC_API}/account/me`, { withCredentials: true })
     const user = res.data
     if (user.account_type !== 'ADMIN') throw Error('Not Admin')
     return user;
   } catch (err) {
-    console.log(err)
     throw err
   }
 }
