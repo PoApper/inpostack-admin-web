@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
-import { updateNoticeInfo, deleteNoticeInfo } from '../requests/noticeAPI'
+import { updateNoticeInfo, deleteNoticeInfo } from '../../requests/noticeAPI'
 import { Form, Modal } from 'semantic-ui-react'
 
 const NoticeUpdateModal = ( props ) => {

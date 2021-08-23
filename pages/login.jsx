@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { Button, Form, Container, Segment } from 'semantic-ui-react'
+import { Button, Form } from 'semantic-ui-react'
 import LoginLayout from '../components/login_layout'
 import { login } from '../requests/userApi'
 import Logo from '../public/inpostack-logo.svg'
@@ -28,7 +28,7 @@ const Login = () => {
       <Image src={Logo} alt="logo"
              width={200} height={200}/>
       <h2 stype={{marginTop: '2rem'}}>InPoStack</h2>
-      <h3>점주페이지</h3>
+      <h3>관리자 페이지</h3>
 
       <Form style={{width: '22rem'}}>
         <Form.Input

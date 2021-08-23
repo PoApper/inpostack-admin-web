@@ -1,39 +1,70 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
+import axios from 'axios'
+import styled, { ThemeProvider } from 'styled-components'
+import theme from '../styles/theme'
 
 import Navbar from './navbar'
 import Footer from './footer'
+import { useRouter } from 'next/router'
 
 const Layout = ({ children }) => {
-  return(
-    <div style={{
-      contentWidth: "60rem",
-      backgroundColor: "#f3f0eb"
-    }}>
+  const router = useRouter()
+  const [user, setUser] = useState(null)
+
+  useEffect(async () => {
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_API}/auth/verifyToken`,
+      { withCredentials: true })
+
+    const _user = res.data
+    setUser(_user)
+
+    if (!_user) {
+      router.push('/login')
+    } else {
+      console.log(_user.account_type);
+      if (_user.account_type !== 'ADMIN') {
+        alert('관리자 계정이 아닙니다.')
+        router.push('/login')
+      }
+    }
+  }, [])
+
+  return (
+    <ThemeProvider theme={theme}>
       <Head>
         <title>InPoStack 관리자페이지</title>
         <meta name="description" content="InPoStack 행복한 배달 생활"/>
-        <link rel="icon" href="/favicon.ico"/>    
+        <link rel="icon" href={'/favicon.ico'}/>
       </Head>
-      <main style={{display: "flex",
-                    flexDirection: "column",
-                    minHeight: "100vh"}}>
-        <Navbar/>
-        <div style={main_}>
-          {children}
-        </div>
-        <Footer style={{flex: 0}}/>
-      </main>
-    </div>
-    )
+      {
+        user ?
+          (<>
+            <Navbar/>
+            <main>
+              <Wrapper>
+                <div style={{ width: '100%' }}>
+                  {children}
+                </div>
+              </Wrapper>
+            </main>
+            <Footer/>
+          </>) : null
+      }
+    </ThemeProvider>
+  )
 }
 
-const main_ ={
-  width: "60rem",
-  itemAlign: "center",
-  height: "100%",
-  margin: "120px auto 0px",
-  flex: 1,
-}
+const Wrapper = styled.div`
+  height: 100%;
+  min-height: calc(100vh - 300px);
+  max-width: ${({ theme }) => theme.contentWidth};
+  padding: 8rem 1rem 2rem;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
 
 export default Layout

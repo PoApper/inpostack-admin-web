@@ -1,19 +1,17 @@
-import useSWR from 'swr'
+import useSWR from 'swr';
 
-import { getUser } from '../requests/userAPI'
+import { getUser } from '../requests/userAPI';
 
 const useUser = () => {
-  const { data, mutate, error } = useSWR('api_user', getUser)
+  const { data, error } = useSWR('account/me', getUser);
 
-  const loading = !data && !error
-  const loggedIn = data && !error
+  const loading = !data && !error;
 
   return {
     loading,
-    loggedIn,
     user: data,
-    mutate,
+    error,
   };
-}
+};
 
-export default useUser
+export default useUser;
