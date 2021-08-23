@@ -57,21 +57,14 @@ const NoticeCreateModal = ( props ) => {
               />
             </div>
             
-            {<Form.Input required // TODO: Select로 수정
-                label='공지 타입'
-                name='notice_type'
-                value={notice_type}
-                onChange={(e) => setNotice_type(e.target.value)}
-            />}
-
-            {/*<Form.Select required
+            <Form.Select required
               label="공지 타입"
               name="notice_type"
               value={notice_type}
               placeholder="공지 타입을 선택하세요."
               options={NoticeOptions}
-              onChange={(e) => setNotice_type(e.target.text)}
-            />*/}
+              onChange={(e, {value}) => setNotice_type(value?.toString())}
+            />
             <Form.Button positive onClick={handleSubmit}>
               생성
             </Form.Button>

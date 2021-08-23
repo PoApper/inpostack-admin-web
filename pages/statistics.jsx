@@ -16,10 +16,6 @@ const Statistics = () => {
     }
   }, [loading])
 
-  async function handleUpdate (e) {
-    e.preventDefault()
-  }
-
   return (
    <Layout>
      <h3>통계 보기 페이지 준비 중 입니다.</h3>

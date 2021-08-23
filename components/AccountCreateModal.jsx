@@ -1,7 +1,7 @@
-import { useRouter } from 'next/router';
-import React, {Component, useState} from 'react'
+import React, { useState } from 'react'
+import { useRouter } from 'next/router'
+import { createAccount } from '../requests/accountAPI'
 import {Button, Form, Modal} from 'semantic-ui-react'
-import { createAccount } from '../requests/accountAPI';
 
 const AccountCreateModal = (props) => {
   const router = useRouter()

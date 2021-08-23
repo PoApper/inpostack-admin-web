@@ -5,7 +5,7 @@ import { Grid, List, Segment } from 'semantic-ui-react'
 const BuildOverview = () => {
   const getOverviewElement = ({ header, number }) => {
     return <Grid.Column>
-      <Segment>
+      <Segment style={{boxShadow: 'none'}}>
         <List>
           <List.Item>
             <List.Header><h3>{header}</h3></List.Header>

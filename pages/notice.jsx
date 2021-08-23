@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { useRouter } from 'next/router'
 import useUser from '../data/useUser'
 import useNotices from '../data/useNotice'
 import Layout from '../components/layout'
@@ -10,7 +9,6 @@ import moment from 'moment'
 
 
 const Notice = (props) => {
-  const router = useRouter()
   const { user, loading } = useUser()
   const { notices, isLoaded } = useNotices()
 
@@ -21,14 +19,13 @@ const Notice = (props) => {
       router.push("/login")
       return
     }
-
   }, [loading])
 
   const notice_type = props.noticeMeta.notice_type
 
   return(
     <Layout>
-      { isLoaded ?
+      { (isLoaded && user)?
         <div>
           <h2>공지 관리</h2>
           <NoticeCreateModal noticeType={notice_type}/>
