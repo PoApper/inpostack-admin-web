@@ -1,7 +1,8 @@
-import { useRouter } from 'next/router'
 import React, { useState } from 'react'
-import {Button, Form, Modal} from 'semantic-ui-react'
+import { useRouter } from 'next/router'
 import { updateAccount, deleteAccount } from '../../requests/accountAPI'
+import styled from 'styled-components'
+import {Button, Form, Modal} from 'semantic-ui-react'
 
 const AccountUpdateModal = (props) => {
   const router = useRouter()
@@ -95,30 +96,17 @@ const AccountUpdateModal = (props) => {
                       onChange={(e) => setName(e.target.value)}
           />
 
-          <Form.Input required
-                      label='계정 타입'
-                      name='account_type'
-                      value={account_type}
-                      onChange={(e) => setAccount_type(e.target.value)}
-          />
-
-          {/* TODO: select fix
           <Form.Select required
-                        label='계정 타입'
-                        name='account_type'
-                        value={this.state.accountType}
-                        placeholder="계정 타입을 선택하세요"
-                        options={AccountOptions}
-                        onChange={this.handleChange}
-
-          />*/}
+                       label='계정 타입'
+                       name='account_type'
+                       value={account_type}
+                       placeholder="계정 타입을 선택하세요"
+                       options={AccountOptions}
+                       onChange={(e, {value}) => setAccount_type(value?.toString())}
+          />
           <Form.Group>
-            <Form.Button onClick={handleUpdate}>
-              수정
-            </Form.Button>
-            <Form.Button negative onClick={handleDelete} type='delete'>
-              삭제
-            </Form.Button>
+            <FormButton onClick={handleUpdate}>수정</FormButton>
+            <DeleteButton onClick={handleDelete}>삭제</DeleteButton>
           </Form.Group>
         </Form>
       </Modal.Content>
@@ -126,4 +114,34 @@ const AccountUpdateModal = (props) => {
   )
 }
 
-export default AccountUpdateModal;
+export default AccountUpdateModal
+
+const FormButton = styled.button`
+  cursor: pointer;
+  width: 100px;
+  height: 35px;
+  margin-left: 9px;
+  background-color: #265c71;
+  color: #fff;
+  border: 0px;
+  border-radius: 15px;
+  transition: 0.2s ease-in-out;
+  &:hover {
+    background-color: #32738b;
+  }
+`
+
+const DeleteButton = styled.button`
+  cursor: pointer;
+  width: 100px;
+  height: 35px;
+  margin-left: 10px;
+  background-color: #c83053;
+  color: #fff;
+  border: 0px;
+  border-radius: 15px;
+  transition: 0.2s ease-in-out;
+  &:hover {
+    background-color: #E24D6F;
+  }
+`

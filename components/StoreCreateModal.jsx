@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { CreateStore } from '../requests/storeAPI'
+import styled from 'styled-components'
 import {Button, Form, Modal} from 'semantic-ui-react'
 
 const StoreCreateModal = (props) => {
@@ -136,9 +137,9 @@ const StoreCreateModal = (props) => {
             메뉴 카테고리와 세부 메뉴 생성은 가게 수정 페이지에서 가능합니다!
           </p>
 
-          <Form.Button positive onClick={handleSubmit}>
+          <FormButton onClick={handleSubmit}>
             생성
-          </Form.Button>
+          </FormButton>
         </Form>
       </Modal.Content>
     </Modal>
@@ -146,3 +147,17 @@ const StoreCreateModal = (props) => {
 }
 
 export default StoreCreateModal
+
+const FormButton = styled.button`
+  cursor: pointer;
+  width: 100px;
+  height: 35px;
+  background-color: #265c71;
+  color: #fff;
+  border: 0px;
+  border-radius: 15px;
+  transition: 0.2s ease-in-out;
+  &:hover {
+    background-color: #32738b;
+  }
+`

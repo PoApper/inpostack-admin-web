@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { createAccount } from '../../requests/accountAPI'
+import styled from 'styled-components'
 import {Button, Form, Modal} from 'semantic-ui-react'
 
 const AccountCreateModal = (props) => {
@@ -77,28 +78,15 @@ const AccountCreateModal = (props) => {
                       onChange={(e) => setName(e.target.value)}
           />
 
-          {/* TODO: 한글자로 된 계정타입에 대해서는 생성이 가능한데, 두글자 이상의 계정타입으로는 생성이 실패됨 */}
-          <Form.Input required
+          <Form.Select required
                       label='계정 타입'
                       name='account_type'
                       value={account_type}
-                      onChange={(e) => setAccount_type(e.target.value)}
+                      placeholder="계정 타입을 선택하세요"
+                      options={AccountOptions}
+                      onChange={(e, {value}) => setAccount_type(value?.toString())}
           />
-
-          {/*
-          // TODO: account_type Select fix (not Input)
-          <Form.Select required
-                        label='계정 타입'
-                        name='account_type'
-                        value={this.state.account_type}
-                        placeholder="계정 타입을 선택하세요"
-                        options={AccountOptions}
-                        onChange={this.handleChange}
-
-          />*/}
-          <Form.Button positive onClick={handleSubmit}>
-            생성
-          </Form.Button>
+          <FormButton onClick={handleSubmit}>생성</FormButton>
         </Form>
       </Modal.Content>
     </Modal>
@@ -106,5 +94,18 @@ const AccountCreateModal = (props) => {
 
 }
 
-
 export default AccountCreateModal
+
+const FormButton = styled.button`
+  cursor: pointer;
+  width: 100px;
+  height: 35px;
+  background-color: #265c71;
+  color: #fff;
+  border: 0px;
+  border-radius: 15px;
+  transition: 0.2s ease-in-out;
+  &:hover {
+    background-color: #32738b;
+  }
+`

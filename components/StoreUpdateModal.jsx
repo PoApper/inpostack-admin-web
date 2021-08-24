@@ -1,7 +1,8 @@
-import { useRouter } from 'next/router'
 import React, { useState } from 'react'
-import {Form, Modal} from 'semantic-ui-react'
+import { useRouter } from 'next/router'
 import { deleteStore, updateStore } from '../requests/storeAPI'
+import styled from 'styled-components'
+import {Form, Modal} from 'semantic-ui-react'
 
 const StoreUpdateModal = ( props ) => {
   const router = useRouter()
@@ -160,12 +161,8 @@ const StoreUpdateModal = ( props ) => {
           <p>메뉴 카테고리와 세부 메뉴 생성은 가게 수정 페이지에서 가능합니다!</p>
 
           <Form.Group>
-            <Form.Button onClick={handleUpdate}>
-              수정
-            </Form.Button>
-            <Form.Button negative onClick={handleDelete} type='delete'>
-              삭제
-            </Form.Button>
+            <FormButton onClick={handleUpdate}>수정</FormButton>
+            <DeleteButton onClick={handleDelete}>삭제</DeleteButton>
           </Form.Group>
         </Form>
       </Modal.Content>
@@ -174,3 +171,33 @@ const StoreUpdateModal = ( props ) => {
 }
 
 export default StoreUpdateModal
+
+const FormButton = styled.button`
+  cursor: pointer;
+  width: 100px;
+  height: 35px;
+  margin-left: 9px;
+  background-color: #265c71;
+  color: #fff;
+  border: 0px;
+  border-radius: 15px;
+  transition: 0.2s ease-in-out;
+  &:hover {
+    background-color: #32738b;
+  }
+`
+
+const DeleteButton = styled.button`
+  cursor: pointer;
+  width: 100px;
+  height: 35px;
+  margin-left: 10px;
+  background-color: #c83053;
+  color: #fff;
+  border: 0px;
+  border-radius: 15px;
+  transition: 0.2s ease-in-out;
+  &:hover {
+    background-color: #E24D6F;
+  }
+`

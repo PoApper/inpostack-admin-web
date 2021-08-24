@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { createNotice } from '../../requests/noticeAPI'
+import styled from 'styled-components'
 import { Button, Form, Modal } from 'semantic-ui-react'
 
 const NoticeCreateModal = ( props ) => {
@@ -65,9 +66,7 @@ const NoticeCreateModal = ( props ) => {
               options={NoticeOptions}
               onChange={(e, {value}) => setNotice_type(value?.toString())}
             />
-            <Form.Button positive onClick={handleSubmit}>
-              생성
-            </Form.Button>
+            <FormButton onClick={handleSubmit}>생성</FormButton>
           </Form>
         </Modal.Content>
       </Modal>
@@ -75,3 +74,17 @@ const NoticeCreateModal = ( props ) => {
 }
 
 export default NoticeCreateModal
+
+const FormButton = styled.button`
+  cursor: pointer;
+  width: 100px;
+  height: 35px;
+  background-color: #265c71;
+  color: #fff;
+  border: 0px;
+  border-radius: 15px;
+  transition: 0.2s ease-in-out;
+  &:hover {
+    background-color: #32738b;
+  }
+`

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { updateNoticeInfo, deleteNoticeInfo } from '../../requests/noticeAPI'
+import styled from 'styled-components'
 import { Form, Modal } from 'semantic-ui-react'
 
 const NoticeUpdateModal = ( props ) => {
@@ -82,8 +83,8 @@ const NoticeUpdateModal = ( props ) => {
           />
 
           <Form.Group>
-            <Form.Button onClick={handleUpdate}>수정</Form.Button>
-            <Form.Button negative onClick={handleDelete} type='delete'>삭제</Form.Button>
+            <FormButton onClick={handleUpdate}>수정</FormButton>
+            <DeleteButton onClick={handleDelete}>삭제</DeleteButton>
           </Form.Group>
         </Form>
         </Modal.Content>
@@ -92,3 +93,33 @@ const NoticeUpdateModal = ( props ) => {
 }
 
 export default NoticeUpdateModal
+
+const FormButton = styled.button`
+  cursor: pointer;
+  width: 100px;
+  height: 35px;
+  margin-left: 9px;
+  background-color: #265c71;
+  color: #fff;
+  border: 0px;
+  border-radius: 15px;
+  transition: 0.2s ease-in-out;
+  &:hover {
+    background-color: #32738b;
+  }
+`
+
+const DeleteButton = styled.button`
+  cursor: pointer;
+  width: 100px;
+  height: 35px;
+  margin-left: 10px;
+  background-color: #c83053;
+  color: #fff;
+  border: 0px;
+  border-radius: 15px;
+  transition: 0.2s ease-in-out;
+  &:hover {
+    background-color: #E24D6F;
+  }
+`
