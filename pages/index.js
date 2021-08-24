@@ -7,12 +7,12 @@ export default function Home() {
   return (
     <Layout>
       <Title>인포스택 관리자 페이지 입니다.</Title>
-      <BuildOverview/>
-      <BuildRecnt/>
+      <BuildOverview />
+      <BuildRecnt />
     </Layout>
   );
 }
 
 const Title = styled.h2`
-  ;etter-spacing: -1px;
-`
+  letter-spacing: -1px;
+`;

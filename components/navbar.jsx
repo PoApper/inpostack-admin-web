@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { Button, Dropdown, Grid, Header, Image, Menu } from 'semantic-ui-react'
+import { Button, Dropdown, Image, Menu } from 'semantic-ui-react'
 
 import useUser from '../data/useUser'
 import { logout } from '../requests/userApi'
@@ -16,33 +16,27 @@ const Navbar = () => {
     <_Navbar>
       <NavbarWrapper>
         <NavbarMenu borderless>
-          <Menu.Item position="left">
-            <Link href={'/'}>
-              <Grid columns={2} verticalAlign="middle">
-                <Grid.Column>
+          <Link href={'/'}>
+            <LogoMenuItem position="left">
+              <LogoDiv>
+                <div style={{ marginRight: '1.2rem' }}>
                   <Image centered src={'/inpostack-logo.svg'} alt="logo"
                          style={{ width: '24px' }}/>
-                </Grid.Column>
-                <Grid.Column>
-                  <Header as="h1"
-                          style={{
-                            //fontFamily: "Caveat",
-                            textAlign: 'center',
-                            marginTop: '-0.2em',
-                            fontSize: 'medium',
-                          }}>
-                    Inpostack <br/>
-                    <small>(관리자)</small>
-                  </Header>
-                </Grid.Column>
-              </Grid>
-            </Link>
-          </Menu.Item>
-          <Menu.Item>
-            <Link href="/store"><a
-              style={{ color: 'black', paddingRight: '15px' }}>가게
-              관리</a></Link>
-          </Menu.Item>
+                </div>
+                <LogoHeader>
+                  InPoStack
+                  <LogoSub>
+                    (Admin)
+                  </LogoSub>
+                </LogoHeader>
+              </LogoDiv>
+            </LogoMenuItem>
+          </Link>
+          <Link href="/store" style={{ color: 'black', paddingRight: '15px' }}>
+            <Menu.Item simple>
+              가게관리
+            </Menu.Item>
+          </Link>
           <Menu.Item>
             <Link href="/account"><a
               style={{ color: 'black', paddingRight: '15px' }}>계정
@@ -105,7 +99,7 @@ const NavbarWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   margin: auto;
-  
+
   max-width: ${({ theme }) => theme.contentWidth};
 `
 
@@ -113,4 +107,27 @@ const NavbarMenu = styled(Menu)`
   box-shadow: none !important;
   border: none !important;
   width: 100%;
+`
+
+const LogoDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`
+
+const LogoHeader = styled.h1`
+  font-family: Oswald, serif;
+  font-size: 1.8rem;
+  margin: 0;
+`
+
+const LogoSub = styled.span`
+  margin-left: 0.4rem;
+  font-size: 1.2rem;
+`
+
+const LogoMenuItem = styled(Menu.Item)`
+  &:hover {
+    background: white !important;
+  }
 `
