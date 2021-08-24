@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { deleteStore, updateStore } from '../requests/storeAPI'
 import styled from 'styled-components'
 import {Form, Modal} from 'semantic-ui-react'
+import DatePicker from 'react-datepicker'
 
 const StoreUpdateModal = ( props ) => {
   const router = useRouter()
@@ -120,19 +121,29 @@ const StoreUpdateModal = ( props ) => {
                       onChange={(e) => setAddress2(e.target.value)}
           />
 
-          <Form.Input required 
-                      label="오픈 시간(00:00)"
-                      name="open_time" 
-                      value={open_time}
-                      onChange={(e) => setOpen_time(e.target.value)}
-          />
+          <div className={"required field"}>
+            <label>오픈 시간</label>
+            <DatePicker
+              showTimeSelect showTimeSelectOnly timeIntervals={30}
+              /*autoComplete="off"*/
+              name='open_time' dateFormat="hh:mm aa"
+              selected={open_time}
+              onKeyDown={e => e.preventDefault()}
+              onChange={(e) => setOpen_time(e)}
+            />
+          </div>
 
-          <Form.Input required 
-                      label="오픈 시간(00:00)"
-                      name="close_time" 
-                      value={close_time}
-                      onChange={(e) => setClose_time(e.target.value)}
-          />
+          <div className={"required field"}>
+            <label>닫는 시간</label>
+            <DatePicker
+              showTimeSelect showTimeSelectOnly timeIntervals={30}
+              /*autoComplete="off"*/
+              name='close_time' dateFormat="hh:mm aa"
+              selected={close_time}
+              onKeyDown={e => e.preventDefault()}
+              onChange={(e) => setClose_time(e)}
+            />
+          </div>
 
           {/*  TODO: API 안정화 후 적용
           <Form.Select
