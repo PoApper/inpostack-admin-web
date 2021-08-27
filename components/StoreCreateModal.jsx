@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { CreateStore } from '../requests/storeAPI'
+import Postcode from './postcode'
 import styled from 'styled-components'
 import {Button, Form, Modal} from 'semantic-ui-react'
 import DatePicker from 'react-datepicker'
@@ -14,6 +15,7 @@ const StoreCreateModal = (props) => {
   const [store_type, setStore_type] = useState('')
   const [address1, setAddress1] = useState('')
   const [address2, setAddress2] = useState('')
+  const [zipcode, setZipcode] = useState('')
   const [open_time, setOpen_time] = useState('')
   const [close_time, setClose_time] = useState('')
   const [image_url, setImage_url] = useState('')
@@ -83,18 +85,30 @@ const StoreCreateModal = (props) => {
             options={StoreOptions}
             onChange={(e, {value}) => setStore_type(value?.toString())}
           />
-
-          <Form.Input required
-                      label="가게 위치"
-                      name="address1"
-                      value={address1}
-                      onChange={(e) => setAddress1(e.target.value)}
-          />
-          <Form.Input 
-                      name="address2"
-                      value={address2}
-                      onChange={(e) => setAddress2(e.target.value)}
-          />
+          
+          <Form>
+            <Form.Field required>
+              <label>가게 주소</label>
+              <Postcode buttonLabel="주소 찾기" address1={address1} zipcode={zipcode}
+                    handleAddress={(address1, zipcode) => {
+                          setAddress1(address1)
+                          setZipcode(zipcode)
+                    }}
+              />
+              <Form.Input 
+                          name="address1"
+                          value={address1}
+                          onChange={(e) => setAddress1(e.target.value)}
+                          style={{margin:'0', padding: '0'}}
+              />
+              <Form.Input 
+                          name="address2"
+                          value={address2}
+                          onChange={(e) => setAddress2(e.target.value)}
+                          style={{margin:'0 0 1rem', padding: '0'}}
+              />
+            </Form.Field>
+          </Form>
 
           <div className={"required field"}>
             <label>오픈 시간</label>
