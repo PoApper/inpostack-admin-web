@@ -29,9 +29,8 @@ const Account = ( props ) => {
       { isLoaded ?
         <div>
           <h2>계정 관리</h2>
-
           <AccountCreateModal accountType={account_types}/>
-          <Table textAlign='center' celled selectable color='orange'>
+          <Table textAlign='center' celled selectable>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell width={1}>#</Table.HeaderCell>

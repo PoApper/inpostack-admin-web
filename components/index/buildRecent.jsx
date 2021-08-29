@@ -9,7 +9,7 @@ const BuildRecnt = () => {
         <MainBox>
         <h2 style={{display: "inline-block"}}>{title}</h2>
         <CheckButton><span>Check</span><Icon name="arrow right"/></CheckButton>
-        <Table basic celled selectable style={{borderRadius: '14px'}}>
+        <Table celled selectable style={{borderRadius: '14px'}}>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>가게 명</Table.HeaderCell>

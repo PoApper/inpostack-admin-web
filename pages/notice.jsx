@@ -29,7 +29,7 @@ const Notice = (props) => {
         <div>
           <h2>공지 관리</h2>
           <NoticeCreateModal noticeType={notice_type}/>
-          <Table textAlign='center' celled selectable color='orange'>
+          <Table textAlign='center' celled selectable>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell width={1}>#</Table.HeaderCell>
