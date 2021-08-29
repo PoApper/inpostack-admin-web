@@ -5,56 +5,28 @@ const Footer = () => {
   return (
     <_Footer>
       <FooterWrapper>
-        <Grid style={{ width: '100%' }}>
-          <Grid.Row>
-            <Grid.Column width={3}>
-              <Image src='/PoApper_logo.svg' size="small" left
-                     alt="poapper_logo"/>
-            </Grid.Column>
-            <Grid.Column width={6}>
-              <NonLink>경상북도 포항시 남구 청암로 77(효자동 산31) 학생회관 211호
-                <br/>COPYRIGHT 2021 PoApper. ALL RIGHTS RESERVED.</NonLink>
-              <WithLink 
-                href="mailto:poapper@gmail.com"
-                target="_blank" rel="noopener noreferrer">Contact Us</WithLink>
-              <WithLink> / </WithLink>
-              <WithLink 
-                href="mailto:poapper@gmail.com"
-                target="_blank" rel="noopener noreferrer">Privacy Policy</WithLink>
-            </Grid.Column>
-            <Grid.Column width={3}>
-              <NonLink><b>POSTECH</b></NonLink>
-              <WithLink
-                href="https://www.postech.ac.kr"
-                target="_blank" rel="noopener noreferrer">포항공대 홈페이지</WithLink>
-              <br/>
-              <WithLink 
-                href="https://povis.postech.ac.kr"
-                target="_blank" rel="noopener noreferrer">POVIS</WithLink>
-              <br/>
-              <WithLink
-                 href="https://library.postech.ac.kr/" target="_blank"
-                 rel="noopener noreferrer">박태준 학술정보관</WithLink>
-              <br/>
-            </Grid.Column>
-            <Grid.Column width={2}>
-              <NonLink><b>Our Sites</b></NonLink>
-              <WithLink
-                href="https://www.postech.ac.kr"
-                target="_blank" rel="noopener noreferrer">PoApper</WithLink>
-              <br/>
-              <WithLink
-                href="https://www.postech.ac.kr"
-                target="_blank" rel="noopener noreferrer">InPoStack</WithLink>
-              <br/><br/>
-            </Grid.Column>
-            <Grid.Column width={2}>
-              <WithLink
-                  href="mailto:poapper@gmail.com" target="_blank"
-                  rel="noopener noreferrer">Join Our team!</WithLink>
+          <Grid columns='equal'>
+            <Grid.Row colums={3}>
+              <Grid.Column>
+                <FooterInfo>
+                  <Alink href="https://club.poapper.com" style={{marginRight:'40px'}}><h5>© 2021 PoApper</h5></Alink>
+                  <Alink href="mailto:poapper@gmail.com">Privacy</Alink>
+
+                </FooterInfo>
               </Grid.Column>
-          </Grid.Row>
-        </Grid>
+              <Grid.Column width={6}>
+                <FooterInfo>
+                  <a href="https://club.poapper.com"><Image src='/PoApper_Logo_cut.svg' size="mini" alt="poapper_logo"/></a>
+                </FooterInfo>
+              </Grid.Column>
+              <Grid.Column style={{textAlign: 'right'}}>
+                <FooterInfo>
+                  <Alink href="https://github.com/PoApper" style={{marginRight: '40px'}}>Github</Alink>
+                  <Hoverlink href="mailto:poapper@gmail.com" ><b>Join Our Team!</b></Hoverlink>
+                </FooterInfo>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
       </FooterWrapper>
     </_Footer>
   )
@@ -72,22 +44,30 @@ const _Footer = styled.footer`
 
 const FooterWrapper = styled.div`
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
+  //align-items: center;
   margin: auto;
 
   max-width: ${({ theme }) => theme.contentWidth};
 `
 
-const WithLink = styled.a`
-  margin-bottom: 10px;
-  color: #888;
-  transition: all 0.2s;
-  &:hover{
-    color: #000;
-  }
+const Alink = styled.a`
+  color: #000;
+  &:link { color: #000; }
+  &:visited { color: #000; }
+  margin-top: 10px;
 `
 
-const NonLink = styled.p`
-  color: #000;
+const FooterInfo = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const Hoverlink = styled(Alink)`
+  text-decoration: underline 0.25em rgba(168, 168, 168, 0);
+  transition: text-decoration 300ms;
+  &:hover {
+    text-decoration: underline 0.25em rgba(168, 168, 168, 1);
+  }
 `
