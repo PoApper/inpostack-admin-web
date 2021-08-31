@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react'
+import React, { useState } from 'react'
 import DaumPostCode from 'react-daum-postcode'
 import { Button, Input, Modal } from 'semantic-ui-react'
 import styled from 'styled-components'
@@ -26,8 +26,7 @@ const Postcode = (props) => {
 
   return(
     <div>
-      
-      <Button onClick={()=>setOpen(true)}>{props.buttonLabel}</Button>
+      <Button onClick={()=>setOpen(true)}>주소 찾기</Button>
       <AddressInput name="zipcode" id="zipcode"
                     defaultValue={props.zipcode}/>
       <Modal open={open}

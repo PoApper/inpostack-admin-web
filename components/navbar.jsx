@@ -33,7 +33,7 @@ const Navbar = () => {
             </LogoMenuItem>
           </Link>
           <Link href="/store" style={{ color: 'black', paddingRight: '15px' }}>
-            <Menu.Item simple>
+            <Menu.Item>
               가게관리
             </Menu.Item>
           </Link>

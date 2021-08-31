@@ -46,7 +46,7 @@ const StoreCreateModal = (props) => {
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
-      trigger={<FormButton style={{padding: '0px 15px', width:'160px'}}><b>Notice Create </b><Icon name='add circle'/></FormButton>}
+      trigger={<FormButton style={{padding: '0px 15px', width:'160px'}}><b>Store Create </b><Icon name='add circle'/></FormButton>}
     >
       <Modal.Header>가게 생성</Modal.Header>
       <Modal.Content>
@@ -69,7 +69,7 @@ const StoreCreateModal = (props) => {
                       }}
           />
 
-<Form.Input required
+          <Form.Input required
                       label="가게 소개"
                       name="description"
                       value={description}
@@ -86,29 +86,27 @@ const StoreCreateModal = (props) => {
             onChange={(e, {value}) => setStore_type(value?.toString())}
           />
           
-          <Form>
-            <Form.Field required>
-              <label>가게 주소</label>
-              <Postcode buttonLabel="주소 찾기" address1={address1} zipcode={zipcode}
-                    handleAddress={(address1, zipcode) => {
-                          setAddress1(address1)
-                          setZipcode(zipcode)
-                    }}
-              />
-              <Form.Input 
-                          name="address1"
-                          value={address1}
-                          onChange={(e) => setAddress1(e.target.value)}
-                          style={{margin:'0', padding: '0'}}
-              />
-              <Form.Input 
-                          name="address2"
-                          value={address2}
-                          onChange={(e) => setAddress2(e.target.value)}
-                          style={{margin:'0 0 1rem', padding: '0'}}
-              />
-            </Form.Field>
-          </Form>
+          <Form.Field required>
+            <label>가게 주소</label>
+            <Postcode address1={address1} zipcode={zipcode}
+                  handleAddress={(address1, zipcode) => {
+                        setAddress1(address1)
+                        setZipcode(zipcode)
+                  }}
+            />
+            <Form.Input 
+                        name="address1"
+                        value={address1}
+                        onChange={(e) => setAddress1(e.target.value)}
+                        style={{margin:'0', padding: '0'}}
+            />
+            <Form.Input 
+                        name="address2"
+                        value={address2}
+                        onChange={(e) => setAddress2(e.target.value)}
+                        style={{margin:'0 0 1rem', padding: '0'}}
+            />
+          </Form.Field>
 
           <div className={"required field"}>
             <label>오픈 시간</label>
