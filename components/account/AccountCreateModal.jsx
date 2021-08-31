@@ -42,7 +42,7 @@ const AccountCreateModal = (props) => {
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
-      trigger={<Button>계정 생성</Button>}
+      trigger={<FormButton style={{padding: '0px 15px', width:'160px'}}><b>Notice Create </b><Icon name='add circle'/></FormButton>}
     >
       <Modal.Header>계정 생성</Modal.Header>
       <Modal.Content>
