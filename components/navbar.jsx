@@ -37,21 +37,21 @@ const Navbar = () => {
               가게관리
             </Menu.Item>
           </Link>
-          <Menu.Item>
-            <Link href="/account"><a
-              style={{ color: 'black', paddingRight: '15px' }}>계정
-              관리</a></Link>
-          </Menu.Item>
-          <Menu.Item>
-            <Link href="/notice"><a
-              style={{ color: 'black', paddingRight: '15px' }}>공지
-              관리</a></Link>
-          </Menu.Item>
-          <Menu.Item>
-            <Link href="/statistics"><a
-              style={{ color: 'black', paddingRight: '15px' }}>통계
-              보기</a></Link>
-          </Menu.Item>
+          <Link href="/account" style={{ color: 'black', paddingRight: '15px' }}>
+            <Menu.Item>
+              계정관리
+            </Menu.Item>
+          </Link>
+          <Link href="/notice" style={{ color: 'black', paddingRight: '15px' }}>
+            <Menu.Item>
+              공지관리
+            </Menu.Item>
+          </Link>
+          <Link href="/statistics" style={{ color: 'black', paddingRight: '15px' }}>
+            <Menu.Item>
+              통계관리
+            </Menu.Item>
+          </Link>
           {
             user ?
               <Menu.Item position={'right'}>

@@ -83,8 +83,8 @@ const NoticeUpdateModal = ( props ) => {
           />
 
           <Form.Group>
-            <FormButton onClick={handleUpdate}><b>Update </b><Icon name='add circle'/></FormButton>
-            <DeleteButton onClick={handleDelete}><b>Delete </b><Icon name='remove circle'/></DeleteButton>
+            <FormButton onClick={handleUpdate}>Update <Icon name='add circle'/></FormButton>
+            <DeleteButton onClick={handleDelete}>Delete <Icon name='remove circle'/></DeleteButton>
           </Form.Group>
         </Form>
         </Modal.Content>
@@ -98,14 +98,15 @@ const FormButton = styled.button`
   cursor: pointer;
   width: 100px;
   height: 35px;
+  line-height: 35px;
   margin-left: 9px;
-  background-color: #265c71;
+  background-color: #00758e;
   color: #fff;
   border: 0px;
-  border-radius: 15px;
+  border-radius: 5px;
   transition: 0.2s ease-in-out;
   &:hover {
-    background-color: #32738b;
+    background-color: #005d73;
   }
 `
 
@@ -113,13 +114,14 @@ const DeleteButton = styled.button`
   cursor: pointer;
   width: 100px;
   height: 35px;
+  line-height: 35px;
   margin-left: 10px;
-  background-color: #c83053;
+  background-color: #da1451;
   color: #fff;
   border: 0px;
-  border-radius: 15px;
+  border-radius: 5px;
   transition: 0.2s ease-in-out;
   &:hover {
-    background-color: #E24D6F;
+    background-color: #b81f54;
   }
 `

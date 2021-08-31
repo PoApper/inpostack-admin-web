@@ -42,7 +42,7 @@ const AccountCreateModal = (props) => {
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
-      trigger={<FormButton style={{padding: '0px 15px', width:'160px'}}><b>Account Create </b><Icon name='add circle'/></FormButton>}
+      trigger={<CreateButton>Account <Icon name='add circle'/></CreateButton>}
     >
       <Modal.Header>계정 생성</Modal.Header>
       <Modal.Content>
@@ -86,7 +86,7 @@ const AccountCreateModal = (props) => {
                       options={AccountOptions}
                       onChange={(e, {value}) => setAccount_type(value?.toString())}
           />
-          <FormButton onClick={handleSubmit}><b>Create </b><Icon name='add circle'/></FormButton>
+          <FormButton onClick={handleSubmit}>Create <Icon name='add circle'/></FormButton>
         </Form>
       </Modal.Content>
     </Modal>
@@ -96,16 +96,33 @@ const AccountCreateModal = (props) => {
 
 export default AccountCreateModal
 
-const FormButton = styled.button`
+const CreateButton = styled.button`
   cursor: pointer;
-  width: 100px;
+  width: 110px;
   height: 35px;
-  background-color: #265c71;
+  padding: 0px 15px;
+  line-height: 35px;
+  background-color: #00758e;
   color: #fff;
   border: 0px;
   border-radius: 15px;
   transition: 0.2s ease-in-out;
   &:hover {
-    background-color: #32738b;
+    background-color: #005d73;
+  }
+`
+
+const FormButton = styled.button`
+  cursor: pointer;
+  width: 100px;
+  height: 35px;
+  line-height: 35px;
+  background-color: #00758e;
+  color: #fff;
+  border: 0px;
+  border-radius: 5px;
+  transition: 0.2s ease-in-out;
+  &:hover {
+    background-color: #005d73;
   }
 `

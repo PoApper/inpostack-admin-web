@@ -11,15 +11,14 @@ const Footer = () => {
                 <FooterInfo>
                   <Alink href="https://club.poapper.com" style={{marginRight:'40px'}}><h5>© 2021 PoApper</h5></Alink>
                   <Alink href="mailto:poapper@gmail.com">Privacy</Alink>
-
                 </FooterInfo>
               </Grid.Column>
               <Grid.Column width={6}>
-                <FooterInfo>
+                <div style={{display: 'flex', justifyContent:'center'}}>
                   <a href="https://club.poapper.com"><Image src='/PoApper_Logo_cut.svg' size="mini" alt="poapper_logo"/></a>
-                </FooterInfo>
+                </div>
               </Grid.Column>
-              <Grid.Column style={{textAlign: 'right'}}>
+              <Grid.Column>
                 <FooterInfo>
                   <Alink href="https://github.com/PoApper" style={{marginRight: '40px'}}>Github</Alink>
                   <Hoverlink href="mailto:poapper@gmail.com" ><b>Join Our Team!</b></Hoverlink>
@@ -60,8 +59,11 @@ const Alink = styled.a`
 
 const FooterInfo = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  @media screen and (max-width: 768px) { 
+    display: none;
+  }
 `
 
 const Hoverlink = styled(Alink)`

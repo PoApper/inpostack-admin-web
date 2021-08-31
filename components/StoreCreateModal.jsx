@@ -46,7 +46,7 @@ const StoreCreateModal = (props) => {
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
-      trigger={<FormButton style={{padding: '0px 15px', width:'160px'}}><b>Store Create </b><Icon name='add circle'/></FormButton>}
+      trigger={<CreateButton>Store <Icon name='add circle'/></CreateButton>}
     >
       <Modal.Header>가게 생성</Modal.Header>
       <Modal.Content>
@@ -171,16 +171,33 @@ const StoreCreateModal = (props) => {
 
 export default StoreCreateModal
 
-const FormButton = styled.button`
+const CreateButton = styled.button`
   cursor: pointer;
-  width: 100px;
+  width: 90px;
   height: 35px;
-  background-color: #265c71;
+  padding: 0px 15px;
+  line-height: 35px;
+  background-color: #00758e;
   color: #fff;
   border: 0px;
   border-radius: 15px;
   transition: 0.2s ease-in-out;
   &:hover {
-    background-color: #32738b;
+    background-color: #005d73;
+  }
+`
+
+const FormButton = styled.button`
+  cursor: pointer;
+  width: 100px;
+  height: 35px;
+  line-height: 35px;
+  background-color: #00758e;
+  color: #fff;
+  border: 0px;
+  border-radius: 5px;
+  transition: 0.2s ease-in-out;
+  &:hover {
+    background-color: #005d73;
   }
 `
