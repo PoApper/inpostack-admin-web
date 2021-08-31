@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { CreateStore } from '../requests/storeAPI'
 import Postcode from './postcode'
 import styled from 'styled-components'
-import {Button, Form, Modal} from 'semantic-ui-react'
+import {Button, Form, Modal, Icon} from 'semantic-ui-react'
 import DatePicker from 'react-datepicker'
 
 const StoreCreateModal = (props) => {
@@ -163,7 +163,7 @@ const StoreCreateModal = (props) => {
           </p>
 
           <FormButton onClick={handleSubmit}>
-            생성
+            <b>Create </b><Icon name='add circle'/>
           </FormButton>
         </Form>
       </Modal.Content>

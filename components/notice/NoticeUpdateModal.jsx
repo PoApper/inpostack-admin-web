@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { updateNoticeInfo, deleteNoticeInfo } from '../../requests/noticeAPI'
 import styled from 'styled-components'
-import { Form, Modal } from 'semantic-ui-react'
+import { Form, Modal, Icon } from 'semantic-ui-react'
 
 const NoticeUpdateModal = ( props ) => {
   const router = useRouter()
@@ -65,7 +65,7 @@ const NoticeUpdateModal = ( props ) => {
                       onChange={(e) => setTitle(e.target.value)}/>
           <div className="required field">
             <label>내용</label>
-            <Form.Input
+            <Form.TextArea
               name='content'
               value={content}
               onChange={(e) => setContent(e.target.value)}
@@ -83,8 +83,8 @@ const NoticeUpdateModal = ( props ) => {
           />
 
           <Form.Group>
-            <FormButton onClick={handleUpdate}>수정</FormButton>
-            <DeleteButton onClick={handleDelete}>삭제</DeleteButton>
+            <FormButton onClick={handleUpdate}><b>Update </b><Icon name='add circle'/></FormButton>
+            <DeleteButton onClick={handleDelete}><b>Delete </b><Icon name='remove circle'/></DeleteButton>
           </Form.Group>
         </Form>
         </Modal.Content>

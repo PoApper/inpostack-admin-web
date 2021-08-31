@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { deleteStore, updateStore } from '../requests/storeAPI'
 import Postcode from '../components/postcode'
 import styled from 'styled-components'
-import {Form, Modal} from 'semantic-ui-react'
+import {Form, Modal, Icon} from 'semantic-ui-react'
 import DatePicker from 'react-datepicker'
 
 const StoreUpdateModal = ( props ) => {
@@ -186,8 +186,8 @@ const StoreUpdateModal = ( props ) => {
           <p>메뉴 카테고리와 세부 메뉴 생성은 가게 수정 페이지에서 가능합니다!</p>
 
           <Form.Group>
-            <FormButton onClick={handleUpdate}>수정</FormButton>
-            <DeleteButton onClick={handleDelete}>삭제</DeleteButton>
+            <FormButton onClick={handleUpdate}><b>Update </b><Icon name='add circle'/></FormButton>
+            <DeleteButton onClick={handleDelete}><b>Delete </b><Icon name='remove circle'/></DeleteButton>
           </Form.Group>
         </Form>
       </Modal.Content>

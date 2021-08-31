@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { updateAccount, deleteAccount } from '../../requests/accountAPI'
 import styled from 'styled-components'
-import {Button, Form, Modal} from 'semantic-ui-react'
+import {Button, Form, Modal, Icon} from 'semantic-ui-react'
 
 const AccountUpdateModal = (props) => {
   const router = useRouter()
@@ -105,8 +105,8 @@ const AccountUpdateModal = (props) => {
                        onChange={(e, {value}) => setAccount_type(value?.toString())}
           />
           <Form.Group>
-            <FormButton onClick={handleUpdate}>수정</FormButton>
-            <DeleteButton onClick={handleDelete}>삭제</DeleteButton>
+            <FormButton onClick={handleUpdate}><b>Update </b><Icon name='add circle'/></FormButton>
+            <DeleteButton onClick={handleDelete}><b>Delete </b><Icon name='remove circle'/></DeleteButton>
           </Form.Group>
         </Form>
       </Modal.Content>

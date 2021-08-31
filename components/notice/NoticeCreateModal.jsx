@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { createNotice } from '../../requests/noticeAPI'
 import styled from 'styled-components'
-import { Button, Form, Modal } from 'semantic-ui-react'
+import { Button, Form, Modal, Icon } from 'semantic-ui-react'
 
 const NoticeCreateModal = ( props ) => {
   const router = useRouter()
@@ -50,7 +50,7 @@ const NoticeCreateModal = ( props ) => {
             />
             
             <div className="required field">
-              <Form.Input required
+              <Form.TextArea required
                 label='내용'
                 name='content'
                 value={content}
@@ -66,7 +66,7 @@ const NoticeCreateModal = ( props ) => {
               options={NoticeOptions}
               onChange={(e, {value}) => setNotice_type(value?.toString())}
             />
-            <FormButton onClick={handleSubmit}>생성</FormButton>
+            <FormButton onClick={handleSubmit}><b>Create </b><Icon name='add circle'/></FormButton>
           </Form>
         </Modal.Content>
       </Modal>

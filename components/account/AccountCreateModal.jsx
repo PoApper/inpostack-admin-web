@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { createAccount } from '../../requests/accountAPI'
 import styled from 'styled-components'
-import {Button, Form, Modal} from 'semantic-ui-react'
+import {Button, Form, Modal, Icon} from 'semantic-ui-react'
 
 const AccountCreateModal = (props) => {
   const router = useRouter()
@@ -86,7 +86,7 @@ const AccountCreateModal = (props) => {
                       options={AccountOptions}
                       onChange={(e, {value}) => setAccount_type(value?.toString())}
           />
-          <FormButton onClick={handleSubmit}>생성</FormButton>
+          <FormButton onClick={handleSubmit}><b>Create </b><Icon name='add circle'/></FormButton>
         </Form>
       </Modal.Content>
     </Modal>
