@@ -4,8 +4,8 @@ import useStore from '../data/useStore'
 import useUser from '../data/useUser'
 //import useAccount from '../data/useAccount'
 import Layout from '../components/layout'
-import StoreUpdateModal from '../components/StoreUpdateModal'
-import StoreCreateModal from '../components/StoreCreateModal'
+import StoreUpdateModal from '../components/store/StoreUpdateModal'
+import StoreCreateModal from '../components/store/StoreCreateModal'
 import { Table } from 'semantic-ui-react'
 import moment from 'moment'
 
@@ -56,7 +56,7 @@ const Store = (props) => {
                         <Table.Cell>{idx + 1}</Table.Cell>
                         <Table.Cell>{store.name}</Table.Cell>
                         <Table.Cell>{store.store_type}</Table.Cell>
-                        <Table.Cell>{store.location}</Table.Cell>
+                        <Table.Cell>{store.address2}</Table.Cell>
                         <Table.Cell>{moment(store.created_at).
                           format('YYYY.MM.DD HH:mm')}</Table.Cell>
                       </Table.Row>

@@ -1,54 +1,36 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
-import { deleteStore, updateStore } from '../requests/storeAPI'
-import Postcode from '../components/postcode'
+import { CreateStore } from '../../requests/storeAPI'
+import Postcode from '../postcode'
 import styled from 'styled-components'
 import {Form, Modal, Icon} from 'semantic-ui-react'
 import DatePicker from 'react-datepicker'
 
-const StoreUpdateModal = ( props ) => {
+const StoreCreateModal = (props) => {
   const router = useRouter()
-  const storeInfo = props.storeInfo
-  const uuid = props.storeInfo.uuid
   const [open, setOpen] = useState(false)
-  const [name, setName] = useState(storeInfo.name)
-  const [phone, setPhone] = useState(storeInfo.phone)
-  const [description, setDescription] = useState(storeInfo.description)
-  const [store_type, setStore_type] = useState(storeInfo.store_type)
-  const [address1, setAddress1] = useState(storeInfo.address1)
-  const [address2, setAddress2] = useState(storeInfo.address2)
-  const [zipcode, setZipcode] = useState(storeInfo.zipcode)
-  const [open_time, setOpen_time] = useState(storeInfo.open_time)
-  const [close_time, setClose_time] = useState(storeInfo.close_time)
-  const [image_url, setImage_url] = useState(storeInfo.image_url)
-  const [owner_uuid, setOwner_uuid] = useState(storeInfo.owner_uuid)
+  const [name, setName] = useState('')
+  const [phone, setPhone] = useState('')
+  const [description, setDescription] = useState('')
+  const [store_type, setStore_type] = useState('')
+  const [address1, setAddress1] = useState('')
+  const [address2, setAddress2] = useState('')
+  const [zipcode, setZipcode] = useState('')
+  const [open_time, setOpen_time] = useState('')
+  const [close_time, setClose_time] = useState('')
+  const [image_url, setImage_url] = useState('')
+  //const [owner_uuid, setOwner_uuid] = useState('')
 
-  async function handleUpdate (e) {
-    e.preventDefault()
+  async function handleSubmit (e) {
     try {
-      await updateStore({
-        uuid, name, phone, description, store_type, address1, address2, open_time, close_time, image_url, owner_uuid
+      await CreateStore({
+        name, phone, description, store_type, address1, address2, zipcode, open_time, close_time, image_url, /*owner_uuid*/
       })
       setOpen(false)
-      alert('가게를 수정했습니다.')
+      alert('가게를 생성했습니다.')
       router.reload(window.location.pathname)
     } catch (err) {
-      alert('가게 수정에 실패했습니다.')
-      console.log(err)
-    }
-  }
-
-  async function handleDelete (e) {
-    e.preventDefault()
-    try {
-      await deleteStore({
-        uuid,
-      })
-      setOpen(false)
-      alert('가게를 삭제했습니다.')
-      router.reload(window.location.pathname)
-    } catch (err) {
-      alert('가게 삭제에 실패했습니다.')
+      alert('가게 생성에 실패했습니다.')
       console.log(err)
     }
   }
@@ -57,23 +39,16 @@ const StoreUpdateModal = ( props ) => {
   .map((type) => {
     const [key, value] = type;
     return {key: key, text: value, value: value}
-  });
-  
-  // TODO: API 안정화 후 적용 (API 상에서 null을 반환) - owner_uuid
-  /*const StoreOptions = Object.entries(props.storeType)
-  .map((type) => {
-    const [key, value] = type;
-    return {key: key, text: value, value: value}
-  });*/
+  });  
 
   return(
     <Modal
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
-      trigger={props.trigger}
+      trigger={<CreateButton>Store <Icon name='add circle'/></CreateButton>}
     >
-      <Modal.Header>가게 수정</Modal.Header>
+      <Modal.Header>가게 생성</Modal.Header>
       <Modal.Content>
         <Form>
           <Form.Input required
@@ -94,7 +69,7 @@ const StoreUpdateModal = ( props ) => {
                       }}
           />
 
-          <Form.Input required
+          <Form.TextArea required
                       label="가게 소개"
                       name="description"
                       value={description}
@@ -110,7 +85,7 @@ const StoreUpdateModal = ( props ) => {
             options={StoreOptions}
             onChange={(e, {value}) => setStore_type(value?.toString())}
           />
-
+          
           <Form.Field required>
             <label>가게 주소</label>
             <Postcode address1={address1} zipcode={zipcode}
@@ -137,7 +112,7 @@ const StoreUpdateModal = ( props ) => {
             <label>오픈 시간</label>
             <DatePicker
               showTimeSelect showTimeSelectOnly timeIntervals={30}
-              /*autoComplete="off"*/
+              autoComplete="off"
               name='open_time' dateFormat="hh:mm aa"
               selected={open_time}
               onKeyDown={e => e.preventDefault()}
@@ -149,7 +124,7 @@ const StoreUpdateModal = ( props ) => {
             <label>닫는 시간</label>
             <DatePicker
               showTimeSelect showTimeSelectOnly timeIntervals={30}
-              /*autoComplete="off"*/
+              autoComplete="off"
               name='close_time' dateFormat="hh:mm aa"
               selected={close_time}
               onKeyDown={e => e.preventDefault()}
@@ -170,8 +145,8 @@ const StoreUpdateModal = ( props ) => {
           <Form.Input disabled
             label="점주 유저 (NOT ALLOWED)"
             name="owner_uuid"
-            value={owner_uuid}
-            onChange={(e)=>setOwner_uuid(e.target.value)}
+            //value={owner_uuid}
+            //onChange={(e)=>setOwner_uuid(e.target.value)}
           />
 
           <Form.Input disabled
@@ -181,26 +156,42 @@ const StoreUpdateModal = ( props ) => {
             onChange={(e)=>setImage_url(e.target.value)}
           />
 
-          <p>메뉴 카테고리와 세부 메뉴 생성은 가게 수정 페이지에서 가능합니다!</p>
+          <p>
+            메뉴 카테고리와 세부 메뉴 생성은 가게 수정 페이지에서 가능합니다!
+          </p>
 
-          <Form.Group>
-            <FormButton onClick={handleUpdate}>Update <Icon name='add circle'/></FormButton>
-            <DeleteButton onClick={handleDelete}>Delete <Icon name='remove circle'/></DeleteButton>
-          </Form.Group>
+          <FormButton onClick={handleSubmit}>
+            <b>Create </b><Icon name='add circle'/>
+          </FormButton>
         </Form>
       </Modal.Content>
     </Modal>
   )
 }
 
-export default StoreUpdateModal
+export default StoreCreateModal
+
+const CreateButton = styled.button`
+  cursor: pointer;
+  width: 90px;
+  height: 35px;
+  padding: 0px 15px;
+  line-height: 35px;
+  background-color: #00758e;
+  color: #fff;
+  border: 0px;
+  border-radius: 15px;
+  transition: 0.2s ease-in-out;
+  &:hover {
+    background-color: #005d73;
+  }
+`
 
 const FormButton = styled.button`
   cursor: pointer;
   width: 100px;
   height: 35px;
   line-height: 35px;
-  margin-left: 9px;
   background-color: #00758e;
   color: #fff;
   border: 0px;
@@ -208,21 +199,5 @@ const FormButton = styled.button`
   transition: 0.2s ease-in-out;
   &:hover {
     background-color: #005d73;
-  }
-`
-
-const DeleteButton = styled.button`
-  cursor: pointer;
-  width: 100px;
-  height: 35px;
-  line-height: 35px;
-  margin-left: 10px;
-  background-color: #da1451;
-  color: #fff;
-  border: 0px;
-  border-radius: 5px;
-  transition: 0.2s ease-in-out;
-  &:hover {
-    background-color: #b81f54;
   }
 `

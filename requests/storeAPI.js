@@ -9,7 +9,7 @@ export const getStore = async () => {
   }
 }
 
-export const CreateStore = async ({ name, phone, description, store_type, address1, address2, open_time, close_time, image_url, owner_uuid }) => {
+export const CreateStore = async ({ name, phone, description, store_type, address1, address2, zipcode, open_time, close_time, image_url, /*owner_uuid*/ }) => {
   try {
     await axios.post(`${process.env.NEXT_PUBLIC_API}/store`, 
     {
@@ -19,11 +19,11 @@ export const CreateStore = async ({ name, phone, description, store_type, addres
       store_type: store_type,
       address1: address1,
       address2: address2,
-      zipcode: 0,
+      zipcode: zipcode,
       open_time: open_time,
       close_time: close_time,
       image_url: image_url,
-      owner_uuid: owner_uuid // TODO: it can be null - // uuid of owner account (it can be null)
+      //owner_uuid: owner_uuid // TODO: it can be null - // uuid of owner account (it can be null)
     }, {withCredentials: true});
     window.location.reload();
   } catch (err) {
@@ -33,7 +33,7 @@ export const CreateStore = async ({ name, phone, description, store_type, addres
   }
 }
 
-export const updateStore = async ({ uuid, name, phone, description, store_type, address1, address2, open_time, close_time, image_url, owner_uuid }) => {
+export const updateStore = async ({ uuid, name, phone, description, store_type, address1, address2, zipcode, open_time, close_time, image_url, /*owner_uuid*/ }) => {
   try {
     await axios.put(`${process.env.NEXT_PUBLIC_API}/store/${uuid}`, 
     {
@@ -43,11 +43,11 @@ export const updateStore = async ({ uuid, name, phone, description, store_type, 
       store_type: store_type,
       address1: address1,
       address2: address2,
-      zipcode: 0,
+      zipcode: zipcode,
       open_time: open_time,
       close_time: close_time,
       image_url: image_url,
-      owner_uuid: owner_uuid // TODO: it can be null - // uuid of owner account (it can be null)
+      //owner_uuid: owner_uuid // TODO: it can be null - // uuid of owner account (it can be null)
     }, {withCredentials: true});
     window.location.reload();
   } catch (err) {
