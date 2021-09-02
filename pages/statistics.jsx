@@ -1,26 +1,19 @@
-import React, { useEffect } from 'react'
-import { useRouter } from 'next/router'
-import useUser from '../data/useUser'
+import React from 'react'
 import Layout from '../components/layout'
+import { Divider } from 'semantic-ui-react'
+import DRU_Line from '../components/statistics/DRU_Line'
 
 const Statistics = () => {
-  const router = useRouter()
-  const { user, loading } = useUser()
-  
-  useEffect(() => {
-    if (loading) return
-    if (!user) {
-      alert('관리자 계정으로 로그인해주세요!')
-      router.push("/login")
-      return
-    }
-  }, [loading])
-
   return (
-   <Layout>
-     <h3>통계 보기 페이지 준비 중 입니다.</h3>
-   </Layout> 
+    <Layout>
+      <h2>InPoStack 통계</h2>
+      <p>InPoStack의 현황을 통계로 확인하세요.</p>
+
+      <Divider/>
+
+      <DRU_Line/>
+    </Layout>
   )
 }
 
-export default Statistics;
+export default Statistics
