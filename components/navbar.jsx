@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { Button, Dropdown, Image, Menu } from 'semantic-ui-react'
+import { Mobile, PC } from '../public/MediaQuery.tsx'
+import { Button, Dropdown, Image, Menu, Icon, Accordion } from 'semantic-ui-react'
 
 import useUser from '../data/useUser'
 import { logout } from '../requests/userApi'
@@ -10,10 +11,16 @@ import styled from 'styled-components'
 const Navbar = () => {
   const router = useRouter()
   const { user, loading } = useUser()
-  // const [menuFixed, setMenuFixed] = useState(false)
+  const [activeIndex, setActiveIndex] = useState(1)
+  function handleClink (e, titleProps)  {
+    const { index } = titleProps
+    const newIndex = activeIndex === index ? -1 : index
+    setActiveIndex(newIndex)
+  }
 
   return (
     <_Navbar>
+      <PC>
       <NavbarWrapper>
         <NavbarMenu borderless>
           <Link href={'/'}>
@@ -76,6 +83,67 @@ const Navbar = () => {
           }
         </NavbarMenu>
       </NavbarWrapper>
+      </PC>
+      <Mobile>
+        <NavbarWrapper>
+        <NavbarMenu borderless>
+        <Accordion fluid>
+          <Accordion.Title
+            active={activeIndex === 0}
+            index={0}
+            onClick={handleClink}
+          >
+            <Icon name='bars' size='big' style={{margin: '10px'}}/>
+          </Accordion.Title>
+          <Accordion.Content
+            active={activeIndex === 0}
+          >
+            <Link href="/store" style={{ color: 'black', paddingRight: '15px' }}>
+              <Menu.Item>가게관리</Menu.Item>
+            </Link>
+            <Link href="/account" style={{ color: 'black', paddingRight: '15px' }}>
+              <Menu.Item>계정관리</Menu.Item>
+            </Link>
+            <Link href="/notice" style={{ color: 'black', paddingRight: '15px' }}>
+              <Menu.Item>공지관리</Menu.Item>
+            </Link>
+            <Link href="/statistics" style={{ color: 'black', paddingRight: '15px' }}>
+              <Menu.Item>통계관리</Menu.Item>
+            </Link>
+          </Accordion.Content>
+        </Accordion>
+        <LogoDiv style={{verticalAlign: 'top'}}>
+              <Link href={'/'}>
+                <LogoHeader>InPoStack<LogoSub>(Admin)</LogoSub></LogoHeader>
+              </Link>
+        </LogoDiv>
+          {
+            user ?
+              <Menu.Item position={'right'}>
+                <Dropdown item simple
+                          text={`${user.name}`}>
+                  <Dropdown.Menu style={{
+                    border: 'none',
+                    boxShadow: '0 2px 5px 0px rgba(0, 0, 0, 0.2)',
+                  }}>
+                    <Dropdown.Item text={`TYPE: ${user.account_type}`}/>
+                    <Dropdown.Item text={`ID: ${user.id}`}/>
+                    <Dropdown.Item text={'로그아웃'} onClick={() => {
+                      logout()
+                      router.push('/login')
+                    }}/>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </Menu.Item>
+              :
+              <Menu.Item position={'right'}>
+                <Button style={{ border: 'none', background: 'none' }}
+                        href={'/login'}>로그인</Button>
+              </Menu.Item>
+          }
+      </NavbarMenu>
+      </NavbarWrapper>
+      </Mobile>
     </_Navbar>
   )
 }

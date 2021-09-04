@@ -56,7 +56,7 @@ const Store = (props) => {
                         <Table.Cell>{idx + 1}</Table.Cell>
                         <Table.Cell>{store.name}</Table.Cell>
                         <Table.Cell>{store.store_type}</Table.Cell>
-                        <Table.Cell>{store.address2}</Table.Cell>
+                        <Table.Cell>{store.address1}</Table.Cell>
                         <Table.Cell>{moment(store.created_at).
                           format('YYYY.MM.DD HH:mm')}</Table.Cell>
                       </Table.Row>

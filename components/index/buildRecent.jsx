@@ -1,4 +1,5 @@
 import React from 'react'
+import { Mobile, PC } from '../../public/MediaQuery.tsx'
 import styled from 'styled-components'
 import { Button, Grid, Icon, Table } from 'semantic-ui-react'
 
@@ -48,14 +49,30 @@ const BuildRecnt = () => {
   }
 
   return(
-    <Grid columns={2} style={{marginTop: '40px'}}>
-      <Grid.Row>
-        {buildRecentOverview(
-          { title: '신규 가게', body: buildNewRestaurants() })}
-        {buildRecentOverview(
-          { title: '최근 접속 유저', body: buildRecentUsers() })}
-      </Grid.Row>
-    </Grid>
+    <div>
+      <PC>
+        <Grid columns={2} style={{marginTop: '40px'}}>
+        <Grid.Row>
+          {buildRecentOverview(
+            { title: '신규 가게', body: buildNewRestaurants() })}
+          {buildRecentOverview(
+            { title: '최근 접속 유저', body: buildRecentUsers() })}
+        </Grid.Row>
+        </Grid>
+      </PC>
+      <Mobile>
+      <Grid columns={1} style={{marginTop: '40px'}}>
+        <Grid.Row>
+          {buildRecentOverview(
+            { title: '신규 가게', body: buildNewRestaurants() })}
+        </Grid.Row>
+        <Grid.Row>
+          {buildRecentOverview(
+            { title: '최근 접속 유저', body: buildRecentUsers() })}
+        </Grid.Row>
+        </Grid>
+      </Mobile>
+    </div>
   )
 }
 
