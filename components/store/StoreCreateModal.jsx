@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
+import styled from 'styled-components'
+import { Form, Icon, Modal } from 'semantic-ui-react'
+import DatePicker from 'react-datepicker'
+
 import { CreateStore } from '../../requests/storeAPI'
 import Postcode from '../postcode'
-import styled from 'styled-components'
-import {Form, Modal, Icon} from 'semantic-ui-react'
-import DatePicker from 'react-datepicker'
 
 const StoreCreateModal = (props) => {
   const router = useRouter()
@@ -19,12 +20,23 @@ const StoreCreateModal = (props) => {
   const [open_time, setOpen_time] = useState('')
   const [close_time, setClose_time] = useState('')
   const [image_url, setImage_url] = useState('')
+
   //const [owner_uuid, setOwner_uuid] = useState('')
 
   async function handleSubmit (e) {
+    e.preventDefault()
     try {
       await CreateStore({
-        name, phone, description, store_type, address1, address2, zipcode, open_time, close_time, image_url, /*owner_uuid*/
+        name,
+        phone,
+        description,
+        store_type,
+        address1,
+        address2,
+        zipcode,
+        open_time,
+        close_time,
+        image_url, /*owner_uuid*/
       })
       setOpen(false)
       alert('가게를 생성했습니다.')
@@ -35,18 +47,17 @@ const StoreCreateModal = (props) => {
     }
   }
 
-  const StoreOptions = Object.entries(props.storeType)
-  .map((type) => {
-    const [key, value] = type;
-    return {key: key, text: value, value: value}
-  });  
+  const StoreOptions = Object.entries(props.storeType).map((type) => {
+    const [key, value] = type
+    return { key: key, text: value, value: value }
+  })
 
-  return(
+  return (
     <Modal
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
-      trigger={<CreateButton>Store <Icon name='add circle'/></CreateButton>}
+      trigger={<CreateButton>Store <Icon name="add circle"/></CreateButton>}
     >
       <Modal.Header>가게 생성</Modal.Header>
       <Modal.Content>
@@ -55,7 +66,7 @@ const StoreCreateModal = (props) => {
                       label="상호명"
                       name="name"
                       value={name}
-                      onChange={(e)=>setName(e.target.value)}
+                      onChange={(e) => setName(e.target.value)}
           />
 
           <Form.Input required
@@ -70,12 +81,12 @@ const StoreCreateModal = (props) => {
           />
 
           <Form.TextArea required
-                      label="가게 소개"
-                      name="description"
-                      value={description}
-                      onChange={(e)=>setDescription(e.target.value)}
+                         label="가게 소개"
+                         name="description"
+                         value={description}
+                         onChange={(e) => setDescription(e.target.value)}
           />
-          
+
           <Form.Select
             required
             label="가게 타입"
@@ -83,54 +94,57 @@ const StoreCreateModal = (props) => {
             value={store_type}
             placeholder="가게 타입을 선택하세요."
             options={StoreOptions}
-            onChange={(e, {value}) => setStore_type(value?.toString())}
+            onChange={(e, { value }) => setStore_type(value?.toString())}
           />
-          
+
           <Form.Field required>
             <label>가게 주소</label>
             <Postcode address1={address1} zipcode={zipcode}
-                  handleAddress={(address1, zipcode) => {
+                      handleAddress={(address1, zipcode) => {
                         setAddress1(address1)
                         setZipcode(zipcode)
-                  }}
+                      }}
             />
-            <Form.Input 
-                        name="address1"
-                        value={address1}
-                        onChange={(e) => setAddress1(e.target.value)}
-                        style={{margin:'0', padding: '0'}}
+            <Form.Input
+              name="address1"
+              value={address1}
+              onChange={(e) => setAddress1(e.target.value)}
+              style={{ margin: '0', padding: '0' }}
             />
-            <Form.Input 
-                        name="address2"
-                        value={address2}
-                        onChange={(e) => setAddress2(e.target.value)}
-                        style={{margin:'0 0 1rem', padding: '0'}}
+            <Form.Input
+              name="address2"
+              value={address2}
+              onChange={(e) => setAddress2(e.target.value)}
+              style={{ margin: '0 0 1rem', padding: '0' }}
             />
           </Form.Field>
 
-          <div className={"required field"}>
-            <label>오픈 시간</label>
-            <DatePicker
-              showTimeSelect showTimeSelectOnly timeIntervals={30}
-              autoComplete="off"
-              name='open_time' dateFormat="hh:mm aa"
-              selected={open_time}
-              onKeyDown={e => e.preventDefault()}
-              onChange={(e) => setOpen_time(e)}
-            />
-          </div>
-
-          <div className={"required field"}>
-            <label>닫는 시간</label>
-            <DatePicker
-              showTimeSelect showTimeSelectOnly timeIntervals={30}
-              autoComplete="off"
-              name='close_time' dateFormat="hh:mm aa"
-              selected={close_time}
-              onKeyDown={e => e.preventDefault()}
-              onChange={(e) => setClose_time(e)}
-            />
-          </div>
+          <Form.Group style={{ width: '100%', margin: '0 0 14px 0' }}>
+            <div className={'required field'}
+                 style={{ width: '100%', paddingLeft: 0 }}>
+              <label>오픈 시간</label>
+              <DatePicker
+                showTimeSelect showTimeSelectOnly timeIntervals={30}
+                autoComplete="off"
+                name="open_time" dateFormat="hh:mm aa"
+                selected={open_time}
+                onKeyDown={e => e.preventDefault()}
+                onChange={(e) => setOpen_time(e)}
+              />
+            </div>
+            <div className={'required field'}
+                 style={{ width: '100%', paddingRight: 0 }}>
+              <label>닫는 시간</label>
+              <DatePicker
+                showTimeSelect showTimeSelectOnly timeIntervals={30}
+                autoComplete="off"
+                name="close_time" dateFormat="hh:mm aa"
+                selected={close_time}
+                onKeyDown={e => e.preventDefault()}
+                onChange={(e) => setClose_time(e)}
+              />
+            </div>
+          </Form.Group>
 
           {/*  TODO: API 안정화 후 적용
           <Form.Select
@@ -143,17 +157,17 @@ const StoreCreateModal = (props) => {
           />
           */}
           <Form.Input disabled
-            label="점주 유저 (NOT ALLOWED)"
-            name="owner_uuid"
+                      label="점주 유저 (NOT ALLOWED)"
+                      name="owner_uuid"
             //value={owner_uuid}
             //onChange={(e)=>setOwner_uuid(e.target.value)}
           />
 
           <Form.Input disabled
-            label="가게 이미지"
-            name="image_url"
-            value={image_url}
-            onChange={(e)=>setImage_url(e.target.value)}
+                      label="가게 이미지"
+                      name="image_url"
+                      value={image_url}
+                      onChange={(e) => setImage_url(e.target.value)}
           />
 
           <p>
@@ -161,7 +175,7 @@ const StoreCreateModal = (props) => {
           </p>
 
           <FormButton onClick={handleSubmit}>
-            <b>Create </b><Icon name='add circle'/>
+            <b>Create </b><Icon name="add circle"/>
           </FormButton>
         </Form>
       </Modal.Content>
@@ -175,13 +189,14 @@ const CreateButton = styled.button`
   cursor: pointer;
   width: 90px;
   height: 35px;
-  padding: 0px 15px;
+  padding: 0 15px;
   line-height: 35px;
   background-color: #00758e;
   color: #fff;
-  border: 0px;
+  border: 0;
   border-radius: 15px;
   transition: 0.2s ease-in-out;
+
   &:hover {
     background-color: #005d73;
   }
@@ -194,9 +209,10 @@ const FormButton = styled.button`
   line-height: 35px;
   background-color: #00758e;
   color: #fff;
-  border: 0px;
+  border: 0;
   border-radius: 5px;
   transition: 0.2s ease-in-out;
+
   &:hover {
     background-color: #005d73;
   }
