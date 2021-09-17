@@ -1,4 +1,5 @@
 import { MenuUpdateModal } from './menuModals'
+import Image from 'next/image'
 import { Button } from 'semantic-ui-react'
 import styled from 'styled-components'
 
@@ -32,7 +33,7 @@ const MenuCard = (props) => {
         </div>
       </InfoColumn>
       <ImageColumn>
-        <img src={menu.image_url ?? 'https://via.placeholder.com/100'}
+        <Image src={menu.image_url ?? 'https://via.placeholder.com/100'}
              alt={`${menu.name}_photo`}
              width={100} height={100}
              style={{ marginBottom: '0.6rem' }}/>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 import styled from 'styled-components'
 import { Form, Icon, Modal } from 'semantic-ui-react'
 import DatePicker from 'react-datepicker'
@@ -170,7 +171,7 @@ const StoreCreateModal = (props) => {
           <Right>
           <Form.Field required>
             <label>가게 이미지</label>
-            <img width={200} height={200}
+            <Image width={200} height={200}
                    src={image_url}
                    alt="store_photo"/>
             <FileBox>

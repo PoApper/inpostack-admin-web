@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { deleteStore, updateStore } from '../../requests/storeAPI'
-import Postcode from '../../components/postcode'
+import { deleteStore, updateStore } from '../requests/storeAPI'
+import Postcode from '../components/postcode'
 import styled from 'styled-components'
 import {Form, Modal, Icon} from 'semantic-ui-react'
 import DatePicker from 'react-datepicker'
@@ -170,7 +171,7 @@ const StoreInfo = ( props ) => {
 
       <Form.Field required>
         <label>가게 이미지</label>
-        <img width={200} height={200}
+        <Image width={200} height={200}
                 src={image_url}
                 alt="store_photo"/>
         <FileBox>
