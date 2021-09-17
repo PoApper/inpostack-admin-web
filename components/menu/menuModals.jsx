@@ -55,31 +55,9 @@ export const MenuCreateModal = (props) => {
           메뉴를 가지고 있습니다!
         </Message>
         <Form onSubmit={handleCreate}>
-          <Form.Field>
-            <label>메뉴 사진</label>
-            <ImgBox>
-              <img style={{ borderRadius: '70%' }} width={150} height={150}
-                   src={image_url ??
-                   'https://via.placeholder.com/150?text=InPostack'}
-                   alt="menu_photo"/>
-            </ImgBox>
-            <FileBox>
-              <label>
-                <span>업로드</span>
-                <input
-                  type="file" accept="image/*" name="menu_image"
-                  onChange={(evt) => {
-                    const file = evt.target.files[0]
-                    const fileReader = new FileReader()
-                    fileReader.onloadend = () => {
-                      setImageUrl(fileReader.result)
-                      setNewMenuImg(file)
-                    }
-                    fileReader.readAsDataURL(file)
-                  }}/>
-              </label>
-            </FileBox>
-          </Form.Field>
+          <div style={{display: 'flex', justifyContent:'space-between', marginBottom: '20px'}}>
+          <Left>
+          
           <Form.Input
             required
             label={'메뉴 이름'}
@@ -105,7 +83,35 @@ export const MenuCreateModal = (props) => {
             label={'카테고리'}
             value={props.categoryName}
           />
-
+          </Left>
+          <Right>
+          <Form.Field>
+            <label>메뉴 사진</label>
+            <ImgBox>
+              <img width={150} height={150}
+                   src={image_url ??
+                   'https://via.placeholder.com/150?text=InPostack'}
+                   alt="menu_photo"/>
+            </ImgBox>
+            <FileBox>
+              <label>
+                <span>업로드</span>
+                <input
+                  type="file" accept="image/*" name="menu_image"
+                  onChange={(evt) => {
+                    const file = evt.target.files[0]
+                    const fileReader = new FileReader()
+                    fileReader.onloadend = () => {
+                      setImageUrl(fileReader.result)
+                      setNewMenuImg(file)
+                    }
+                    fileReader.readAsDataURL(file)
+                  }}/>
+              </label>
+            </FileBox>
+          </Form.Field>
+          </Right>
+          </div>
           <Form.Button>
             <Icon name="save" style={{ marginRight: '0.5rem' }}/>
             저장
@@ -141,7 +147,7 @@ export const MenuUpdateModal = (props) => {
     }
 
     try {
-      await axios.put(`${process.env.NEXT_PUBLIC_API}/menu/owner/${menuInfo.uuid}`, formData,
+      await axios.put(`${process.env.NEXT_PUBLIC_API}/menu/${menuInfo.uuid}`, formData,
         { withCredentials: true })
       alert('메뉴를 수정 했습니다.')
       router.reload(window.location.pathname)
@@ -155,7 +161,7 @@ export const MenuUpdateModal = (props) => {
 
     try {
       await axios.delete(
-        `${process.env.NEXT_PUBLIC_API}/menu/owner/${menuInfo.uuid}`,
+        `${process.env.NEXT_PUBLIC_API}/menu/${menuInfo.uuid}`,
         { withCredentials: true })
       alert('메뉴를 삭제 했습니다.')
       router.reload(window.location.pathname)

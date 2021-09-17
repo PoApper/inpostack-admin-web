@@ -64,14 +64,14 @@ const Store = (props) => {
                             storeInfo={store}
                             //owners={owners}
                             trigger={
-                              <Button>메뉴 수정</Button> }
+                              <Button><Icon name='info circle'/></Button> }
                             />
                               <Link 
                               href="/store/[store]" 
                               as={`/store/${store.name}`} 
                               >
                                 <Button>
-                                <Icon name='external square alternate'/>
+                                <Icon name='food'/>
                               </Button>
                               </Link>
                           </Button.Group>
