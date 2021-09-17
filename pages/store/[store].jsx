@@ -7,7 +7,6 @@ import MenuGrid from '../../components/menu/menuGrid'
 
 import styled from 'styled-components'
 import { Divider, Message } from 'semantic-ui-react'
-import StoreInfos from '../../components/store/storeInfos'
 
 const StoreRevisepage = (props) => {
   const router = useRouter()

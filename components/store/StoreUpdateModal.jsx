@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Image from 'next/image'
 import styled from 'styled-components'
 import { Divider, Form, Icon, Modal } from 'semantic-ui-react'
 import DatePicker from 'react-datepicker'
@@ -194,7 +193,7 @@ const StoreUpdateModal = (props) => {
           <Right>
           <Form.Field required>
             <label>가게 이미지</label>
-            <Image width={200} height={200}
+            <img width={200} height={200}
                    src={image_url}
                    alt="store_photo"/>
             <FileBox>

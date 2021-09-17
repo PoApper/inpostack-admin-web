@@ -50,12 +50,6 @@ const Store = (props) => {
             {
               stores.map((store, idx) => {
                 return (
-                  <StoreUpdateModal
-                    key={idx}
-                    storeType={store_type}
-                    storeInfo={store}
-                    //owners={owners}
-                    trigger={
                       <Table.Row key={idx}>
                         <Table.Cell>{idx + 1}</Table.Cell>
                         <Table.Cell>{store.name}</Table.Cell>
@@ -64,18 +58,25 @@ const Store = (props) => {
                         <Table.Cell>{moment(store.created_at).
                           format('YYYY.MM.DD HH:mm')}</Table.Cell>
                         <Table.Cell>
-                          <Button>
-                          <Link 
-                          href="/store/[store]" 
-                          as={`/store/${store.name}`} 
-                          >
-                            <div><Icon name='external square alternate'/></div>
-                          </Link>
-                          </Button>
+                          <Button.Group size='mini'>
+                            <StoreUpdateModal
+                            storeType={store_type}
+                            storeInfo={store}
+                            //owners={owners}
+                            trigger={
+                              <Button>메뉴 수정</Button> }
+                            />
+                              <Link 
+                              href="/store/[store]" 
+                              as={`/store/${store.name}`} 
+                              >
+                                <Button>
+                                <Icon name='external square alternate'/>
+                              </Button>
+                              </Link>
+                          </Button.Group>
                           </Table.Cell>
                       </Table.Row>
-                    }
-                  />
                 )
               })
             }

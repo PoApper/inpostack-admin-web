@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Image from 'next/image'
 import { Form, Icon, Message, Modal } from 'semantic-ui-react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
@@ -59,7 +58,7 @@ export const MenuCreateModal = (props) => {
           <Form.Field>
             <label>메뉴 사진</label>
             <ImgBox>
-              <Image style={{ borderRadius: '70%' }} width={150} height={150}
+              <img style={{ borderRadius: '70%' }} width={150} height={150}
                    src={image_url ??
                    'https://via.placeholder.com/150?text=InPostack'}
                    alt="menu_photo"/>
@@ -211,7 +210,7 @@ export const MenuUpdateModal = (props) => {
             <Form.Field>
               <label>메뉴 사진</label>
               <ImgBox>
-                <Image width={150} height={150}
+                <img width={150} height={150}
                     src={image_url ??
                     'https://via.placeholder.com/150?text=InPostack'}
                     alt="menu_photo"/>
