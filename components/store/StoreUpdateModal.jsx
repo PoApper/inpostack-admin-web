@@ -1,14 +1,12 @@
-import React, { useState } from 'react'
-import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Form, Icon, Modal } from 'semantic-ui-react'
+import { Divider, Form, Icon, Modal } from 'semantic-ui-react'
 import DatePicker from 'react-datepicker'
 
 import { deleteStore, updateStore } from '../../requests/storeAPI'
 import Postcode from '../../components/postcode'
 
 const StoreUpdateModal = (props) => {
-  const router = useRouter()
   const storeInfo = props.storeInfo
   const uuid = props.storeInfo.uuid
   const [open, setOpen] = useState(false)
@@ -22,6 +20,8 @@ const StoreUpdateModal = (props) => {
   const [open_time, setOpen_time] = useState('')
   const [close_time, setClose_time] = useState('')
   const [image_url, setImage_url] = useState(storeInfo.image_url)
+
+  const [newStoreImg, setNewStoreImg] = useState()
 
   //const [owner_uuid, setOwner_uuid] = useState(storeInfo.owner_uuid)
 
@@ -87,6 +87,8 @@ const StoreUpdateModal = (props) => {
       <Modal.Header>가게 수정</Modal.Header>
       <Modal.Content>
         <Form>
+          <div style={{display: 'flex', justifyContent:'space-between'}}>
+          <Left>
           <Form.Input required
                       label="상호명"
                       name="name"
@@ -187,15 +189,35 @@ const StoreUpdateModal = (props) => {
             //value={owner_uuid}
             //onChange={(e)=>setOwner_uuid(e.target.value)}
           />
+          </Left>
+          <Right>
+          <Form.Field required>
+            <label>가게 이미지</label>
+            <img width={200} height={200}
+                   src={image_url}
+                   alt="store_photo"/>
+            <FileBox>
+              <label>
+                <span>업로드</span>
+                <input
+                  type="file" accept="image/*" name="store_image"
+                  onChange={(evt) => {
+                    const file = evt.target.files[0]
+                    const fileReader = new FileReader()
+                    fileReader.onloadend = () => {
+                      setImage_url(fileReader.result)
+                      setNewStoreImg(file)
+                    }
+                    fileReader.readAsDataURL(file)
+                  }}/>
+              </label>
+            </FileBox>
+          </Form.Field>
+          </Right>
+          </div>
+          <p>메뉴 카테고리와 세부 메뉴 생성은 수정 버튼을 누른 후 나온 페이지에서 가능합니다!</p>
+          <Divider/>
 
-          <Form.Input disabled
-                      label="가게 이미지"
-                      name="image_url"
-                      value={image_url}
-                      onChange={(e) => setImage_url(e.target.value)}
-          />
-
-          <p>메뉴 카테고리와 세부 메뉴 생성은 가게 수정 페이지에서 가능합니다!</p>
           {/* TODO: form(info) + menu -> 새로운 페이지에서 모달X*/}
           <Form.Group>
             <FormButton onClick={handleUpdate}>Update <Icon name="add circle"/></FormButton>
@@ -242,4 +264,41 @@ const DeleteButton = styled.button`
   &:hover {
     background-color: #b81f54;
   }
+`
+const FileBox = styled.div`
+  display: flex;
+  label {
+    display: inline-block;
+    padding: .5em .75em;
+    line-height: normal;
+    vertical-align: middle;
+
+    cursor: pointer;
+    font-size: inherit;
+
+    border: 1px solid #ebebeb;
+    border-bottom-color: #e2e2e2;
+    border-radius: .5em;
+
+    color: #fff;
+    background-color: #6e757c;
+  }
+
+  input[type="file"] { //hidden tag
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+`
+
+const Left = styled.div`
+  margin-right: 20px;
+  flex: 1;
+`
+const Right = styled.div`
 `

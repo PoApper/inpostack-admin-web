@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import useStore from '../data/useStore'
 import useUser from '../data/useUser'
@@ -6,8 +7,10 @@ import useUser from '../data/useUser'
 import Layout from '../components/layout'
 import StoreUpdateModal from '../components/store/StoreUpdateModal'
 import StoreCreateModal from '../components/store/StoreCreateModal'
-import { Table } from 'semantic-ui-react'
+import styled from 'styled-components'
+import { Table, Icon, Button } from 'semantic-ui-react'
 import moment from 'moment'
+
 
 const Store = (props) => {
   const router = useRouter()
@@ -36,10 +39,11 @@ const Store = (props) => {
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell width={1}>#</Table.HeaderCell>
-              <Table.HeaderCell width={5}>가게명</Table.HeaderCell>
-              <Table.HeaderCell width={3}>타입</Table.HeaderCell>
+              <Table.HeaderCell width={4}>가게명</Table.HeaderCell>
+              <Table.HeaderCell width={2}>타입</Table.HeaderCell>
               <Table.HeaderCell width={4}>위치</Table.HeaderCell>
-              <Table.HeaderCell width={3}>등록일</Table.HeaderCell>
+              <Table.HeaderCell width={2}>등록일</Table.HeaderCell>
+              <Table.HeaderCell width={2}>수정</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
@@ -59,6 +63,16 @@ const Store = (props) => {
                         <Table.Cell>{store.address1}</Table.Cell>
                         <Table.Cell>{moment(store.created_at).
                           format('YYYY.MM.DD HH:mm')}</Table.Cell>
+                        <Table.Cell>
+                          <Button>
+                          <Link 
+                          href="/store/[store]" 
+                          as={`/store/${store.name}`} 
+                          >
+                            <div><Icon name='external square alternate'/></div>
+                          </Link>
+                          </Button>
+                          </Table.Cell>
                       </Table.Row>
                     }
                   />

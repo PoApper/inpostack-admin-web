@@ -63,3 +63,6 @@ export const deleteStore = async ({ uuid }) => {
     throw err;
   }
 }
+
+/****Menu and Category management*****/
+
