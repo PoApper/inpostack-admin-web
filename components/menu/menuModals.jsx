@@ -207,7 +207,7 @@ export const MenuUpdateModal = (props) => {
             onChange={(e) => setDescription(e.target.value)}
           />
 
-          <Form.Input
+          <Form.Input disabled
             label={'카테고리'}
             value={props.categoryName}
           />

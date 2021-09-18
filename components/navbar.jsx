@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { Mobile, PC } from '../public/MediaQuery.tsx'
+import { Mobile, PC } from '../components/MediaQuery.tsx'
 import { Button, Dropdown, Image, Menu, Icon, Accordion } from 'semantic-ui-react'
 
 import useUser from '../data/useUser'

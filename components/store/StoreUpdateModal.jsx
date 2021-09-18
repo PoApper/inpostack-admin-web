@@ -17,8 +17,8 @@ const StoreUpdateModal = (props) => {
   const [address1, setAddress1] = useState(storeInfo.address1)
   const [address2, setAddress2] = useState(storeInfo.address2)
   const [zipcode, setZipcode] = useState(storeInfo.zipcode)
-  const [open_time, setOpen_time] = useState('')
-  const [close_time, setClose_time] = useState('')
+  const [open_time, setOpen_time] = useState(storeInfo.open_time)
+  const [close_time, setClose_time] = useState(storeInfo.close_time)
   const [image_url, setImage_url] = useState(storeInfo.image_url)
 
   const [newStoreImg, setNewStoreImg] = useState()
@@ -154,9 +154,14 @@ const StoreUpdateModal = (props) => {
                 showTimeSelect showTimeSelectOnly timeIntervals={30}
                 autoComplete="off"
                 name="open_time" dateFormat="hh:mm aa"
-                selected={open_time}
+                value={open_time}
                 onKeyDown={e => e.preventDefault()}
-                onChange={(e) => setOpen_time(e)}
+                onChange={open_time => {
+                  setOpen_time(
+                    `${open_time.getHours()}:${open_time.getMinutes() === 0
+                      ? '00'
+                      : '30'}`)
+                }}
               />
             </div>
             <div className={'required field'}
@@ -166,9 +171,14 @@ const StoreUpdateModal = (props) => {
                 showTimeSelect showTimeSelectOnly timeIntervals={30}
                 autoComplete="off"
                 name="close_time" dateFormat="hh:mm aa"
-                selected={close_time}
+                value={close_time}
                 onKeyDown={e => e.preventDefault()}
-                onChange={(e) => setClose_time(e)}
+                onChange={close_time => {
+                  setClose_time(
+                    `${close_time.getHours()}:${close_time.getMinutes() === 0
+                      ? '00'
+                      : '30'}`)
+                }}
               />
             </div>
           </Form.Group>

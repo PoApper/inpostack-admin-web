@@ -1,5 +1,5 @@
 import React from 'react'
-import { Mobile, PC } from '../../public/MediaQuery.tsx'
+import { Mobile, PC } from '../../components/MediaQuery.tsx'
 import styled from 'styled-components'
 import { Grid, Icon } from 'semantic-ui-react'
 
