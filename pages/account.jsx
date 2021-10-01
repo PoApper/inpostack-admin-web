@@ -1,32 +1,28 @@
-import React, { useEffect } from 'react'
-import { useRouter } from 'next/router'
-import useUser from '../data/useUser'
+import React, { useEffect, useState } from 'react'
 import Layout from '../components/layout'
-import useAccount from '../data/useAccount'
 import AccountUpdateModal from '../components/account/AccountUpdateModal'
 import AccountCreateModal from '../components/account/AccountCreateModal'
 import { Table } from 'semantic-ui-react'
 import moment from 'moment'
 
 const Account = ( props ) => {
-  const router = useRouter()
-  const { user, loading } = useUser()
-  const { isLoaded, accounts } = useAccount()
+  const [ accounts, setAccounts ] = useState()
   
-  useEffect(() => {
-    if (loading) return
-    if (!user) {
-      alert('관리자 계정으로 로그인해주세요!')
-      router.push("/login")
-      return
+  useEffect(async() => {
+    try {
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_API}/account`, {withCredentials: true});
+      setAccounts(res.data)
+    } catch (err) {
+      alert(`계정 정보를 불러오는데 실패했습니다.\n`);
+      throw err;
     }
-  }, [loading])
+  })
   
   const account_types = props.accountMeta.account_type
 
   return(
     <Layout>
-      { isLoaded ?
+      { accounts ?
         <div>
           <h2>계정 관리</h2>
           <AccountCreateModal accountType={account_types}/>

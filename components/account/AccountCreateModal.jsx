@@ -1,12 +1,9 @@
 import React, { useState } from 'react'
-import { useRouter } from 'next/router'
-import { createAccount } from '../../requests/accountAPI'
+import axios from 'axios'
 import styled from 'styled-components'
 import {Button, Form, Modal, Icon} from 'semantic-ui-react'
 
 const AccountCreateModal = (props) => {
-  const router = useRouter()
-
   const [open, setOpen] = useState(false)
   const [sendMail, setSendMail] = useState(false)
   const [email, setEmail] = useState('')
@@ -25,15 +22,16 @@ const AccountCreateModal = (props) => {
   async function handleSubmit (e) {
     e.preventDefault()
     try {
-      await createAccount({
-        sendMail, email, id, name, password, account_type
-      })
-      setOpen(false)
-      alert('계정을 생성했습니다.')
-      router.reload(window.location.pathname)
+      await axios.post(`${process.env.NEXT_PUBLIC_API}/auth/register?sendMail=${sendMail}`, {
+        email: email,
+        id: id,
+        name: name,
+        password: password,
+        account_type: account_type
+      }, {withCredentials: true});
+      window.location.reload();
     } catch (err) {
-      alert('계정 생성에 실패했습니다.')
-      console.log(err)
+      throw err;
     }
   }
 

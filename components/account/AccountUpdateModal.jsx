@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
-import { useRouter } from 'next/router'
-import { updateAccount, deleteAccount } from '../../requests/accountAPI'
+import axios from 'axios'
 import styled from 'styled-components'
 import {Button, Form, Modal, Icon} from 'semantic-ui-react'
 
 const AccountUpdateModal = (props) => {
-  const router = useRouter()
   const accountInfo = props.accountInfo
   const uuid = props.accountInfo.uuid
 
@@ -25,30 +23,28 @@ const AccountUpdateModal = (props) => {
   async function handleUpdate (e) {
     e.preventDefault()
     try {
-      await updateAccount({
-        email, id, name, account_type, doesSendEmail, uuid
-      })
-      setOpen(false)
-      alert('계정을 수정했습니다.')
-      router.reload(window.location.pathname)
+      await axios.put(
+        `${process.env.NEXT_PUBLIC_API}/account/${uuid}?doesSendEmail=${doesSendEmail}`,
+        {
+          email: email,
+          id: id,
+          name: name,
+          account_type: account_type
+        }, {withCredentials: true});
+      window.location.reload();
     } catch (err) {
-      alert('계정 수정에 실패했습니다.')
-      console.log(err)
+      console.log('계정 수정에 실패했습니다.')
+      throw err;
     }
   }
 
   async function handleDelete (e) {
     e.preventDefault()
     try {
-      await deleteAccount({
-        uuid,
-      })
-      setOpen(false)
-      alert('계정을 삭제했습니다.')
-      router.reload(window.location.pathname)
+      await axios.delete(`${process.env.NEXT_PUBLIC_API}/account/${uuid}`, {withCredentials: true});
     } catch (err) {
-      alert('계정 삭제에 실패했습니다.')
-      console.log(err)
+      console.log('계정 삭제에 실패했습니다.')
+      throw err;
     }
   }
 

@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Divider, Form, Icon, Modal } from 'semantic-ui-react'
 import DatePicker from 'react-datepicker'
-
-import { deleteStore, updateStore } from '../../requests/storeAPI'
 import Postcode from '../../components/postcode'
 
 const StoreUpdateModal = (props) => {
@@ -28,40 +26,33 @@ const StoreUpdateModal = (props) => {
   async function handleUpdate (e) {
     e.preventDefault()
     try {
-      await updateStore({
-        uuid,
-        name,
-        phone,
-        description,
-        store_type,
-        address1,
-        address2,
-        zipcode,
-        open_time,
-        close_time,
-        image_url, /*owner_uuid*/
-      })
-      setOpen(false)
-      alert('가게를 수정했습니다.')
-      router.reload(window.location.pathname)
+      await axios.put(`${process.env.NEXT_PUBLIC_API}/store/${uuid}`, 
+      {
+        name: name,
+        phone: phone,
+        description: description,
+        store_type: store_type,
+        address1: address1,
+        address2: address2,
+        zipcode: zipcode,
+        open_time: open_time,
+        close_time: close_time,
+        image_url: image_url,
+        //owner_uuid: owner_uuid // TODO: it can be null - // uuid of owner account (it can be null)
+      }, {withCredentials: true});
+      window.location.reload();
     } catch (err) {
-      alert('가게 수정에 실패했습니다.')
-      console.log(err)
+      alert('가게 수정 API 오류!')
+      console.log(err);
     }
   }
 
   async function handleDelete (e) {
     e.preventDefault()
     try {
-      await deleteStore({
-        uuid,
-      })
-      setOpen(false)
-      alert('가게를 삭제했습니다.')
-      router.reload(window.location.pathname)
+      await axios.delete(`${process.env.NEXT_PUBLIC_API}/store/${uuid}`, {withCredentials: true});
     } catch (err) {
-      alert('가게 삭제에 실패했습니다.')
-      console.log(err)
+      throw err;
     }
   }
 

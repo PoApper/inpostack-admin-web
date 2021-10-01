@@ -1,14 +1,10 @@
 import React, { useState } from 'react'
-import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import { Form, Icon, Modal } from 'semantic-ui-react'
 import DatePicker from 'react-datepicker'
-
-import { CreateStore } from '../../requests/storeAPI'
 import Postcode from '../postcode'
 
 const StoreCreateModal = (props) => {
-  const router = useRouter()
   const [open, setOpen] = useState(false)
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
@@ -28,24 +24,25 @@ const StoreCreateModal = (props) => {
   async function handleSubmit (e) {
     e.preventDefault()
     try {
-      await CreateStore({
-        name,
-        phone,
-        description,
-        store_type,
-        address1,
-        address2,
-        zipcode,
-        open_time,
-        close_time,
-        image_url, /*owner_uuid*/
-      })
-      setOpen(false)
-      alert('가게를 생성했습니다.')
-      router.reload(window.location.pathname)
+      await axios.post(`${process.env.NEXT_PUBLIC_API}/store`, 
+      {
+        name: name,
+        phone: phone,
+        description: description,
+        store_type: store_type,
+        address1: address1,
+        address2: address2,
+        zipcode: zipcode,
+        open_time: open_time,
+        close_time: close_time,
+        image_url: image_url,
+        //owner_uuid: owner_uuid // TODO: it can be null - // uuid of owner account (it can be null)
+      }, {withCredentials: true});
+      window.location.reload();
     } catch (err) {
-      alert('가게 생성에 실패했습니다.')
-      console.log(err)
+      alert('가게 생성 API 오류!')
+      alert(err);
+      console.log(err);
     }
   }
 

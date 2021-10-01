@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
-import { createNotice } from '../../requests/noticeAPI'
+import axios from 'axios'
 import styled from 'styled-components'
 import { Button, Form, Modal, Icon } from 'semantic-ui-react'
 
@@ -20,15 +20,15 @@ const NoticeCreateModal = ( props ) => {
   async function handleSubmit (e) {
     e.preventDefault()
     try {
-      await createNotice({
-        title, content, notice_type
-      })
-      setOpen(false)
-      alert('공지를 생성했습니다.')
-      router.reload(window.location.pathname)
+      await axios.post(`${process.env.NEXT_PUBLIC_API}/notice`, {
+        title: title,
+        content: content,
+        notice_type: notice_type
+      }, {/*withCredentials: true*/});
+      window.location.reload();
     } catch (err) {
       alert('공지 생성에 실패했습니다.')
-      console.log(err)
+      throw err;
     }
   }
 

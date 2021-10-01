@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
-import { updateNoticeInfo, deleteNoticeInfo } from '../../requests/noticeAPI'
+import axios from 'axios'
 import styled from 'styled-components'
 import { Form, Modal, Icon } from 'semantic-ui-react'
 
@@ -16,30 +16,24 @@ const NoticeUpdateModal = ( props ) => {
   async function handleUpdate (e) {
     e.preventDefault()
     try {
-      await updateNoticeInfo({
-        title, content, notice_type, uuid,
-      })
-      setOpen(false)
-      alert('공지를 수정했습니다.')
-      router.reload(window.location.pathname)
+      await axios.put(`${process.env.NEXT_PUBLIC_API}/notice/${uuid}`, {
+        title: title,
+        content: content,
+        notice_type: notice_type
+      }, {/*withCredentials: true*/});
     } catch (err) {
       alert('공지 수정에 실패했습니다.')
-      console.log(err)
+      throw err;
     }
   }
 
   async function handleDelete (e) {
     e.preventDefault()
     try {
-      await deleteNoticeInfo({
-        uuid,
-      })
-      setOpen(false)
-      alert('공지를 삭제했습니다.')
-      router.reload(window.location.pathname)
+      await axios.delete(`${process.env.NEXT_PUBLIC_API}/notice/${uuid}`);
     } catch (err) {
       alert('공지 삭제에 실패했습니다.')
-      console.log(err)
+      throw err;
     }
   }
 

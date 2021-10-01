@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
-import useUser from '../data/useUser'
-import useNotices from '../data/useNotice'
+import axios from 'axios'
 import Layout from '../components/layout'
 import NoticeUpdateModal from '../components/notice/NoticeUpdateModal'
 import NoticeCreateModal from '../components/notice/NoticeCreateModal'
@@ -9,23 +8,23 @@ import moment from 'moment'
 
 
 const Notice = (props) => {
-  const { user, loading } = useUser()
-  const { notices, isLoaded } = useNotices()
-
-  useEffect(() => {
-    if (loading) return
-    if (!user) {
-      alert('관리자 계정으로 로그인해주세요!')
-      router.push("/login")
-      return
+  const [notices, setNotices] = useState([])
+  
+  useEffect(async() => {
+    try {
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_API}/notice`, {withCredentials: true});
+      setNotices(res.data)
+    } catch (err) {
+      alert(`공지 정보를 불러오는데 실패했습니다.\n`)
+      throw err;
     }
-  }, [loading])
+  },[])
 
   const notice_type = props.noticeMeta.notice_type
 
   return(
     <Layout>
-      { (isLoaded && user)?
+      { (notices)?
         <div>
           <h2>공지 관리</h2>
           <NoticeCreateModal noticeType={notice_type}/>

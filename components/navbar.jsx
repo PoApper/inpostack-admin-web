@@ -1,21 +1,44 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Mobile, PC } from '../components/MediaQuery.tsx'
 import { Button, Dropdown, Image, Menu, Icon, Accordion } from 'semantic-ui-react'
 
-import useUser from '../data/useUser'
-import { logout } from '../requests/userApi'
 import styled from 'styled-components'
 
 const Navbar = () => {
   const router = useRouter()
-  const { user, loading } = useUser()
+  const [ user, setUser ] = useState()
   const [activeIndex, setActiveIndex] = useState(1)
+  
+  useEffect(async () => {
+    try {
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_API}/account/me`, {
+        withCredentials: true,
+      });
+      setUser(res.data)
+      if (user.account_type !== 'ADMIN') throw Error('Not Admin');
+    } catch (err) {
+      router.push('/login')
+    }
+  }, [])
+
   function handleClink (e, titleProps)  {
     const { index } = titleProps
     const newIndex = activeIndex === index ? -1 : index
     setActiveIndex(newIndex)
+  }
+
+  async function handlelogout () {
+    try {
+      await axios.get(`${process.env.NEXT_PUBLIC_API}/auth/logout`, {
+        withCredentials: true,
+      });
+    } catch (err) {
+      console.log('로그아웃에 실패했습니다.')
+      throw err;
+    }
   }
 
   return (
@@ -69,7 +92,7 @@ const Navbar = () => {
                     boxShadow: '0 2px 5px 0px rgba(0, 0, 0, 0.2)',
                   }}>
                     <Dropdown.Item text={'로그아웃'} onClick={() => {
-                      logout()
+                      handlelogout()
                       router.push('/login')
                     }}/>
                   </Dropdown.Menu>

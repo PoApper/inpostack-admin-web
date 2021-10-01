@@ -1,9 +1,5 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import useStore from '../data/useStore'
-import useUser from '../data/useUser'
-//import useAccount from '../data/useAccount'
 import Layout from '../components/layout'
 import StoreUpdateModal from '../components/store/StoreUpdateModal'
 import StoreCreateModal from '../components/store/StoreCreateModal'
@@ -13,25 +9,24 @@ import moment from 'moment'
 
 
 const Store = (props) => {
-  const router = useRouter()
-  const { user, loading } = useUser()
-  const { stores, isLoaded } = useStore()
-  //const { accounts } = useAccount() - owner_uuid TODO: fix after api develope
+  const { stores, setStores } = useState()
+  //const [ accounts, setAccounts ] = useState() - owner_uuid TODO: fix after api develope
 
-  useEffect(() => {
-    if (loading) return
-    if (!user) {
-      alert('관리자 계정으로 로그인해주세요!')
-      router.push("/login")
-      return
+  useEffect(async() => {
+    try {
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_API}/store`, {withCredentials: true});
+      setStores(res.data)
+    } catch (err) {
+      console.log('가게들을 불러오는데 실패했습니다.')
+      throw err;
     }
-  }, [loading])
+  })
 
   const store_type = props.storeMeta.store_type
 
   return (
     <Layout>
-      { isLoaded ?
+      { stores ?
         <div>
         <h2>가게 관리</h2>
         <StoreCreateModal storeType={store_type}/>

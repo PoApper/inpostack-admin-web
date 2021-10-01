@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { Button, Form } from 'semantic-ui-react'
 import styled from 'styled-components'
-
 import LoginLayout from '../components/login_layout'
-import { login } from '../requests/userApi'
+
 
 const Login = () => {
   const router = useRouter()
@@ -16,7 +16,14 @@ const Login = () => {
     e.preventDefault()
 
     try {
-      await login({ id, password })
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/auth/login`,
+        {
+          id,
+          password,
+        },
+        { withCredentials: true },
+      )
       router.push('/')
     } catch (err) {
       alert('⚠ 관리자로 등록되지 않은 ID/PW 입니다.')
