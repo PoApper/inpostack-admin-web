@@ -1,53 +1,23 @@
-import React, { useState } from 'react'
-import axios from 'axios'
+import React from 'react'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
-import { Button, Form } from 'semantic-ui-react'
+import { Button } from 'semantic-ui-react'
 import styled from 'styled-components'
+
 import LoginLayout from '../components/login_layout'
 
-
 const Login = () => {
-  const router = useRouter()
-  const [id, setID] = useState('')
-  const [password, setPWD] = useState('')
-
-  async function handleLogin (e) {
-    e.preventDefault()
-
-    try {
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_API}/auth/login`,
-        {
-          id,
-          password,
-        },
-        { withCredentials: true },
-      )
-      router.push('/')
-    } catch (err) {
-      alert('⚠ 관리자로 등록되지 않은 ID/PW 입니다.')
-      router.push('/login')
-    }
-  }
-
   return (
     <LoginLayout>
-      <Image src={"/inpostack-logo.svg"} alt="logo"
+      <Image src={'/inpostack-logo.svg'} alt="logo"
              width={200} height={200}/>
       <Title>InPoStack</Title>
       <SubTitle>관리자 페이지</SubTitle>
 
-      <Form style={{width: '22rem'}}>
-        <Form.Input
-          name="id" placeholder="아이디"
-          onChange={(e) => setID(e.target.value)}
-        />
-          <Form.Input type="password" name="password"
-                 placeholder="비밀번호" onChange={(e) => setPWD(e.target.value)}/>
-        <Button onClick={handleLogin} style={LoginButton}>로그인</Button>
-      </Form>
-  </LoginLayout>
+      <Button
+        href={`${process.env.NEXT_PUBLIC_API}/auth/login?redirect=https://admin.inpo.poapper.com`}>
+        로그인
+      </Button>
+    </LoginLayout>
   )
 }
 
@@ -57,7 +27,7 @@ const LoginButton = {
   border: 'none',
   transition: '0.3s',
   fontWeight: 'bold',
-  color: 'white'
+  color: 'white',
 }
 
 const Title = styled.h2`
