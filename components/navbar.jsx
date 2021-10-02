@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { Mobile, PC } from '../components/MediaQuery.tsx'
+import { Mobile, PC } from './MediaQuery'
 import { Button, Dropdown, Image, Menu, Icon, Accordion } from 'semantic-ui-react'
 
 import styled from 'styled-components'
@@ -14,11 +14,10 @@ const Navbar = () => {
   
   useEffect(async () => {
     try {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_API}/account/me`, {
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_API}/auth/verifyToken`, {
         withCredentials: true,
       });
       setUser(res.data)
-      if (user.account_type !== 'ADMIN') throw Error('Not Admin');
     } catch (err) {
       router.push('/login')
     }
@@ -62,22 +61,22 @@ const Navbar = () => {
               </LogoDiv>
             </LogoMenuItem>
           </Link>
-          <Link href="/store" style={{ color: 'black', paddingRight: '15px' }}>
+          <Link href={'/store'} style={{ color: 'black', paddingRight: '15px' }}>
             <Menu.Item>
               가게관리
             </Menu.Item>
           </Link>
-          <Link href="/account" style={{ color: 'black', paddingRight: '15px' }}>
+          <Link href={'/account'} style={{ color: 'black', paddingRight: '15px' }}>
             <Menu.Item>
               계정관리
             </Menu.Item>
           </Link>
-          <Link href="/notice" style={{ color: 'black', paddingRight: '15px' }}>
+          <Link href={'/notice'} style={{ color: 'black', paddingRight: '15px' }}>
             <Menu.Item>
               공지관리
             </Menu.Item>
           </Link>
-          <Link href="/statistics" style={{ color: 'black', paddingRight: '15px' }}>
+          <Link href={'/statistics'} style={{ color: 'black', paddingRight: '15px' }}>
             <Menu.Item>
               통계관리
             </Menu.Item>

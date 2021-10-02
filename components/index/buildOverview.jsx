@@ -1,5 +1,5 @@
 import React from 'react'
-import { Mobile, PC } from '../../components/MediaQuery.tsx'
+import { Mobile, PC } from '../MediaQuery'
 import styled from 'styled-components'
 import { Grid, Icon } from 'semantic-ui-react'
 
@@ -79,7 +79,7 @@ const MainBox = styled.div`
     grid-area: number;
     font-size: 35px;
     margin: auto;
-    text-align: centerl
+    text-align: center;
   }
   h3{
     text-align: right;

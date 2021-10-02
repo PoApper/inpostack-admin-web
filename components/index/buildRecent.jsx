@@ -1,7 +1,7 @@
 import React from 'react'
-import { Mobile, PC } from '../../components/MediaQuery.tsx'
+import { Mobile, PC } from '../MediaQuery'
 import styled from 'styled-components'
-import { Button, Grid, Icon, Table } from 'semantic-ui-react'
+import { Grid, Icon, Table } from 'semantic-ui-react'
 
 const BuildRecnt = () => {
   const buildRecentOverview = ({ title, body }) => {
@@ -85,7 +85,7 @@ const MainBox = styled.div`
   padding: 25px 24px 25px;
   transition: all 200ms;
   &:hover {
-    transform: translateY(-5px) ease-in-out;
+    transform: translateY(-5px);
     box-shadow: 3px 11px 28px 4px rgb(0 0 0 / 20%);
   }
 `
@@ -97,7 +97,7 @@ const CheckButton = styled.button`
   float: right;
   background-color: #265c71;
   color: #fff;
-  border: 0px;
+  border: 0;
   border-radius: 15px;
   transition: 0.2s ease-in-out;
   &:hover {
