@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
+import styled from 'styled-components'
+import { Divider, Message } from 'semantic-ui-react'
 
 import Layout from '../../components/layout'
 import MenuGrid from '../../components/menu/menuGrid'
 
-import styled from 'styled-components'
-import { Divider, Message } from 'semantic-ui-react'
 
-const StoreRevisepage = (props) => {
+const StoreUpdatePage = () => {
   const router = useRouter()
   const [storeWithAll, setStoreWithAll] = useState()
 
@@ -55,7 +55,7 @@ const StoreRevisepage = (props) => {
   )
 }
 
-StoreRevisepage.getInitialProps = async (context) => {
+StoreUpdatePage.getInitialProps = async (context) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API}/store/meta`)
   const data = await res.json()
 
@@ -64,7 +64,7 @@ StoreRevisepage.getInitialProps = async (context) => {
   }
 }
 
-export default StoreRevisepage
+export default StoreUpdatePage
 
 const Title = styled.h2`
   letter-spacing: -1px;

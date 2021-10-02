@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+import moment from 'moment'
+import { Table } from 'semantic-ui-react'
+
 import Layout from '../components/layout'
 import AccountUpdateModal from '../components/account/AccountUpdateModal'
 import AccountCreateModal from '../components/account/AccountCreateModal'
-import { Table } from 'semantic-ui-react'
-import moment from 'moment'
 
 const Account = ( props ) => {
   const [ accounts, setAccounts ] = useState()
