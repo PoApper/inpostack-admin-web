@@ -85,7 +85,7 @@ const Navbar = () => {
             user ?
               <Menu.Item position={'right'}>
                 <Dropdown item simple
-                          text={`[${user.account_type}] ${user.name} (${user.id})`}>
+                          text={`[${user.account_type}] ${user.name}`}>
                   <Dropdown.Menu style={{
                     border: 'none',
                     boxShadow: '0 2px 5px 0px rgba(0, 0, 0, 0.2)',

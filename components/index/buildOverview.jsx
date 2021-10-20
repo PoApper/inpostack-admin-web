@@ -17,8 +17,6 @@ const BuildOverview = () => {
     }
   }, [])
 
-  console.log(overview)
-
   const getOverviewElement = ({ header, number }) => {
     return <Grid.Column>
       <MainBox>
