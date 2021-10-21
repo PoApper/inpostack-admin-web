@@ -50,8 +50,9 @@ const Store = (props) => {
                     <Table.Cell>{store.name}</Table.Cell>
                     <Table.Cell>{store.store_type}</Table.Cell>
                     <Table.Cell>{store.address1}</Table.Cell>
-                    <Table.Cell>{moment(store.created_at).
-                      format('YYYY.MM.DD HH:mm')}</Table.Cell>
+                    <Table.Cell>
+                      {moment(store.created_at).format('YYYY.MM.DD HH:mm')}
+                    </Table.Cell>
                     <Table.Cell>
                       <Button.Group size="mini">
                         <StoreUpdateModal

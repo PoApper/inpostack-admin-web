@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { Mobile, PC } from '../MediaQuery'
 import styled from 'styled-components'
 import { Grid, Icon } from 'semantic-ui-react'
@@ -17,25 +18,28 @@ const BuildOverview = () => {
     }
   }, [])
 
-  const getOverviewElement = ({ header, number }) => {
-    return <Grid.Column>
+  const getOverviewElement = ({ header, number, link }) => {
+    return (
       <MainBox>
         <h3>{header}</h3>
         <p>{number}</p>
         <div
           style={{ gridArea: 'blank', width: '80px', margin: 0, padding: 0 }}/>
-        <div style={{
-          gridArea: 'whole',
-          margin: '-24px -25px -24px',
-          padding: '55px 0 0',
-          backgroundColor: '#265c71',
-          color: '#fff',
-          textAlign: 'center',
-        }}>
-          <Icon name="arrow right"/>
-        </div>
+        <Link href={link}>
+          <div style={{
+            gridArea: 'whole',
+            margin: '-24px -25px -24px',
+            padding: '55px 0 0',
+            backgroundColor: '#265c71',
+            color: '#fff',
+            textAlign: 'center',
+            cursor: 'pointer',
+          }}>
+            <Icon name="arrow right"/>
+          </div>
+        </Link>
       </MainBox>
-    </Grid.Column>
+    )
   }
 
   return (
@@ -43,26 +47,74 @@ const BuildOverview = () => {
       <PC>
         <Grid columns={4} style={{ marginTop: '30px' }}>
           <Grid.Row stretched>
-            {getOverviewElement({ header: '전체 사용자 수', number: overview['account_count'] })}
-            {getOverviewElement({ header: '전체 가게 수', number: overview['store_count'] })}
-            {getOverviewElement({ header: '전체 공지 수', number: overview['notice_count'] })}
-            {getOverviewElement({ header: '전체 리뷰 수', number: overview['review_count'] })}
+            <Grid.Column>
+              {getOverviewElement({
+                header: '전체 사용자 수',
+                number: overview['account_count'],
+                link: '/account',
+              })}
+            </Grid.Column>
+            <Grid.Column>
+              {getOverviewElement({
+                header: '전체 가게 수',
+                number: overview['store_count'],
+                link: '/store',
+              })}
+            </Grid.Column>
+            <Grid.Column>
+              {getOverviewElement({
+                header: '전체 공지 수',
+                number: overview['notice_count'],
+                link: '/notice',
+              })}
+            </Grid.Column>
+            <Grid.Column>
+              {getOverviewElement({
+                header: '전체 리뷰 수',
+                number: overview['review_count'],
+                link: '/review',
+              })}
+            </Grid.Column>
           </Grid.Row>
         </Grid>
       </PC>
       <Mobile>
         <Grid columns={1} style={{ marginTop: '30px' }}>
           <Grid.Row stretched>
-            {getOverviewElement({ header: '전체 사용자 수', number: overview['account_count'] })}
+            <Grid.Column>
+              {getOverviewElement({
+                header: '전체 사용자 수',
+                number: overview['account_count'],
+                link: '/account',
+              })}
+            </Grid.Column>
           </Grid.Row>
           <Grid.Row stretched>
-            {getOverviewElement({ header: '전체 가게 수', number: overview['store_count'] })}
+            <Grid.Column>
+              {getOverviewElement({
+                header: '전체 가게 수',
+                number: overview['store_count'],
+                link: '/store',
+              })}
+            </Grid.Column>
           </Grid.Row>
           <Grid.Row stretched>
-            {getOverviewElement({ header: '전체 공지 수', number: overview['notice_count'] })}
+            <Grid.Column>
+              {getOverviewElement({
+                header: '전체 공지 수',
+                number: overview['notice_count'],
+                link: '/notice',
+              })}
+            </Grid.Column>
           </Grid.Row>
           <Grid.Row stretched>
-            {getOverviewElement({ header: '전체 리뷰 수', number: overview['review_count'] })}
+            <Grid.Column>
+              {getOverviewElement({
+                header: '전체 리뷰 수',
+                number: overview['review_count'],
+                link: '/review',
+              })}
+            </Grid.Column>
           </Grid.Row>
         </Grid>
       </Mobile>
