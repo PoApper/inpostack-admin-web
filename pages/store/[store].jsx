@@ -6,6 +6,7 @@ import { Divider, Message } from 'semantic-ui-react'
 
 import Layout from '../../components/layout'
 import MenuGrid from '../../components/menu/menuGrid'
+import StoreUpdate from '../../components/store/StoreUpdate'
 
 
 const StoreUpdatePage = () => {
@@ -24,18 +25,14 @@ const StoreUpdatePage = () => {
 
   console.log(storeWithAll)
 
-  //const store_type = props.storeMeta.store_type
-
   return (
     <Layout>
       {
         storeWithAll ? (
           <>
             <Title>{router.query.store} 정보 수정</Title>
-            작업중
-            {/*<StoreInfos store={setStoreWithAll}
-                        storeType={store_type}
-            />*/}
+            <StoreUpdate storeInfo={storeWithAll}
+            />
             <Divider/>
             <Title>메뉴 정보 수정</Title>
             <Message>
@@ -53,15 +50,6 @@ const StoreUpdatePage = () => {
       }
     </Layout>
   )
-}
-
-StoreUpdatePage.getInitialProps = async (context) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API}/store/meta`)
-  const data = await res.json()
-
-  return {
-    storeMeta: data,
-  }
 }
 
 export default StoreUpdatePage
