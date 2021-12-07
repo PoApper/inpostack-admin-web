@@ -11,7 +11,7 @@ Add a description of your pull request here.
 
 ## Checklist
 
-- [ ] Check whether your change works well by using `npm run start`
+- [ ] Check whether your change works well by using `npm run start` and `npm run build`
 - [ ] Check your code follow the coding conventions and ESLint: No debug code & No unnecessary imports 
 - [ ] Assign to a reviewer
 
