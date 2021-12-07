@@ -31,8 +31,7 @@ const StoreUpdatePage = () => {
         storeWithAll ? (
           <>
             <Title>{router.query.store} 정보 수정</Title>
-            <StoreUpdate storeInfo={storeWithAll}
-            />
+            <StoreUpdate storeInfo={storeWithAll} />
             <Divider/>
             <Title>메뉴 정보 수정</Title>
             <Message>

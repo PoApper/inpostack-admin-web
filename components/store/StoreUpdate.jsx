@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Divider, Form, Icon, Modal } from 'semantic-ui-react'
+import { Divider, Form, Icon } from 'semantic-ui-react'
 import DatePicker from 'react-datepicker'
 import Postcode from '../../components/postcode'
+import axios from 'axios'
 
 const StoreUpdate = (props) => {
   const storeInfo = props.storeInfo
   const uuid = props.storeInfo.uuid
-  const [open, setOpen] = useState(false)
   const [name, setName] = useState(storeInfo.name)
   const [phone, setPhone] = useState(storeInfo.phone)
   const [description, setDescription] = useState(storeInfo.description)
@@ -24,7 +24,7 @@ const StoreUpdate = (props) => {
   async function handleUpdate (e) {
     e.preventDefault()
     try {
-      await axios.put(`${process.env.NEXT_PUBLIC_API}/store/${uuid}`, 
+      await axios.put(`${process.env.NEXT_PUBLIC_API}/store/${uuid}`,
       {
         name: name,
         phone: phone,
@@ -54,17 +54,13 @@ const StoreUpdate = (props) => {
     }
   }
 
-  const StoreOptions = Object.entries(props.storeMeta.store_type).map((type) => {
-    const [key, value] = type
-    return { key: key, text: value, value: value }
-  })
+  const storeOptions = []
+  // TODO: store/meta와 연동하는 부분 체크할 것
+  // const StoreOptions = Object.entries(props.storeMeta.store_type).map((type) => {
+  //   const [key, value] = type
+  //   return { key: key, text: value, value: value }
+  // })
 
-  // TODO: (API 상에서 null을 반환) - owner_uuid
-  /*const StoreOptions = Object.entries(props.storeType)
-  .map((type) => {
-    const [key, value] = type;
-    return {key: key, text: value, value: value}
-  });*/
 
   return (
     <Form>
@@ -101,7 +97,7 @@ const StoreUpdate = (props) => {
         name="store_type"
         value={storeType}
         placeholder="가게 타입을 선택하세요."
-        options={StoreOptions}
+        options={storeOptions}
         onChange={(e, { value }) => setStoreType(value?.toString())}
       />
 
@@ -217,14 +213,14 @@ const StoreUpdate = (props) => {
   )
 }
 
-StoreUpdate.getInitialProps = async (context) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API}/store/meta`)
-  const data = await res.json()
-
-  return {
-    storeMeta: data,
-  }
-}
+// StoreUpdate.getInitialProps = async (context) => {
+//   const res = await fetch(`${process.env.NEXT_PUBLIC_API}/store/meta`)
+//   const data = await res.json()
+//
+//   return {
+//     storeMeta: data,
+//   }
+// }
 
 export default StoreUpdate
 
