@@ -11,13 +11,13 @@ const StoreUpdate = (props) => {
   const [name, setName] = useState(storeInfo.name)
   const [phone, setPhone] = useState(storeInfo.phone)
   const [description, setDescription] = useState(storeInfo.description)
-  const [store_type, setStore_type] = useState(storeInfo.store_type)
+  const [storeType, setStoreType] = useState(storeInfo.store_type)
   const [address1, setAddress1] = useState(storeInfo.address1)
   const [address2, setAddress2] = useState(storeInfo.address2)
   const [zipcode, setZipcode] = useState(storeInfo.zipcode)
-  const [open_time, setOpen_time] = useState(storeInfo.open_time)
-  const [close_time, setClose_time] = useState(storeInfo.close_time)
-  const [image_url, setImage_url] = useState(storeInfo.image_url)
+  const [openTime, setOpenTime] = useState(storeInfo.open_time)
+  const [closeTime, setCloseTime] = useState(storeInfo.close_time)
+  const [imageUrl, setImageUrl] = useState(storeInfo.image_url)
   const [newStoreImg, setNewStoreImg] = useState()
   //const [owner_uuid, setOwner_uuid] = useState(storeInfo.owner_uuid)
 
@@ -29,13 +29,13 @@ const StoreUpdate = (props) => {
         name: name,
         phone: phone,
         description: description,
-        store_type: store_type,
+        store_type: storeType,
         address1: address1,
         address2: address2,
         zipcode: zipcode,
-        open_time: open_time,
-        close_time: close_time,
-        image_url: image_url,
+        open_time: openTime,
+        close_time: closeTime,
+        image_url: imageUrl,
         //owner_uuid: owner_uuid // TODO: uuid of owner account (it can be null)
       }, {withCredentials: true});
       window.location.reload();
@@ -54,8 +54,7 @@ const StoreUpdate = (props) => {
     }
   }
 
-  const store_type = props.storeMeta.store_type
-  const StoreOptions = Object.entries(store_type).map((type) => {
+  const StoreOptions = Object.entries(props.storeMeta.store_type).map((type) => {
     const [key, value] = type
     return { key: key, text: value, value: value }
   })
@@ -100,10 +99,10 @@ const StoreUpdate = (props) => {
         required
         label="가게 타입"
         name="store_type"
-        value={store_type}
+        value={storeType}
         placeholder="가게 타입을 선택하세요."
         options={StoreOptions}
-        onChange={(e, { value }) => setStore_type(value?.toString())}
+        onChange={(e, { value }) => setStoreType(value?.toString())}
       />
 
       <Form.Field required>
@@ -136,10 +135,10 @@ const StoreUpdate = (props) => {
             showTimeSelect showTimeSelectOnly timeIntervals={30}
             autoComplete="off"
             name="open_time" dateFormat="hh:mm aa"
-            value={open_time}
+            value={openTime}
             onKeyDown={e => e.preventDefault()}
             onChange={open_time => {
-              setOpen_time(
+              setOpenTime(
                 `${open_time.getHours()}:${open_time.getMinutes() === 0
                   ? '00'
                   : '30'}`)
@@ -153,10 +152,10 @@ const StoreUpdate = (props) => {
             showTimeSelect showTimeSelectOnly timeIntervals={30}
             autoComplete="off"
             name="close_time" dateFormat="hh:mm aa"
-            value={close_time}
+            value={closeTime}
             onKeyDown={e => e.preventDefault()}
             onChange={close_time => {
-              setClose_time(
+              setCloseTime(
                 `${close_time.getHours()}:${close_time.getMinutes() === 0
                   ? '00'
                   : '30'}`)
@@ -186,7 +185,7 @@ const StoreUpdate = (props) => {
       <Form.Field required>
         <label>가게 이미지</label>
         <img width={200} height={200}
-                src={image_url}
+                src={imageUrl}
                 alt="store_photo"/>
         <FileBox>
           <label>
@@ -197,7 +196,7 @@ const StoreUpdate = (props) => {
                 const file = evt.target.files[0]
                 const fileReader = new FileReader()
                 fileReader.onloadend = () => {
-                  setImage_url(fileReader.result)
+                  setImageUrl(fileReader.result)
                   setNewStoreImg(file)
                 }
                 fileReader.readAsDataURL(file)
