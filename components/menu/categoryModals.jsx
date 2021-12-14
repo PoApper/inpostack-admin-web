@@ -10,7 +10,7 @@ export const CategoryCreateModal = (props) => {
 
   const [isModalOpen, setModalOpen] = useState(false)
   const [name, setName] = useState('')
-  const [store_uuid, setStore_uuid] = useState(props.store_uuid)
+  const store_uuid = props.store_uuid
 
   async function handleCreate (e) {
     e.preventDefault()
@@ -64,7 +64,7 @@ export const CategoryUpdateModal = (props) => {
   const [isModalOpen, setModalOpen] = useState(false)
   const categoryInfo = props.categoryInfo
   const [name, setName] = useState(categoryInfo.name)
-  const [store_uuid, setStore_uuid] = useState(props.store_uuid)
+  const store_uuid = props.store_uuid
 
   async function handleUpdate (e) {
     e.preventDefault()
