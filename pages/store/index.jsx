@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import axios from 'axios'
 import moment from 'moment'
-import { Button, Icon, Table } from 'semantic-ui-react'
+import { Table } from 'semantic-ui-react'
 
-import Layout from '../components/layout'
-import StoreUpdateModal from '../components/store/StoreUpdateModal'
-import StoreCreateModal from '../components/store/StoreCreateModal'
+import Layout from '../../components/layout'
+import StoreCreateModal from '../../components/store/StoreCreateModal'
 
-const Store = (props) => {
+const StoreIndexPage = (props) => {
   const [stores, setStores] = useState([])
   //const [ accounts, setAccounts ] = useState() - owner_uuid TODO: fix after api develope
 
@@ -38,7 +37,6 @@ const Store = (props) => {
               <Table.HeaderCell width={2}>타입</Table.HeaderCell>
               <Table.HeaderCell width={4}>위치</Table.HeaderCell>
               <Table.HeaderCell width={2}>등록일</Table.HeaderCell>
-              <Table.HeaderCell width={2}>수정</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
@@ -47,30 +45,18 @@ const Store = (props) => {
                 return (
                   <Table.Row key={idx}>
                     <Table.Cell>{idx + 1}</Table.Cell>
-                    <Table.Cell>{store.name}</Table.Cell>
+                    <Table.Cell>
+                      <Link
+                        href="/store/[store_name]"
+                        as={`/store/${store.name}`}
+                      >
+                        {store.name}
+                      </Link>
+                    </Table.Cell>
                     <Table.Cell>{store.store_type}</Table.Cell>
                     <Table.Cell>{store.address1}</Table.Cell>
                     <Table.Cell>
-                      {moment(store.created_at).format('YYYY.MM.DD HH:mm')}
-                    </Table.Cell>
-                    <Table.Cell>
-                      <Button.Group size="mini">
-                        <StoreUpdateModal
-                          storeType={store_type}
-                          storeInfo={store}
-                          //owners={owners}
-                          trigger={
-                            <Button><Icon name="info circle"/></Button>}
-                        />
-                        <Link
-                          href="/store/[store]"
-                          as={`/store/${store.name}`}
-                        >
-                          <Button>
-                            <Icon name="food"/>
-                          </Button>
-                        </Link>
-                      </Button.Group>
+                      {moment(store.created_at).format('YYYY-MM-DD HH:mm')}
                     </Table.Cell>
                   </Table.Row>
                 )
@@ -83,7 +69,7 @@ const Store = (props) => {
   )
 }
 
-Store.getInitialProps = async (context) => {
+StoreIndexPage.getInitialProps = async (context) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API}/store/meta`)
   const data = await res.json()
 
@@ -92,4 +78,4 @@ Store.getInitialProps = async (context) => {
   }
 }
 
-export default Store
+export default StoreIndexPage
