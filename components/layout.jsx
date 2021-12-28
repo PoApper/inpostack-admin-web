@@ -38,20 +38,15 @@ const Layout = ({ children }) => {
         <meta name="description" content="InPoStack 행복한 배달 생활"/>
         <link rel="icon" href={'/favicon.ico'}/>
       </Head>
-      {
-        user ?
-          (<>
-            <Navbar/>
-            <main>
-              <Wrapper>
-                <div style={{ width: '100%' }}>
-                  {children}
-                </div>
-              </Wrapper>
-            </main>
-            <Footer/>
-          </>) : null
-      }
+      <Navbar/>
+      <main>
+        <Wrapper>
+          <div style={{ width: '100%' }}>
+            {children}
+          </div>
+        </Wrapper>
+      </main>
+      <Footer/>
     </ThemeProvider>
   )
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
-import {Button, Form, Modal, Icon} from 'semantic-ui-react'
+import {Form, Modal, Icon} from 'semantic-ui-react'
 
 const AccountCreateModal = (props) => {
   const [open, setOpen] = useState(false)
@@ -98,11 +98,11 @@ const CreateButton = styled.button`
   cursor: pointer;
   width: 110px;
   height: 35px;
-  padding: 0px 15px;
+  padding: 0 15px;
   line-height: 35px;
   background-color: #00758e;
   color: #fff;
-  border: 0px;
+  border: 0;
   border-radius: 15px;
   transition: 0.2s ease-in-out;
   &:hover {
@@ -117,7 +117,7 @@ const FormButton = styled.button`
   line-height: 35px;
   background-color: #00758e;
   color: #fff;
-  border: 0px;
+  border: 0;
   border-radius: 5px;
   transition: 0.2s ease-in-out;
   &:hover {

@@ -96,7 +96,7 @@ const FormButton = styled.button`
   margin-left: 9px;
   background-color: #00758e;
   color: #fff;
-  border: 0px;
+  border: 0;
   border-radius: 5px;
   transition: 0.2s ease-in-out;
   &:hover {
@@ -112,7 +112,7 @@ const DeleteButton = styled.button`
   margin-left: 10px;
   background-color: #da1451;
   color: #fff;
-  border: 0px;
+  border: 0;
   border-radius: 5px;
   transition: 0.2s ease-in-out;
   &:hover {

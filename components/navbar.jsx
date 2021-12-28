@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Mobile, PC } from './MediaQuery'
 import { Button, Dropdown, Image, Menu, Icon, Accordion } from 'semantic-ui-react'
-
 import styled from 'styled-components'
 
 const Navbar = () => {
@@ -29,7 +28,7 @@ const Navbar = () => {
     setActiveIndex(newIndex)
   }
 
-  async function handlelogout () {
+  async function handleLogout () {
     try {
       await axios.get(`${process.env.NEXT_PUBLIC_API}/auth/logout`, {
         withCredentials: true,
@@ -88,10 +87,10 @@ const Navbar = () => {
                           text={`[${user.account_type}] ${user.name}`}>
                   <Dropdown.Menu style={{
                     border: 'none',
-                    boxShadow: '0 2px 5px 0px rgba(0, 0, 0, 0.2)',
+                    boxShadow: '0 2px 5px 0 rgba(0, 0, 0, 0.2)',
                   }}>
                     <Dropdown.Item text={'로그아웃'} onClick={() => {
-                      handlelogout()
+                      handleLogout()
                       router.push('/login')
                     }}/>
                   </Dropdown.Menu>
@@ -146,7 +145,7 @@ const Navbar = () => {
                           text={`${user.name}`}>
                   <Dropdown.Menu style={{
                     border: 'none',
-                    boxShadow: '0 2px 5px 0px rgba(0, 0, 0, 0.2)',
+                    boxShadow: '0 2px 5px 0 rgba(0, 0, 0, 0.2)',
                   }}>
                     <Dropdown.Item text={`TYPE: ${user.account_type}`}/>
                     <Dropdown.Item text={`ID: ${user.id}`}/>
