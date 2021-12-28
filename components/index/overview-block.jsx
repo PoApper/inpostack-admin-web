@@ -8,14 +8,11 @@ import axios from 'axios'
 const OverviewBlock = () => {
   const [overview, setOverview] = useState({})
 
-  useEffect(async () => {
-    try {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_API}/overview`)
-      setOverview(res.data)
-    } catch (err) {
-      alert('Overview를 불러오는데 실패했습니다.')
-      console.log(err)
-    }
+  useEffect(() => {
+   axios
+     .get(`${process.env.NEXT_PUBLIC_API}/overview`)
+     .then((res) => setOverview(res.data))
+     .catch((err) => alert('Overview를 불러오는데 실패했습니다.'))
   }, [])
 
   const getOverviewElement = ({ header, number, link }) => {

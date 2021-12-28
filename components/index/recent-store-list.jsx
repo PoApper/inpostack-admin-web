@@ -8,16 +8,13 @@ import styled from "styled-components";
 const RecentStoreList = () => {
   const [stores, setStores] = useState([])
 
-  useEffect(async () => {
-    try {
-      const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API}/store?take=5`,
-        { withCredentials: true })
-      setStores(res.data)
-    } catch (err) {
-      alert(`계정 정보를 불러오는데 실패했습니다.\n`)
-      throw err
-    }
+  useEffect(() => {
+    axios
+      .get(
+      `${process.env.NEXT_PUBLIC_API}/store?take=5`,
+      { withCredentials: true })
+      .then((res) => setStores(res.data))
+      .catch((err) => alert('신규 가게를 불러오는데 실패했습니다.'))
   }, [])
 
   return (

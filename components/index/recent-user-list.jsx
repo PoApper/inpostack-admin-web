@@ -8,28 +8,25 @@ import styled from "styled-components";
 const RecentUserList = () => {
   const [accounts, setAccounts] = useState([])
 
-  useEffect(async () => {
-    try {
-      const res = await axios.get(
+  useEffect(() => {
+    axios
+      .get(
         `${process.env.NEXT_PUBLIC_API}/account?take=5`,
-        { withCredentials: true })
-      setAccounts(res.data)
-    } catch (err) {
-      alert(`계정 정보를 불러오는데 실패했습니다.\n`)
-      throw err
-    }
+        {withCredentials: true})
+      .then((res) => setAccounts(res.data))
+      .catch((err) => alert('최근 접속 계정을 불러오는데 실패했습니다.'))
   }, [])
 
   return (
     <MainBox>
-      <h2 style={{ display: 'inline-block' }}>최근 접속 유저</h2>
+      <h2 style={{display: 'inline-block'}}>최근 접속 유저</h2>
       <Link href={'/account'}>
         <CheckButton>
           <span>Check</span><Icon name="arrow right"/>
         </CheckButton>
       </Link>
 
-      <Table celled selectable style={{ borderRadius: '14px' }}>
+      <Table celled selectable style={{borderRadius: '14px'}}>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>이름</Table.HeaderCell>
