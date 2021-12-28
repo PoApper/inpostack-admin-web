@@ -1,14 +1,12 @@
 import React from 'react'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 import { Button } from 'semantic-ui-react'
 import styled from 'styled-components'
 
 import LoginLayout from '../components/login_layout'
 
 const Login = () => {
-  const router = useRouter()
-  const callback_url = router.basePath
+  const callback_url = 'https://admin.inpo.poapper.club'
 
   return (
     <LoginLayout>
