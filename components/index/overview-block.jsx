@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { Grid, Icon } from 'semantic-ui-react'
 import axios from 'axios'
 
-const BuildOverview = () => {
+const OverviewBlock = () => {
   const [overview, setOverview] = useState({})
 
   useEffect(async () => {
@@ -122,7 +122,7 @@ const BuildOverview = () => {
   )
 }
 
-export default BuildOverview
+export default OverviewBlock
 
 const MainBox = styled.div`
   display: grid;

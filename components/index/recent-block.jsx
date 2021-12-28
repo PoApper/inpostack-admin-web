@@ -105,7 +105,7 @@ const RecentStores = () => {
   )
 }
 
-const BuildRecnt = () => {
+const RecentBlock = () => {
   return (
     <div>
       <PC>
@@ -138,7 +138,7 @@ const BuildRecnt = () => {
   )
 }
 
-export default BuildRecnt
+export default RecentBlock
 
 const MainBox = styled.div`
   border-radius: 14px;
