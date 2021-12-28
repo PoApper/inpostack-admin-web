@@ -1,11 +1,15 @@
 import React from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import { Button } from 'semantic-ui-react'
 import styled from 'styled-components'
 
 import LoginLayout from '../components/login_layout'
 
 const Login = () => {
+  const router = useRouter()
+  const callback_url = router.basePath
+
   return (
     <LoginLayout>
       <Image src={'/inpostack-logo.svg'} alt="logo"
@@ -14,20 +18,11 @@ const Login = () => {
       <SubTitle>관리자 페이지</SubTitle>
 
       <Button
-        href={`${process.env.NEXT_PUBLIC_API}/auth/login?redirect=https://admin.inpo.poapper.com`}>
+        href={`${process.env.NEXT_PUBLIC_API}/auth/login?redirect=${callback_url}`}>
         로그인
       </Button>
     </LoginLayout>
   )
-}
-
-const LoginButton = {
-  width: '100%',
-  backgroundColor: '#005d73',
-  border: 'none',
-  transition: '0.3s',
-  fontWeight: 'bold',
-  color: 'white',
 }
 
 const Title = styled.h2`

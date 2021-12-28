@@ -29,7 +29,7 @@ const Navbar = () => {
     setActiveIndex(newIndex)
   }
 
-  async function handlelogout () {
+  async function handleLogout () {
     try {
       await axios.get(`${process.env.NEXT_PUBLIC_API}/auth/logout`, {
         withCredentials: true,
@@ -91,7 +91,7 @@ const Navbar = () => {
                     boxShadow: '0 2px 5px 0px rgba(0, 0, 0, 0.2)',
                   }}>
                     <Dropdown.Item text={'로그아웃'} onClick={() => {
-                      handlelogout()
+                      handleLogout()
                       router.push('/login')
                     }}/>
                   </Dropdown.Menu>
