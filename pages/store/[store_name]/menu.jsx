@@ -28,7 +28,7 @@ const StoreMenuPage = () => {
       {
         storeWithAll ? (
           <>
-            <Title>{store_name} 메뉴 정보 수정</Title>
+            <Title>{store_name} 메뉴 수정</Title>
             <Message>
               메뉴 아래의 <b>수정</b> 버튼을 클릭해 메뉴 정보를 수정할 수 있습니다.
             </Message>

@@ -293,4 +293,5 @@ const Left = styled.div`
   flex: 1;
 `
 const Right = styled.div`
+  width: 200px;
 `
