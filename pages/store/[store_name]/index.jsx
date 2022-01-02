@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import styled from 'styled-components'
-import { Divider, Message } from 'semantic-ui-react'
+import { Button } from 'semantic-ui-react'
 
 import Layout from '../../../components/layout'
-import MenuGrid from '../../../components/menu/menuGrid'
-import StoreUpdate from '../../../components/store/StoreUpdate'
+import StoreInformation from '../../../components/store/StoreInformation'
 
 
 const StoreUpdatePage = () => {
@@ -32,18 +32,26 @@ const StoreUpdatePage = () => {
       {
         storeWithAll ? (
           <>
-            <Title>{store_name} 정보 수정</Title>
-            <StoreUpdate storeInfo={storeWithAll} />
-            <Divider/>
-            <Title>메뉴 정보 수정</Title>
-            <Message>
-              메뉴 아래의 <b>수정</b> 버튼을 클릭해 메뉴 정보를 수정할 수 있습니다.
-            </Message>
-            <MenuGrid categoriesWithMenu={storeWithAll.category}
-                      store_uuid={storeWithAll.uuid}
-            />
-          </>
-        ) : (
+            <div style={{display: 'flex', justifyContent:'space-between'}}>
+              <Title>{store_name}</Title>
+              <Button.Group>
+                <Button>
+                  <Link href="/store/[store_name]/information"
+                      as={`/store/${store_name}/information`}>
+                      정보 수정하러 가기
+                  </Link>
+                </Button>
+                <Button>
+                  <Link href="/store/[store_name]/menu"
+                        as={`/store/${store_name}/menu`}>
+                        메뉴 수정하러 가기
+                  </Link>
+                </Button>
+              </Button.Group>
+            </div>
+            <StoreInformation storeInfo={storeWithAll}/>
+          </> 
+          ) : (
           <>
             <h1>해당 가게는 존재하지 않습니다.</h1>
           </>
