@@ -32,21 +32,18 @@ const StoreUpdatePage = () => {
       {
         storeWithAll ? (
           <>
-            <div style={{display: 'flex', justifyContent:'space-between'}}>
+            <div style={{display: 'flex', justifyContent:'space-between', marginRight: '220px'}}>
               <Title>{store_name}</Title>
               <Button.Group>
-                <Button>
-                  <Link href="/store/[store_name]/information"
+                <Link href="/store/[store_name]/information"
                       as={`/store/${store_name}/information`}>
-                      정보 수정하러 가기
-                  </Link>
-                </Button>
-                <Button>
-                  <Link href="/store/[store_name]/menu"
-                        as={`/store/${store_name}/menu`}>
-                        메뉴 수정하러 가기
-                  </Link>
-                </Button>
+                  <Button>정보 수정하러 가기</Button>
+                </Link>
+                <Link href="/store/[store_name]/menu"
+                      as={`/store/${store_name}/menu`}
+                      >
+                  <Button>메뉴 수정하러 가기</Button>
+                </Link>
               </Button.Group>
             </div>
             <StoreInformation storeInfo={storeWithAll}/>

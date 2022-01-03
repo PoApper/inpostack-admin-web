@@ -15,7 +15,7 @@ const StoreInformation = (props) => {
 
 
   return (
-      <div style={{display: 'flex', justifyContent:'space-between'}}>
+      <div style={{display: 'flex', justifyContent:'space-between', marginTop: '20px'}}>
       <Left>
       <Header as='h5' attached='top'>
         상호명
@@ -35,7 +35,7 @@ const StoreInformation = (props) => {
       <Header as='h5' attached='top'>
         가게 타입
       </Header>
-      <Segment attached>{storeInfo.storeType}</Segment>
+      <Segment attached>{storeInfo.store_type}</Segment>
 
       <Header as='h5' attached='top'>
         가게 주소
@@ -48,12 +48,12 @@ const StoreInformation = (props) => {
       <Header as='h5' attached='top'>
         오픈시간
       </Header>
-      <Segment attached>{storeInfo.openTime}</Segment>
+      <Segment attached>{storeInfo.open_time}</Segment>
 
       <Header as='h5' attached='top'>
         닫는 시간
       </Header>
-      <Segment attached>{storeInfo.closeTime}</Segment>
+      <Segment attached>{storeInfo.close_time}</Segment>
 
       {/*  TODO: API 안정화 후 적용
       <Header as='h5' attached='top'>
@@ -63,9 +63,8 @@ const StoreInformation = (props) => {
       */}
       </Left>
       <Right>
-        <label>가게 이미지</label>
         <img width={170} height={170}
-                src={storeInfo.imageUrl}
+                src={storeInfo.image_url}
                 alt="store_photo"/>
       </Right>
       </div>
