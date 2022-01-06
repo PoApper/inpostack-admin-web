@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Header, Segment } from 'semantic-ui-react'
+import React from 'react'
+import { Segment, Image } from 'semantic-ui-react'
 import styled from 'styled-components'
 
 const StoreInformation = (props) => {
@@ -17,55 +17,46 @@ const StoreInformation = (props) => {
   return (
       <div style={{display: 'flex', justifyContent:'space-between', marginTop: '20px'}}>
       <Left>
-      <Header as='h5' attached='top'>
-        상호명
-      </Header>
-      <Segment attached>{storeInfo.name}</Segment>
-      
-      <Header as='h5' attached='top'>
-        전화번호
-      </Header>
-      <Segment attached>{storeInfo.phone}</Segment>
-
-      <Header as='h5' attached='top'>
-        가게 소개
-      </Header>
-      <Segment attached>{storeInfo.description}</Segment>
-
-      <Header as='h5' attached='top'>
-        가게 타입
-      </Header>
-      <Segment attached>{storeInfo.store_type}</Segment>
-
-      <Header as='h5' attached='top'>
-        가게 주소
-      </Header>
-      <Segment attached>
-        {storeInfo.address1} <br/>
-        {storeInfo.address2}
-      </Segment>
-
-      <Header as='h5' attached='top'>
-        오픈시간
-      </Header>
-      <Segment attached>{storeInfo.open_time}</Segment>
-
-      <Header as='h5' attached='top'>
-        닫는 시간
-      </Header>
-      <Segment attached>{storeInfo.close_time}</Segment>
-
-      {/*  TODO: API 안정화 후 적용
-      <Header as='h5' attached='top'>
-        점주 유저
-      </Header>
-      <Segment attached>{storeInfo.owner_uuid}</Segment>
-      */}
+        <Segment.Group>
+          <Segment.Group horizontal>
+            <Segment>
+              <h5>상호명</h5>
+              {storeInfo.name}
+            </Segment>
+            <Segment>
+              <h5>전화번호</h5>
+              {storeInfo.phone}
+            </Segment>
+          </Segment.Group>
+          <Segment>
+            <h5>가게 주소</h5>
+            {storeInfo.address1} <br/>
+            {storeInfo.address2}
+          </Segment>
+          <Segment.Group horizontal>
+            <Segment>
+              <h5>여는 시간</h5>
+              {storeInfo.open_time}
+            </Segment>
+            <Segment>
+              <h5>닫는 시간</h5>
+              {storeInfo.close_time}
+            </Segment>
+          </Segment.Group>
+          <Segment>
+            <h5>가게 소개</h5>
+            {storeInfo.description}
+          </Segment>
+          <Segment>
+              <h5>가게 타입</h5>
+              {storeInfo.store_type}
+            </Segment>
+        </Segment.Group>
       </Left>
       <Right>
-        <img width={170} height={170}
-                src={storeInfo.image_url}
-                alt="store_photo"/>
+        <Image style={{width: 170, height: 170}}
+               src={storeInfo.image_url ?? "https://via.placeholder.com/170"}
+               alt="store_photo"/>
       </Right>
       </div>
   )

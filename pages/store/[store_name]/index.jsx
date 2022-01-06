@@ -32,17 +32,14 @@ const StoreUpdatePage = () => {
       {
         storeWithAll ? (
           <>
-            <div style={{display: 'flex', justifyContent:'space-between', marginRight: '220px'}}>
+            <div style={{display: 'flex', justifyContent:'space-between', marginRight: '220px', AlignItems: 'flex-start'}}>
               <Title>{store_name}</Title>
-              <Button.Group>
-                <Link href="/store/[store_name]/information"
-                      as={`/store/${store_name}/information`}>
-                  <Button>정보 수정하러 가기</Button>
+              <Button.Group style={{marinBottom: '5px'}}>
+                <Link href="/store/[store_name]/information">
+                  <Button>정보 수정</Button>
                 </Link>
-                <Link href="/store/[store_name]/menu"
-                      as={`/store/${store_name}/menu`}
-                      >
-                  <Button>메뉴 수정하러 가기</Button>
+                <Link href="/store/[store_name]/menu">
+                  <Button>메뉴 수정</Button>
                 </Link>
               </Button.Group>
             </div>
