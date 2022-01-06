@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Divider, Form, Icon } from 'semantic-ui-react'
+import { Divider, Form, Icon, Image } from 'semantic-ui-react'
 import DatePicker from 'react-datepicker'
 import Postcode from '../../components/postcode'
 import axios from 'axios'
@@ -180,9 +180,9 @@ const StoreUpdate = (props) => {
       <Right>
       <Form.Field required>
         <label>가게 이미지</label>
-        <img width={200} height={200}
-                src={imageUrl}
-                alt="store_photo"/>
+        <Image style={{width: 170, height: 170, borderRadius: "5px"}}
+               src={ imageUrl ? imageUrl : "https://via.placeholder.com/170"}
+               alt="store_photo"/>
         <FileBox>
           <label>
             <span>업로드</span>
@@ -258,6 +258,7 @@ const DeleteButton = styled.button`
   }
 `
 const FileBox = styled.div`
+  margin-top: 4px;
   display: flex;
   label {
     display: inline-block;
@@ -293,4 +294,5 @@ const Left = styled.div`
   flex: 1;
 `
 const Right = styled.div`
+  width: 200px;
 `
