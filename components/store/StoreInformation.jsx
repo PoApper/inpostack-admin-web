@@ -19,11 +19,11 @@ const StoreInformation = (props) => {
       <Left>
         <Segment.Group>
           <Segment.Group horizontal>
-            <Segment>
+            <Segment style={{ flex:1 }}>
               <h5>상호명</h5>
               {storeInfo.name}
             </Segment>
-            <Segment>
+            <Segment style={{ flex:1 }}>
               <h5>전화번호</h5>
               {storeInfo.phone}
             </Segment>
@@ -54,8 +54,8 @@ const StoreInformation = (props) => {
         </Segment.Group>
       </Left>
       <Right>
-        <Image style={{width: 170, height: 170}}
-               src={storeInfo.image_url ?? "https://via.placeholder.com/170"}
+        <Image style={{width: 170, height: 170, borderRadius: "5px"}}
+               src={storeInfo.image_url ? storeInfo.image_url : "https://via.placeholder.com/170"}
                alt="store_photo"/>
       </Right>
       </div>
