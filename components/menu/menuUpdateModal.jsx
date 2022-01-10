@@ -14,19 +14,18 @@ const MenuUpdateModal = (props) => {
   const [name, setName] = useState(menuInfo.name)
   const [description, setDescription] = useState(menuInfo.description)
   const [price, setPrice] = useState(menuInfo.price)
-  const [image_url, setImageUrl] = useState(menuInfo.image_url)
+  const [imageUrl, setImageUrl] = useState(menuInfo.image_url)
   const [newMenuImg, setNewMenuImg] = useState()
 
   async function handleUpdate (e) {
     e.preventDefault()
-
     const formData = new FormData()
     formData.append('category_uuid', props.categoryUUID)
     formData.append('name', name)
     formData.append('description', description)
     formData.append('price', price)
     if (newMenuImg) {
-      formData.append('menu_img', newMenuImg)
+      formData.append('menu_image', newMenuImg)
     }
 
     try {
@@ -100,7 +99,7 @@ const MenuUpdateModal = (props) => {
               <label>메뉴 사진</label>
               <ImgBox>
                 <img width={150} height={150}
-                    src={image_url ??
+                    src={imageUrl ??
                     'https://via.placeholder.com/150?text=InPostack'}
                     alt="menu_photo"/>
               </ImgBox>

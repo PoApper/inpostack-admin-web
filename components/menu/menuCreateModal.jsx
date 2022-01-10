@@ -11,7 +11,7 @@ const MenuCreateModal = (props) => {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState(0)
-  const [image_url, setImageUrl] = useState(
+  const [imageUrl, setImageUrl] = useState(
     'https://via.placeholder.com/200?text=InPostack')
   const [newMenuImg, setNewMenuImg] = useState()
 
@@ -25,7 +25,7 @@ const MenuCreateModal = (props) => {
     formData.append('description', description)
     formData.append('price', price)
     if (newMenuImg) {
-      formData.append('menu_img', newMenuImg)
+      formData.append('menu_image', newMenuImg)
     }
 
     try {
@@ -88,7 +88,7 @@ const MenuCreateModal = (props) => {
             <label>메뉴 사진</label>
             <ImgBox>
               <img width={150} height={150}
-                   src={image_url ??
+                   src={imageUrl ??
                    'https://via.placeholder.com/150?text=InPostack'}
                    alt="menu_photo"/>
             </ImgBox>
