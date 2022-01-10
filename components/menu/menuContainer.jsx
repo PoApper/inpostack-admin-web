@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { Accordion, Button, Icon } from 'semantic-ui-react'
 import { useState } from 'react'
 
-import { MenuCreateModal } from './menuModals'
+import MenuCreateModal from './menuCreateModal'
 import MenuCard from './menuCard'
 import { CategoryUpdateModal } from './categoryModals'
 

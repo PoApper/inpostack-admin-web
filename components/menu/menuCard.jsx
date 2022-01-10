@@ -1,4 +1,4 @@
-import { MenuUpdateModal } from './menuModals'
+import MenuUpdateModal from './menuUpdateModal'
 import { Button } from 'semantic-ui-react'
 import styled from 'styled-components'
 
