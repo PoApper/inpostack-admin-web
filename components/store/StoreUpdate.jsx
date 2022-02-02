@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 import styled from 'styled-components'
 import { Divider, Form, Icon, Image } from 'semantic-ui-react'
 import DatePicker from 'react-datepicker'
 import Postcode from '../../components/postcode'
-import axios from 'axios'
+import { PC, Mobile } from '../../components/MediaQuery'
 
 const StoreUpdate = (props) => {
   const storeInfo = props.storeInfo
@@ -56,158 +57,314 @@ const StoreUpdate = (props) => {
   // })
 
   return (
-    <Form>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Left>
-          <Form.Input
-            required
-            label="상호명"
-            name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
+    <>
+    <PC>
+      <Form>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Left>
+            <Form.Input
+              required
+              label="상호명"
+              name="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
 
-          <Form.Input
-            required
-            label="전화번호"
-            name="phone"
-            placeholder="010-0000-0000"
-            value={phone}
-            onChange={(e) => {
-              if (e.target.value.length > 13) return
-              setPhone(e.target.value)
-            }}
-          />
-
-          <Form.TextArea
-            required
-            label="가게 소개"
-            name="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-
-          <Form.Select
-            required
-            label="가게 타입"
-            name="store_type"
-            value={storeType}
-            placeholder="가게 타입을 선택하세요."
-            options={storeOptions}
-            onChange={(e, { value }) => setStoreType(value?.toString())}
-          />
-
-          <Form.Field required>
-            <label>가게 주소</label>
-            <Postcode
-              address1={address1} zipcode={zipcode}
-              handleAddress={(address1, zipcode) => {
-                setAddress1(address1)
-                setZipcode(zipcode)
+            <Form.Input
+              required
+              label="전화번호"
+              name="phone"
+              placeholder="010-0000-0000"
+              value={phone}
+              onChange={(e) => {
+                if (e.target.value.length > 13) return
+                setPhone(e.target.value)
               }}
             />
-            <Form.Input
-              name="address1"
-              value={address1}
-              onChange={(e) => setAddress1(e.target.value)}
-              style={{ margin: '0', padding: '0' }}
-            />
-            <Form.Input
-              name="address2"
-              value={address2}
-              onChange={(e) => setAddress2(e.target.value)}
-              style={{ margin: '0 0 1rem', padding: '0' }}
-            />
-          </Form.Field>
 
-          <Form.Group style={{ width: '100%', margin: '0 0 14px 0' }}>
-            <div className={'required field'}
-                 style={{ width: '100%', paddingLeft: 0 }}>
-              <label>오픈 시간</label>
-              <DatePicker
-                showTimeSelect showTimeSelectOnly timeIntervals={30}
-                autoComplete="off"
-                name="open_time" dateFormat="hh:mm aa"
-                value={openTime}
-                onKeyDown={e => e.preventDefault()}
-                onChange={open_time => {
-                  setOpenTime(
-                    `${open_time.getHours()}:${open_time.getMinutes() === 0
-                      ? '00'
-                      : '30'}`)
+            <Form.TextArea
+              required
+              label="가게 소개"
+              name="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+
+            <Form.Select
+              required
+              label="가게 타입"
+              name="store_type"
+              value={storeType}
+              placeholder="가게 타입을 선택하세요."
+              options={storeOptions}
+              onChange={(e, { value }) => setStoreType(value?.toString())}
+            />
+
+            <Form.Field required>
+              <label>가게 주소</label>
+              <Postcode
+                address1={address1} zipcode={zipcode}
+                handleAddress={(address1, zipcode) => {
+                  setAddress1(address1)
+                  setZipcode(zipcode)
                 }}
               />
-            </div>
-            <div className={'required field'}
-                 style={{ width: '100%', paddingRight: 0 }}>
-              <label>닫는 시간</label>
-              <DatePicker
-                showTimeSelect showTimeSelectOnly timeIntervals={30}
-                autoComplete="off"
-                name="close_time" dateFormat="hh:mm aa"
-                value={closeTime}
-                onKeyDown={e => e.preventDefault()}
-                onChange={close_time => {
-                  setCloseTime(
-                    `${close_time.getHours()}:${close_time.getMinutes() === 0
-                      ? '00'
-                      : '30'}`)
-                }}
+              <Form.Input
+                name="address1"
+                value={address1}
+                onChange={(e) => setAddress1(e.target.value)}
+                style={{ margin: '0', padding: '0' }}
               />
-            </div>
-          </Form.Group>
+              <Form.Input
+                name="address2"
+                value={address2}
+                onChange={(e) => setAddress2(e.target.value)}
+                style={{ margin: '0 0 1rem', padding: '0' }}
+              />
+            </Form.Field>
 
-          {/*  TODO: API 안정화 후 적용
-      <Form.Select
-        label="점주 유저"
-        name="owner_uuid"
-        value={owner_uuid}
-        placeholder="점주 유저를 선택하세요"
-        options={props.owners}
-        onChange={(e, {value})=>setOwner_uuid(value?.toString())}
-      />
-      */}
-          <Form.Input disabled
-                      label="점주 유저 (NOT ALLOWED)"
-                      name="owner_uuid"
-            //value={owner_uuid}
-            //onChange={(e)=>setOwner_uuid(e.target.value)}
+            <Form.Group style={{ width: '100%', margin: '0 0 14px 0' }}>
+              <div className={'required field'}
+                  style={{ width: '100%', paddingLeft: 0 }}>
+                <label>오픈 시간</label>
+                <DatePicker
+                  showTimeSelect showTimeSelectOnly timeIntervals={30}
+                  autoComplete="off"
+                  name="open_time" dateFormat="hh:mm aa"
+                  value={openTime}
+                  onKeyDown={e => e.preventDefault()}
+                  onChange={open_time => {
+                    setOpenTime(
+                      `${open_time.getHours()}:${open_time.getMinutes() === 0
+                        ? '00'
+                        : '30'}`)
+                  }}
+                />
+              </div>
+              <div className={'required field'}
+                  style={{ width: '100%', paddingRight: 0 }}>
+                <label>닫는 시간</label>
+                <DatePicker
+                  showTimeSelect showTimeSelectOnly timeIntervals={30}
+                  autoComplete="off"
+                  name="close_time" dateFormat="hh:mm aa"
+                  value={closeTime}
+                  onKeyDown={e => e.preventDefault()}
+                  onChange={close_time => {
+                    setCloseTime(
+                      `${close_time.getHours()}:${close_time.getMinutes() === 0
+                        ? '00'
+                        : '30'}`)
+                  }}
+                />
+              </div>
+            </Form.Group>
+
+            {/*  TODO: API 안정화 후 적용
+        <Form.Select
+          label="점주 유저"
+          name="owner_uuid"
+          value={owner_uuid}
+          placeholder="점주 유저를 선택하세요"
+          options={props.owners}
+          onChange={(e, {value})=>setOwner_uuid(value?.toString())}
+        />
+        */}
+            <Form.Input disabled
+                        label="점주 유저 (NOT ALLOWED)"
+                        name="owner_uuid"
+              //value={owner_uuid}
+              //onChange={(e)=>setOwner_uuid(e.target.value)}
+            />
+          </Left>
+          <Right>
+            <Form.Field required>
+              <label>가게 이미지</label>
+              <Image style={{ width: 170, height: 170, borderRadius: '5px' }}
+                    src={imageUrl ? imageUrl : 'https://via.placeholder.com/170'}
+                    alt="store_photo"/>
+              <FileBox>
+                <label>
+                  <span>업로드</span>
+                  <input
+                    type="file" accept="image/*" name="store_image"
+                    onChange={(evt) => {
+                      const file = evt.target.files[0]
+                      const fileReader = new FileReader()
+                      fileReader.onloadend = () => {
+                        setImageUrl(fileReader.result)
+                        setNewStoreImg(file)
+                      }
+                      fileReader.readAsDataURL(file)
+                    }}/>
+                </label>
+              </FileBox>
+            </Form.Field>
+          </Right>
+        </div>
+        <Divider/>
+
+        <Form.Group>
+          <FormButton onClick={handleUpdate}>Update <Icon
+            name="add circle"/></FormButton>
+          <DeleteButton onClick={handleDelete}>Delete <Icon
+            name="remove circle"/></DeleteButton>
+        </Form.Group>
+      </Form>
+    </PC>
+    <Mobile>
+      <Form>
+      <Form.Field required>
+        <label>가게 이미지</label>
+        <Image style={{ width: 170, height: 170, borderRadius: '5px' }}
+              src={imageUrl ? imageUrl : 'https://via.placeholder.com/170'}
+              alt="store_photo"/>
+        <FileBox>
+          <label>
+            <span>업로드</span>
+            <input
+              type="file" accept="image/*" name="store_image"
+              onChange={(evt) => {
+                const file = evt.target.files[0]
+                const fileReader = new FileReader()
+                fileReader.onloadend = () => {
+                  setImageUrl(fileReader.result)
+                  setNewStoreImg(file)
+                }
+                fileReader.readAsDataURL(file)
+              }}/>
+          </label>
+        </FileBox>
+      </Form.Field>
+        
+        <Form.Input
+          required
+          label="상호명"
+          name="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+
+        <Form.Input
+          required
+          label="전화번호"
+          name="phone"
+          placeholder="010-0000-0000"
+          value={phone}
+          onChange={(e) => {
+            if (e.target.value.length > 13) return
+            setPhone(e.target.value)
+          }}
+        />
+
+        <Form.TextArea
+          required
+          label="가게 소개"
+          name="description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+
+        <Form.Select
+          required
+          label="가게 타입"
+          name="store_type"
+          value={storeType}
+          placeholder="가게 타입을 선택하세요."
+          options={storeOptions}
+          onChange={(e, { value }) => setStoreType(value?.toString())}
+        />
+
+        <Form.Field required>
+          <label>가게 주소</label>
+          <Postcode
+            address1={address1} zipcode={zipcode}
+            handleAddress={(address1, zipcode) => {
+              setAddress1(address1)
+              setZipcode(zipcode)
+            }}
           />
-        </Left>
-        <Right>
-          <Form.Field required>
-            <label>가게 이미지</label>
-            <Image style={{ width: 170, height: 170, borderRadius: '5px' }}
-                   src={imageUrl ? imageUrl : 'https://via.placeholder.com/170'}
-                   alt="store_photo"/>
-            <FileBox>
-              <label>
-                <span>업로드</span>
-                <input
-                  type="file" accept="image/*" name="store_image"
-                  onChange={(evt) => {
-                    const file = evt.target.files[0]
-                    const fileReader = new FileReader()
-                    fileReader.onloadend = () => {
-                      setImageUrl(fileReader.result)
-                      setNewStoreImg(file)
-                    }
-                    fileReader.readAsDataURL(file)
-                  }}/>
-              </label>
-            </FileBox>
-          </Form.Field>
-        </Right>
-      </div>
-      <Divider/>
+          <Form.Input
+            name="address1"
+            value={address1}
+            onChange={(e) => setAddress1(e.target.value)}
+            style={{ margin: '0', padding: '0' }}
+          />
+          <Form.Input
+            name="address2"
+            value={address2}
+            onChange={(e) => setAddress2(e.target.value)}
+            style={{ margin: '0 0 1rem', padding: '0' }}
+          />
+        </Form.Field>
 
-      <Form.Group>
-        <FormButton onClick={handleUpdate}>Update <Icon
-          name="add circle"/></FormButton>
-        <DeleteButton onClick={handleDelete}>Delete <Icon
-          name="remove circle"/></DeleteButton>
-      </Form.Group>
-    </Form>
+        <Form.Group style={{ width: '100%', margin: '0 0 14px 0' }}>
+          <div className={'required field'}
+              style={{ width: '100%', paddingLeft: 0 }}>
+            <label>오픈 시간</label>
+            <DatePicker
+              showTimeSelect showTimeSelectOnly timeIntervals={30}
+              autoComplete="off"
+              name="open_time" dateFormat="hh:mm aa"
+              value={openTime}
+              onKeyDown={e => e.preventDefault()}
+              onChange={open_time => {
+                setOpenTime(
+                  `${open_time.getHours()}:${open_time.getMinutes() === 0
+                    ? '00'
+                    : '30'}`)
+              }}
+            />
+          </div>
+          <div className={'required field'}
+              style={{ width: '100%', paddingRight: 0 }}>
+            <label>닫는 시간</label>
+            <DatePicker
+              showTimeSelect showTimeSelectOnly timeIntervals={30}
+              autoComplete="off"
+              name="close_time" dateFormat="hh:mm aa"
+              value={closeTime}
+              onKeyDown={e => e.preventDefault()}
+              onChange={close_time => {
+                setCloseTime(
+                  `${close_time.getHours()}:${close_time.getMinutes() === 0
+                    ? '00'
+                    : '30'}`)
+              }}
+            />
+          </div>
+        </Form.Group>
+
+        {/*  TODO: API 안정화 후 적용
+    <Form.Select
+      label="점주 유저"
+      name="owner_uuid"
+      value={owner_uuid}
+      placeholder="점주 유저를 선택하세요"
+      options={props.owners}
+      onChange={(e, {value})=>setOwner_uuid(value?.toString())}
+    />
+    */}
+        <Form.Input disabled
+                    label="점주 유저 (NOT ALLOWED)"
+                    name="owner_uuid"
+          //value={owner_uuid}
+          //onChange={(e)=>setOwner_uuid(e.target.value)}
+        />
+
+        <Divider/>
+
+        <Form.Group>
+          <FormButton onClick={handleUpdate}>Update <Icon
+            name="add circle"/></FormButton>
+          <DeleteButton onClick={handleDelete}>Delete <Icon
+            name="remove circle"/></DeleteButton>
+        </Form.Group>
+        
+      </Form>
+    </Mobile>
+    </>
+
   )
 }
 

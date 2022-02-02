@@ -7,6 +7,7 @@ import { Button } from 'semantic-ui-react'
 
 import Layout from '../../../components/layout'
 import StoreInformation from '../../../components/store/StoreInformation'
+import { PC, Mobile } from '../../../components/MediaQuery'
 
 
 const StoreUpdatePage = () => {
@@ -32,18 +33,34 @@ const StoreUpdatePage = () => {
       {
         storeWithAll ? (
           <>
-            <div style={{display: 'flex', justifyContent:'space-between', marginRight: '220px', AlignItems: 'flex-start'}}>
-              <Title>{store_name}</Title>
-              <Button.Group style={{marginBottom: '9px'}}>
-                <Link href={`/store/${store_name}/information`} passHref>
-                  <Button>정보 수정</Button>
-                </Link>
-                <Link href={`/store/${store_name}/menu`} passHref>
-                  <Button>메뉴 수정</Button>
-                </Link>
-              </Button.Group>
-            </div>
-            <StoreInformation storeInfo={storeWithAll}/>
+            <PC>
+              <div style={{display: 'flex', justifyContent:'space-between', marginRight: '220px', AlignItems: 'flex-start'}}>
+                <Title>{store_name}</Title>
+                <Button.Group style={{marginBottom: '9px'}}>
+                  <Link href={`/store/${store_name}/information`} passHref>
+                    <Button>정보 수정</Button>
+                  </Link>
+                  <Link href={`/store/${store_name}/menu`} passHref>
+                    <Button>메뉴 수정</Button>
+                  </Link>
+                </Button.Group>
+              </div>
+              <StoreInformation storeInfo={storeWithAll}/>
+            </PC>
+            <Mobile>
+              <div style={{display:'flex', flexDirection:'column', AlignItems:'center', justifyContent:'center'}}>
+                <Title>{store_name}</Title>
+                <Button.Group style={{marginBottom: '9px'}}>
+                  <Link href={`/store/${store_name}/information`} passHref>
+                    <Button>정보 수정</Button>
+                  </Link>
+                  <Link href={`/store/${store_name}/menu`} passHref>
+                    <Button>메뉴 수정</Button>
+                  </Link>
+                </Button.Group>
+              </div>  
+              <StoreInformation storeInfo={storeWithAll}/>      
+            </Mobile>
           </> 
           ) : (
           <>
