@@ -1,8 +1,12 @@
 import React from 'react'
+import dynamic from 'next/dynamic'
 import Layout from '../components/layout'
 import { Divider } from 'semantic-ui-react'
-import DRU_Line from '../components/statistics/DRU_Line'
-import DAU_Line from '../components/statistics/DAU_Line'
+//import DRU_Line from '../components/statistics/DRU_Line'
+const DRU_Line = dynamic(()=> import('../components/statistics/DRU_Line'), {ssr: false});
+
+//import DAU_Line from '../components/statistics/DAU_Line'
+const DAU_Line = dynamic(()=> import('../components/statistics/DAU_Line'), {ssr: false});
 
 const Statistics = () => {
   // TODO: migration to @nivo chart library
