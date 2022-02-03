@@ -3,9 +3,6 @@ import axios from 'axios'
 import { ResponsiveLine } from '@nivo/line'
 import moment from 'moment'
 
-//for build
-//import { Line } from 'react-chartjs-2'
-
 const DRU_Line = () => {
   const [DRUValue, setDRUValue] = useState([])
 
@@ -16,16 +13,6 @@ const DRU_Line = () => {
       .then((res) => setDRUValue(res.data))
       .catch(() => alert('Daily Register User를 불러오는데 실패했습니다.'))
   }, [])
-
-  /*const data = {
-    labels: DRUValue.map(row => moment(row.register_date).format('YYYY-MM-DD')),
-    datasets: [
-      {
-        label: '# of register user',
-        data: DRUValue.map(row => row.daily_register_user),
-      },
-    ],
-  }*/
 
   const data = [{
     "id": "# of registered user",
@@ -83,7 +70,7 @@ const DRU_Line = () => {
             enableCrosshair={false}
             useMesh={true}
             legends={[
-                /*{
+                {
                     anchor: 'bottom-right',
                     direction: 'column',
                     justify: false,
@@ -106,12 +93,11 @@ const DRU_Line = () => {
                             }
                         }
                     ]
-                }*/
+                }
             ]}
             motionConfig="stiff"
         />
       </div>
-      {/*<Line data={data}/>*/}
     </div>
   )
 
