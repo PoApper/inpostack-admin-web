@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { Mobile, PC } from './MediaQuery'
+import { Mobile, PC, Pad } from './MediaQuery'
 import { Button, Dropdown, Image, Menu, Icon, Accordion } from 'semantic-ui-react'
 import styled from 'styled-components'
 
@@ -102,9 +102,73 @@ const Navbar = () => {
                         href={'/login'}>로그인</Button>
               </Menu.Item>
           }
-        </NavbarMenu>
-      </NavbarWrapper>
+          </NavbarMenu>
+        </NavbarWrapper>
       </PC>
+      <Pad>
+        <NavbarWrapper>
+          <NavbarMenu borderless>
+            <Link href={'/'}>
+              <LogoMenuItem position="left">
+                <LogoDiv>
+                  <div style={{ marginRight: '1.2rem' }}>
+                    <Image centered src={'/inpostack-logo.svg'} alt="logo"
+                          style={{ width: '24px' }}/>
+                  </div>
+                  <LogoHeader>
+                    InPoStack
+                    <LogoSub>
+                      (Admin)
+                    </LogoSub>
+                  </LogoHeader>
+                </LogoDiv>
+              </LogoMenuItem>
+            </Link>
+            <Link href={'/store'} style={{ color: 'black', paddingRight: '15px' }}>
+              <Menu.Item>
+                가게관리
+              </Menu.Item>
+            </Link>
+            <Link href={'/account'} style={{ color: 'black', paddingRight: '15px' }}>
+              <Menu.Item>
+                계정관리
+              </Menu.Item>
+            </Link>
+            <Link href={'/notice'} style={{ color: 'black', paddingRight: '15px' }}>
+              <Menu.Item>
+                공지관리
+              </Menu.Item>
+            </Link>
+            <Link href={'/statistics'} style={{ color: 'black', paddingRight: '15px' }}>
+              <Menu.Item>
+                통계관리
+              </Menu.Item>
+            </Link>
+            {
+              user ?
+                <Menu.Item position={'right'}>
+                  <Dropdown item simple
+                            text={`[${user.account_type}] ${user.name}`}>
+                    <Dropdown.Menu style={{
+                      border: 'none',
+                      boxShadow: '0 2px 5px 0 rgba(0, 0, 0, 0.2)',
+                    }}>
+                      <Dropdown.Item text={'로그아웃'} onClick={() => {
+                        handleLogout()
+                        router.push('/login')
+                      }}/>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </Menu.Item>
+                :
+                <Menu.Item position={'right'}>
+                  <Button style={{ border: 'none', background: 'none' }}
+                          href={'/login'}>로그인</Button>
+                </Menu.Item>
+            }
+          </NavbarMenu>
+        </NavbarWrapper>
+      </Pad>
       <Mobile>
         <NavbarWrapper>
         <NavbarMenu borderless>
