@@ -8,7 +8,7 @@ const Mobile = ({ children }) => {
   return <React.Fragment>{isMobile && children}</React.Fragment>
 }
 
-const Pad = ({ children }) => {
+const Tablet = ({ children }) => {
   const isPad = useMediaQuery({
     query: '(min-width:560px) and (max-width:1080px)',
   })
@@ -22,4 +22,4 @@ const PC = ({ children }) => {
   return <React.Fragment>{isPc && children}</React.Fragment>
 }
 
-export { Mobile, PC, Pad }
+export { Mobile, PC, Tablet}

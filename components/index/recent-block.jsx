@@ -1,5 +1,5 @@
 import React from 'react'
-import { Mobile, PC, Pad } from '../MediaQuery'
+import { Mobile, PC, Tablet } from '../MediaQuery'
 import { Grid } from 'semantic-ui-react'
 
 import RecentUserList from "./recent-user-list";
@@ -20,7 +20,7 @@ const RecentBlock = () => {
           </Grid.Row>
         </Grid>
       </PC>
-      <Pad>
+      <Tablet>
         <Grid columns={2} style={{ marginTop: '40px' }}>
           <Grid.Row>
             <Grid.Column>
@@ -31,7 +31,7 @@ const RecentBlock = () => {
             </Grid.Column>
           </Grid.Row>
         </Grid>
-      </Pad>
+      </Tablet>
       <Mobile>
         <Grid columns={1} style={{ marginTop: '40px' }}>
           <Grid.Row>

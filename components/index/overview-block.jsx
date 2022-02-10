@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Mobile, PC, Pad } from '../MediaQuery'
+import { Mobile, PC, Tablet } from '../MediaQuery'
 import { Grid } from 'semantic-ui-react'
 import axios from 'axios'
 
@@ -51,7 +51,7 @@ const OverviewBlock = () => {
           </Grid.Row>
         </Grid>
       </PC>
-      <Pad>
+      <Tablet>
         <Grid columns={2} style={{ marginTop: '30px' }}>
           <Grid.Row stretched>
             <Grid.Column>
@@ -86,7 +86,7 @@ const OverviewBlock = () => {
             </Grid.Column>
           </Grid.Row>
         </Grid>
-      </Pad>
+      </Tablet>
       <Mobile>
         <Grid columns={1} style={{ marginTop: '30px' }}>
           <Grid.Row stretched>

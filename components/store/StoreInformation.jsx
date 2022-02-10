@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Segment, Image } from 'semantic-ui-react'
-import { PC, Mobile, Pad } from '../MediaQuery'
+import { PC, Mobile, Tablet } from '../MediaQuery'
 
 const StoreInformation = (props) => {
   const storeInfo = props.storeInfo
@@ -63,7 +63,7 @@ const StoreInformation = (props) => {
         </Right>
         </div>
       </PC>
-      <Pad>
+      <Tablet>
         <div style={{display: 'flex', justifyContent:'space-between', marginTop: '20px'}}>
         <Left>
           <Segment.Group>
@@ -108,7 +108,7 @@ const StoreInformation = (props) => {
                 alt="store_photo"/>
         </Right>
         </div>
-      </Pad>
+      </Tablet>
       <Mobile>
         <div style={{display: 'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', marginTop: '20px'}}>
           <Image style={{width: 170, height: 170, borderRadius: "5px"}}

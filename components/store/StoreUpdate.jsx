@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { Divider, Form, Icon, Image } from 'semantic-ui-react'
 import DatePicker from 'react-datepicker'
 import Postcode from '../../components/postcode'
-import { PC, Mobile, Pad } from '../../components/MediaQuery'
+import { PC, Mobile, Tablet } from '../../components/MediaQuery'
 
 const StoreUpdate = (props) => {
   const storeInfo = props.storeInfo
@@ -212,7 +212,7 @@ const StoreUpdate = (props) => {
         </Form.Group>
       </Form>
     </PC>
-    <Pad>
+    <Tablet>
       <Form>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Left>
@@ -365,7 +365,7 @@ const StoreUpdate = (props) => {
             name="remove circle"/></DeleteButton>
         </Form.Group>
       </Form>
-    </Pad>
+    </Tablet>
     <Mobile>
       <Form>
       <Form.Field required>

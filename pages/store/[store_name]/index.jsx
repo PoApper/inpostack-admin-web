@@ -7,7 +7,7 @@ import { Button } from 'semantic-ui-react'
 
 import Layout from '../../../components/layout'
 import StoreInformation from '../../../components/store/StoreInformation'
-import { PC, Mobile, Pad } from '../../../components/MediaQuery'
+import { PC, Mobile, Tablet } from '../../../components/MediaQuery'
 
 
 const StoreUpdatePage = () => {
@@ -47,7 +47,7 @@ const StoreUpdatePage = () => {
               </div>
               <StoreInformation storeInfo={storeWithAll}/>
             </PC>
-            <Pad>
+            <Tablet>
               <div style={{display: 'flex', justifyContent:'space-between', marginRight: '220px', AlignItems: 'flex-start'}}>
                 <Title>{store_name}</Title>
                 <Button.Group style={{marginBottom: '9px'}}>
@@ -60,7 +60,7 @@ const StoreUpdatePage = () => {
                 </Button.Group>
               </div>
               <StoreInformation storeInfo={storeWithAll}/>
-            </Pad>
+            </Tablet>
             <Mobile>
               <div style={{display:'flex', flexDirection:'column', AlignItems:'center', justifyContent:'center'}}>
                 <Title>{store_name}</Title>

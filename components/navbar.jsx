@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { Mobile, PC, Pad } from './MediaQuery'
+import { Mobile, PC, Tablet } from './MediaQuery'
 import { Button, Dropdown, Image, Menu, Icon, Accordion } from 'semantic-ui-react'
 import styled from 'styled-components'
 
@@ -105,7 +105,7 @@ const Navbar = () => {
           </NavbarMenu>
         </NavbarWrapper>
       </PC>
-      <Pad>
+      <Tablet>
         <NavbarWrapper>
           <NavbarMenu borderless>
             <Link href={'/'}>
@@ -168,7 +168,7 @@ const Navbar = () => {
             }
           </NavbarMenu>
         </NavbarWrapper>
-      </Pad>
+      </Tablet>
       <Mobile>
         <NavbarWrapper>
         <NavbarMenu borderless>
