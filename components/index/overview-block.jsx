@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Mobile, PC } from '../MediaQuery'
+import { Mobile, PC, Tablet } from '../MediaQuery'
 import { Grid } from 'semantic-ui-react'
 import axios from 'axios'
 
@@ -51,6 +51,42 @@ const OverviewBlock = () => {
           </Grid.Row>
         </Grid>
       </PC>
+      <Tablet>
+        <Grid columns={2} style={{ marginTop: '30px' }}>
+          <Grid.Row stretched>
+            <Grid.Column>
+              <OverviewBox
+                header={'전체 사용자 수'}
+                number={overview['account_count']}
+                link={'/account'}
+              />
+            </Grid.Column>
+            <Grid.Column>
+              <OverviewBox
+                header={'전체 가게 수'}
+                number={overview['store_count']}
+                link={'/store'}
+              />
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row stretched>
+            <Grid.Column>
+              <OverviewBox
+                header={'전체 공지 수'}
+                number={overview['notice_count']}
+                link={'/notice'}
+              />
+            </Grid.Column>
+            <Grid.Column>
+              <OverviewBox
+                header={'전체 리뷰 수'}
+                number={overview['review_count']}
+                link={'/review'}
+              />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Tablet>
       <Mobile>
         <Grid columns={1} style={{ marginTop: '30px' }}>
           <Grid.Row stretched>
