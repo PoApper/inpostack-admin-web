@@ -20,7 +20,7 @@ const RecentStoreList = () => {
   return (
     <MainBox>
       <h2 style={{ display: 'inline-block' }}>신규 가게</h2>
-      <Link href={'/store'}>
+      <Link href={'/store'} passHref>
         <CheckButton>
           <span>Check</span><Icon name="arrow right"/>
         </CheckButton>
