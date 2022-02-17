@@ -12,16 +12,17 @@ const StoreIndexPage = (props) => {
   const [order, setOrder] = useState('visit')
   //const [ accounts, setAccounts ] = useState() - owner_uuid TODO: fix after api develope
 
-  useEffect(async () => {
-    try {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_API}/store?order=${order}`,
-        { withCredentials: true })
-      setStores(res.data)
-    } catch (err) {
-      alert('가게들을 불러오는데 실패했습니다.')
-      console.log(err)
-    }
-  })
+  useEffect(() => {
+    axios.get(`${process.env.NEXT_PUBLIC_API}/store`,
+      { withCredentials: true }).
+      then((res) => {
+        setStores(res.data)
+      }).
+      catch((err) => {
+        alert('가게들을 불러오는데 실패했습니다.')
+        console.log(err)
+      })
+  }, [])
 
   const store_type = props.storeMeta.store_type
 
@@ -32,7 +33,7 @@ const StoreIndexPage = (props) => {
         <div style={{display: 'flex', justifyContent: 'space-between'}}>
           <StoreCreateModal storeType={store_type}/>
           <Dropdown selection placeholder='방문자순'
-                    options={[{key:'name', text:'이름순', value:'name'}, {key:'visit', text:'방문자순', value:'visit'}]} 
+                    options={[{key:'name', text:'이름순', value:'name'}, {key:'visit', text:'방문자순', value:'visit'}]}
                     onChange={(e, {value}) => setOrder(value?.toString())}
                     style={{marginBottom: '10px'}}
                     value={order}
@@ -56,8 +57,9 @@ const StoreIndexPage = (props) => {
                     <Table.Cell>{idx + 1}</Table.Cell>
                     <Table.Cell>
                       <Link
-                        href="/store/[store_name]"
+                        href={"/store/[store_name]"}
                         as={`/store/${store.name}`}
+                        passHref
                       >
                         {store.name}
                       </Link>
