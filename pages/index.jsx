@@ -1,7 +1,8 @@
+import styled from 'styled-components';
+
 import Layout from '../components/layout';
 import OverviewBlock from '../components/index/overview-block';
 import RecentBlock from '../components/index/recent-block';
-import styled from 'styled-components';
 
 export default function Home() {
   return (
@@ -15,4 +16,4 @@ export default function Home() {
 
 const Title = styled.h2`
   letter-spacing: -1px;
-`;
+`
