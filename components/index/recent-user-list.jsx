@@ -20,7 +20,7 @@ const RecentUserList = () => {
   return (
     <MainBox>
       <h2 style={{display: 'inline-block'}}>최근 접속 유저</h2>
-      <Link href={'/account'}>
+      <Link href={'/account'} passHref>
         <CheckButton>
           <span>Check</span><Icon name="arrow right"/>
         </CheckButton>
