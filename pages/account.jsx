@@ -10,18 +10,17 @@ import AccountCreateModal from '../components/account/AccountCreateModal'
 const Account = (props) => {
   const [accounts, setAccounts] = useState([])
 
-  useEffect(async () => {
-    try {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_API}/account`,
-        { withCredentials: true })
-      setAccounts(res.data)
-    } catch (err) {
-      alert(`계정 정보를 불러오는데 실패했습니다.\n`)
-      throw err
-    }
+  useEffect(() => {
+    axios.get(`${process.env.NEXT_PUBLIC_API}/account`,
+      { withCredentials: true }).
+      then(res => {
+        setAccounts(res.data)
+      }).
+      catch(err => {
+        alert(`계정 정보를 불러오는데 실패했습니다.\n`)
+        console.log(err)
+      })
   }, [])
-
-  console.log(accounts)
 
   const account_types = props.accountMeta.account_type
 
