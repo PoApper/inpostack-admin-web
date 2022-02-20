@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useRouter } from 'next/router'
 import axios from 'axios'
 import styled from 'styled-components'
 import { Form, Icon, Modal } from 'semantic-ui-react'
@@ -6,6 +7,8 @@ import DatePicker from 'react-datepicker'
 import Postcode from '../postcode'
 
 const StoreCreateModal = (props) => {
+  const router = useRouter()
+
   const [open, setOpen] = useState(false)
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
@@ -16,7 +19,8 @@ const StoreCreateModal = (props) => {
   const [zipcode, setZipcode] = useState('')
   const [open_time, setOpen_time] = useState('')
   const [close_time, setClose_time] = useState('')
-  const [image_url, setImage_url] = useState('https://via.placeholder.com/200?text=InPostack')
+  const [image_url, setImage_url] = useState(
+    'https://via.placeholder.com/200?text=InPostack')
 
   const [newStoreImg, setNewStoreImg] = useState()
 
@@ -24,8 +28,7 @@ const StoreCreateModal = (props) => {
 
   async function handleSubmit (e) {
     e.preventDefault()
-    try {
-      await axios.post(`${process.env.NEXT_PUBLIC_API}/store`, 
+    axios.post(`${process.env.NEXT_PUBLIC_API}/store`,
       {
         name: name,
         phone: phone,
@@ -37,14 +40,15 @@ const StoreCreateModal = (props) => {
         open_time: open_time,
         close_time: close_time,
         image_url: image_url,
-        //owner_uuid: owner_uuid // TODO: it can be null - // uuid of owner account (it can be null)
-      }, {withCredentials: true});
-      window.location.reload();
-    } catch (err) {
-      alert('가게 생성 API 오류!')
-      alert(err);
-      console.log(err);
-    }
+        owner_uuid: null, // TODO: 점주 기능 도입 후 수정 예정
+      }, { withCredentials: true }).
+      then(() => {
+        router.push('/store')
+      }).
+      catch((err) => {
+        alert('가게 생성에 실패했습니다.')
+        console.log(err)
+      })
   }
 
   const StoreOptions = Object.entries(props.storeType).map((type) => {
@@ -62,133 +66,121 @@ const StoreCreateModal = (props) => {
       <Modal.Header>가게 생성</Modal.Header>
       <Modal.Content>
         <Form>
-          <div style={{display: 'flex', justifyContent:'space-between'}}>
-          <Left>
-          <Form.Input required
-                      label="상호명"
-                      name="name"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-          />
-
-          <Form.Input required
-                      label="전화번호"
-                      name="phone"
-                      placeholder="010-0000-0000"
-                      value={phone}
-                      onChange={(e) => {
-                        if (e.target.value.length > 13) return
-                        setPhone(e.target.value)
-                      }}
-          />
-
-          <Form.TextArea required
-                         label="가게 소개"
-                         name="description"
-                         value={description}
-                         onChange={(e) => setDescription(e.target.value)}
-          />
-
-          <Form.Select
-            required
-            label="가게 타입"
-            name="store_type"
-            value={store_type}
-            placeholder="가게 타입을 선택하세요."
-            options={StoreOptions}
-            onChange={(e, { value }) => setStore_type(value?.toString())}
-          />
-
-          <Form.Field required>
-            <label>가게 주소</label>
-            <Postcode address1={address1} zipcode={zipcode}
-                      handleAddress={(address1, zipcode) => {
-                        setAddress1(address1)
-                        setZipcode(zipcode)
-                      }}
-            />
-            <Form.Input
-              name="address1"
-              value={address1}
-              onChange={(e) => setAddress1(e.target.value)}
-              style={{ margin: '0', padding: '0' }}
-            />
-            <Form.Input
-              name="address2"
-              value={address2}
-              onChange={(e) => setAddress2(e.target.value)}
-              style={{ margin: '0 0 1rem', padding: '0' }}
-            />
-          </Form.Field>
-
-          <Form.Group style={{ width: '100%', margin: '0 0 14px 0' }}>
-            <div className={'required field'}
-                 style={{ width: '100%', paddingLeft: 0 }}>
-              <label>오픈 시간</label>
-              <DatePicker
-                showTimeSelect showTimeSelectOnly timeIntervals={30}
-                autoComplete="off"
-                name="open_time" dateFormat="hh:mm aa"
-                selected={open_time}
-                onKeyDown={e => e.preventDefault()}
-                onChange={(e) => setOpen_time(e)}
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Left>
+              <Form.Input
+                required
+                label="상호명"
+                name="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
-            </div>
-            <div className={'required field'}
-                 style={{ width: '100%', paddingRight: 0 }}>
-              <label>닫는 시간</label>
-              <DatePicker
-                showTimeSelect showTimeSelectOnly timeIntervals={30}
-                autoComplete="off"
-                name="close_time" dateFormat="hh:mm aa"
-                selected={close_time}
-                onKeyDown={e => e.preventDefault()}
-                onChange={(e) => setClose_time(e)}
-              />
-            </div>
-          </Form.Group>
 
-          {/*  TODO: API 안정화 후 적용
-          <Form.Select
-            label="점주 유저"
-            name="owner_uuid"
-            value={owner_uuid}
-            placeholder="점주 유저를 선택하세요"
-            options={props.owners}
-            onChange={(e, {value})=>setOwner_uuid(value?.toString())}
-          />
-          */}
-          <Form.Input disabled
-                      label="점주 유저 (NOT ALLOWED)"
-                      name="owner_uuid"
-            //value={owner_uuid}
-            //onChange={(e)=>setOwner_uuid(e.target.value)}
-          />
-          </Left>
-          <Right>
-          <Form.Field required>
-            <label>가게 이미지</label>
-            <img width={200} height={200}
-                   src={image_url}
-                   alt="store_photo"/>
-            <FileBox>
-              <label>
-                <span>업로드</span>
-                <input
-                  type="file" accept="image/*" name="store_image"
-                  onChange={(evt) => {
-                    const file = evt.target.files[0]
-                    const fileReader = new FileReader()
-                    fileReader.onloadend = () => {
-                      setImage_url(fileReader.result)
-                      setNewStoreImg(file)
-                    }
-                    fileReader.readAsDataURL(file)
-                  }}/>
-              </label>
-            </FileBox>
-          </Form.Field>
-          </Right>
+              <Form.Input
+                required
+                label="전화번호"
+                name="phone"
+                placeholder="010-0000-0000"
+                value={phone}
+                onChange={(e) => {
+                  if (e.target.value.length > 13) return
+                  setPhone(e.target.value)
+                }}
+              />
+
+              <Form.TextArea
+                required
+                label="가게 소개"
+                name="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+
+              <Form.Select
+                required
+                label="가게 타입"
+                name="store_type"
+                value={store_type}
+                placeholder="가게 타입을 선택하세요."
+                options={StoreOptions}
+                onChange={(e, { value }) => setStore_type(value?.toString())}
+              />
+
+              <Form.Field required>
+                <label>가게 주소</label>
+                <Postcode
+                  address1={address1} zipcode={zipcode}
+                  handleAddress={(address1, zipcode) => {
+                    setAddress1(address1)
+                    setZipcode(zipcode)
+                  }}
+                />
+                <Form.Input
+                  name="address1"
+                  value={address1}
+                  onChange={(e) => setAddress1(e.target.value)}
+                  style={{ margin: '0', padding: '0' }}
+                />
+                <Form.Input
+                  name="address2"
+                  value={address2}
+                  onChange={(e) => setAddress2(e.target.value)}
+                  style={{ margin: '0 0 1rem', padding: '0' }}
+                />
+              </Form.Field>
+
+              <Form.Group style={{ width: '100%', margin: '0 0 14px 0' }}>
+                <div className={'required field'}
+                     style={{ width: '100%', paddingLeft: 0 }}>
+                  <label>오픈 시간</label>
+                  <DatePicker
+                    showTimeSelect showTimeSelectOnly timeIntervals={30}
+                    autoComplete="off"
+                    name="open_time" dateFormat="hh:mm aa"
+                    selected={open_time}
+                    onKeyDown={e => e.preventDefault()}
+                    onChange={(e) => setOpen_time(e)}
+                  />
+                </div>
+                <div className={'required field'}
+                     style={{ width: '100%', paddingRight: 0 }}>
+                  <label>닫는 시간</label>
+                  <DatePicker
+                    showTimeSelect showTimeSelectOnly timeIntervals={30}
+                    autoComplete="off"
+                    name="close_time" dateFormat="hh:mm aa"
+                    selected={close_time}
+                    onKeyDown={e => e.preventDefault()}
+                    onChange={(e) => setClose_time(e)}
+                  />
+                </div>
+              </Form.Group>
+
+            </Left>
+            <Right>
+              <Form.Field required>
+                <label>가게 이미지</label>
+                <img width={200} height={200}
+                     src={image_url}
+                     alt="store_photo"/>
+                <FileBox>
+                  <label>
+                    <span>업로드</span>
+                    <input
+                      type="file" accept="image/*" name="store_image"
+                      onChange={(evt) => {
+                        const file = evt.target.files[0]
+                        const fileReader = new FileReader()
+                        fileReader.onloadend = () => {
+                          setImage_url(fileReader.result)
+                          setNewStoreImg(file)
+                        }
+                        fileReader.readAsDataURL(file)
+                      }}/>
+                  </label>
+                </FileBox>
+              </Form.Field>
+            </Right>
           </div>
 
           <p>
@@ -241,6 +233,7 @@ const FormButton = styled.button`
 
 const FileBox = styled.div`
   display: flex;
+
   label {
     display: inline-block;
     padding: .5em .75em;
