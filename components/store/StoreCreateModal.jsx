@@ -43,7 +43,7 @@ const StoreCreateModal = (props) => {
         owner_uuid: null, // TODO: 점주 기능 도입 후 수정 예정
       }, { withCredentials: true }).
       then(() => {
-        router.push('/store')
+        router.reload()
       }).
       catch((err) => {
         alert('가게 생성에 실패했습니다.')

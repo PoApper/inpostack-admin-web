@@ -43,7 +43,7 @@ const StoreUpdate = (props) => {
     }
     axios.put(`${process.env.NEXT_PUBLIC_API}/store/${uuid}`,
       formData, { withCredentials: true }).
-      then(() => window.location.reload()).
+      then(() => router.reload()).
       catch(() => alert('가게 수정 API 오류!'))
   }
 
@@ -55,7 +55,7 @@ const StoreUpdate = (props) => {
       { withCredentials: true }).
       then(() => {
         alert('가게를 삭제했습니다.');
-        router.push('/store')
+        router.reload()
       }).
       catch(() => alert('가게 삭제에 실패했습니다.'))
   }

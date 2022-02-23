@@ -32,7 +32,7 @@ const MenuCreateModal = (props) => {
       await axios.post(`${process.env.NEXT_PUBLIC_API}/menu`, formData,
         { withCredentials: true })
       alert('메뉴를 생성 했습니다.')
-      router.reload(window.location.pathname)
+      router.reload()
     } catch (err) {
       alert('메뉴 생성에 실패했습니다.')
     }

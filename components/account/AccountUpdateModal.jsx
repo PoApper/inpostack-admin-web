@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
+import { useRouter } from 'next/router'
 import axios from 'axios'
 import styled from 'styled-components'
 import {Button, Form, Modal, Icon} from 'semantic-ui-react'
 
 const AccountUpdateModal = (props) => {
+  const router = useRouter()
+
   const accountInfo = props.accountInfo
   const uuid = props.accountInfo.uuid
 
@@ -31,7 +34,7 @@ const AccountUpdateModal = (props) => {
           name: name,
           account_type: account_type
         }, {withCredentials: true});
-      window.location.reload();
+      router.reload();
     } catch (err) {
       console.log('계정 수정에 실패했습니다.')
       throw err;
