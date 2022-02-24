@@ -48,8 +48,6 @@ const StoreUpdate = (props) => {
   }
 
   function handleDelete (e) {
-    console.log(`${process.env.NEXT_PUBLIC_API}/store/${uuid}`)
-
     e.preventDefault()
     axios.delete(`${process.env.NEXT_PUBLIC_API}/store/${uuid}`,
       { withCredentials: true }).
