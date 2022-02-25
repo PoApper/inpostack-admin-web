@@ -2,18 +2,19 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import axios from 'axios'
 import moment from 'moment'
-import { Table } from 'semantic-ui-react'
+import { Table, Dropdown } from 'semantic-ui-react'
 
 import Layout from '../../components/layout'
 import StoreCreateModal from '../../components/store/StoreCreateModal'
 
 const StoreIndexPage = (props) => {
   const [stores, setStores] = useState([])
+  const [order, setOrder] = useState('visit')
   //const [ accounts, setAccounts ] = useState() - owner_uuid TODO: fix after api develope
 
   useEffect(async () => {
     try {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_API}/store`,
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_API}/store?order=${order}`,
         { withCredentials: true })
       setStores(res.data)
     } catch (err) {
@@ -28,7 +29,15 @@ const StoreIndexPage = (props) => {
     <Layout>
       <div>
         <h2>가게 관리</h2>
-        <StoreCreateModal storeType={store_type}/>
+        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+          <StoreCreateModal storeType={store_type}/>
+          <Dropdown selection placeholder='방문자순'
+                    options={[{key:'name', text:'이름순', value:'name'}, {key:'visit', text:'방문자순', value:'visit'}]} 
+                    onChange={(e, {value}) => setOrder(value?.toString())}
+                    style={{marginBottom: '10px'}}
+                    value={order}
+                    />
+        </div>
         <Table textAlign={'center'} celled selectable>
           <Table.Header>
             <Table.Row>
