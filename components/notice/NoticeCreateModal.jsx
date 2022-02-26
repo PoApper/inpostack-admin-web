@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
+import { useRouter } from 'next/router'
 import axios from 'axios'
 import styled from 'styled-components'
 import { Form, Modal, Icon } from 'semantic-ui-react'
 
 const NoticeCreateModal = ( props ) => {
+  const router = useRouter()
+
   const [open, setOpen] = useState(false)
   const [content, setContent] = useState('')
   const [title, setTitle] = useState('')
@@ -23,7 +26,7 @@ const NoticeCreateModal = ( props ) => {
         content: content,
         notice_type: notice_type
       }, {/*withCredentials: true*/});
-      window.location.reload();
+      router.reload()
     } catch (err) {
       alert('공지 생성에 실패했습니다.')
       throw err;

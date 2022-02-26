@@ -44,7 +44,7 @@ const Navbar = () => {
       <PC>
       <NavbarWrapper>
         <NavbarMenu borderless>
-          <Link href={'/'}>
+          <Link href={'/'} passHref>
             <LogoMenuItem position="left">
               <LogoDiv>
                 <div style={{ marginRight: '1.2rem' }}>
@@ -60,22 +60,26 @@ const Navbar = () => {
               </LogoDiv>
             </LogoMenuItem>
           </Link>
-          <Link href={'/store'} style={{ color: 'black', paddingRight: '15px' }}>
+          <Link href={'/store'} passHref
+                style={{ color: 'black', paddingRight: '15px' }}>
             <Menu.Item>
               가게관리
             </Menu.Item>
           </Link>
-          <Link href={'/account'} style={{ color: 'black', paddingRight: '15px' }}>
+          <Link href={'/account'} passHref
+                style={{ color: 'black', paddingRight: '15px' }}>
             <Menu.Item>
               계정관리
             </Menu.Item>
           </Link>
-          <Link href={'/notice'} style={{ color: 'black', paddingRight: '15px' }}>
+          <Link href={'/notice'} passHref
+                style={{ color: 'black', paddingRight: '15px' }}>
             <Menu.Item>
               공지관리
             </Menu.Item>
           </Link>
-          <Link href={'/statistics'} style={{ color: 'black', paddingRight: '15px' }}>
+          <Link href={'/statistics'} passHref
+                style={{ color: 'black', paddingRight: '15px' }}>
             <Menu.Item>
               통계관리
             </Menu.Item>
@@ -108,7 +112,7 @@ const Navbar = () => {
       <Tablet>
         <NavbarWrapper>
           <NavbarMenu borderless>
-            <Link href={'/'}>
+            <Link href={'/'} passHref>
               <LogoMenuItem position="left">
                 <LogoDiv>
                   <div style={{ marginRight: '1.2rem' }}>
@@ -124,22 +128,26 @@ const Navbar = () => {
                 </LogoDiv>
               </LogoMenuItem>
             </Link>
-            <Link href={'/store'} style={{ color: 'black', paddingRight: '15px' }}>
+            <Link href={'/store'} passHref
+                  style={{ color: 'black', paddingRight: '15px' }}>
               <Menu.Item>
                 가게관리
               </Menu.Item>
             </Link>
-            <Link href={'/account'} style={{ color: 'black', paddingRight: '15px' }}>
+            <Link href={'/account'} passHref
+                  style={{ color: 'black', paddingRight: '15px' }}>
               <Menu.Item>
                 계정관리
               </Menu.Item>
             </Link>
-            <Link href={'/notice'} style={{ color: 'black', paddingRight: '15px' }}>
+            <Link href={'/notice'} passHref
+                  style={{ color: 'black', paddingRight: '15px' }}>
               <Menu.Item>
                 공지관리
               </Menu.Item>
             </Link>
-            <Link href={'/statistics'} style={{ color: 'black', paddingRight: '15px' }}>
+            <Link href={'/statistics'} passHref
+                  style={{ color: 'black', paddingRight: '15px' }}>
               <Menu.Item>
                 통계관리
               </Menu.Item>

@@ -9,7 +9,7 @@ const OverviewBox = ({header, number, link}) => {
       <p>{number}</p>
       <div
         style={{ gridArea: 'blank', width: '80px', margin: 0, padding: 0 }}/>
-      <Link href={link}>
+      <Link href={link} passHref>
         <div style={{
           gridArea: 'whole',
           margin: '-24px -25px -24px',

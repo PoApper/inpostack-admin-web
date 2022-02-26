@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import axios from 'axios'
@@ -7,23 +7,25 @@ import { Button } from 'semantic-ui-react'
 
 import Layout from '../../../components/layout'
 import StoreInformation from '../../../components/store/StoreInformation'
-import { PC, Mobile, Tablet } from '../../../components/MediaQuery'
-
+import { Mobile, PC, Tablet } from '../../../components/MediaQuery'
 
 const StoreUpdatePage = () => {
   const router = useRouter()
   const [storeWithAll, setStoreWithAll] = useState()
-  const store_name = router.query.store_name;
+  const store_name = router.query.store_name
 
-  useEffect(async () => {
+  useEffect(() => {
     if (!store_name) return
-    try {
-      const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API}/store/name/${store_name}?category=true&menu=true`)
-      setStoreWithAll(res.data)
-    } catch (err) {
-      alert('가게 정보를 불러오는데 실패했습니다.')
-    }
+
+    axios.get(
+      `${process.env.NEXT_PUBLIC_API}/store/name/${store_name}?category=true&menu=true`).
+      then((res) => {
+        setStoreWithAll(res.data)
+      }).
+      catch(err => {
+        alert('가게 정보를 불러오는데 실패했습니다.')
+        console.log(err)
+      })
   }, [store_name])
 
   return (
@@ -34,9 +36,14 @@ const StoreUpdatePage = () => {
         storeWithAll ? (
           <>
             <PC>
-              <div style={{display: 'flex', justifyContent:'space-between', marginRight: '220px', AlignItems: 'flex-start'}}>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                marginRight: '220px',
+                AlignItems: 'flex-start',
+              }}>
                 <Title>{store_name}</Title>
-                <Button.Group style={{marginBottom: '9px'}}>
+                <Button.Group style={{ marginBottom: '9px' }}>
                   <Link href={`/store/${store_name}/information`} passHref>
                     <Button>정보 수정</Button>
                   </Link>
@@ -48,9 +55,14 @@ const StoreUpdatePage = () => {
               <StoreInformation storeInfo={storeWithAll}/>
             </PC>
             <Tablet>
-              <div style={{display: 'flex', justifyContent:'space-between', marginRight: '220px', AlignItems: 'flex-start'}}>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                marginRight: '220px',
+                AlignItems: 'flex-start',
+              }}>
                 <Title>{store_name}</Title>
-                <Button.Group style={{marginBottom: '9px'}}>
+                <Button.Group style={{ marginBottom: '9px' }}>
                   <Link href={`/store/${store_name}/information`} passHref>
                     <Button>정보 수정</Button>
                   </Link>
@@ -62,9 +74,14 @@ const StoreUpdatePage = () => {
               <StoreInformation storeInfo={storeWithAll}/>
             </Tablet>
             <Mobile>
-              <div style={{display:'flex', flexDirection:'column', AlignItems:'center', justifyContent:'center'}}>
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                AlignItems: 'center',
+                justifyContent: 'center',
+              }}>
                 <Title>{store_name}</Title>
-                <Button.Group style={{marginBottom: '9px'}}>
+                <Button.Group style={{ marginBottom: '9px' }}>
                   <Link href={`/store/${store_name}/information`} passHref>
                     <Button>정보 수정</Button>
                   </Link>
@@ -72,11 +89,11 @@ const StoreUpdatePage = () => {
                     <Button>메뉴 수정</Button>
                   </Link>
                 </Button.Group>
-              </div>  
-              <StoreInformation storeInfo={storeWithAll}/>      
+              </div>
+              <StoreInformation storeInfo={storeWithAll}/>
             </Mobile>
-          </> 
-          ) : (
+          </>
+        ) : (
           <>
             <h1>해당 가게는 존재하지 않습니다.</h1>
           </>

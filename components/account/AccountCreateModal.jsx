@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
+import { useRouter } from 'next/router'
 import axios from 'axios'
 import styled from 'styled-components'
 import {Form, Modal, Icon} from 'semantic-ui-react'
 
 const AccountCreateModal = (props) => {
+  const router = useRouter()
+
   const [open, setOpen] = useState(false)
   const [sendMail, setSendMail] = useState(false)
   const [email, setEmail] = useState('')
@@ -29,7 +32,7 @@ const AccountCreateModal = (props) => {
         password: password,
         account_type: account_type
       }, {withCredentials: true});
-      window.location.reload();
+      router.reload();
     } catch (err) {
       throw err;
     }

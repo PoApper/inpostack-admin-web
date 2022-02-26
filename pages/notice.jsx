@@ -10,15 +10,16 @@ import NoticeCreateModal from '../components/notice/NoticeCreateModal'
 const Notice = (props) => {
   const [notices, setNotices] = useState([])
 
-  useEffect(async () => {
-    try {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_API}/notice`,
-        { withCredentials: true })
-      setNotices(res.data)
-    } catch (err) {
-      alert(`공지를 불러오는데 실패했습니다.`)
-      console.log(err)
-    }
+  useEffect(() => {
+    axios.get(`${process.env.NEXT_PUBLIC_API}/notice`,
+      { withCredentials: true }).
+      then((res) => {
+        setNotices(res.data)
+      }).
+      catch(err => {
+        alert(`공지를 불러오는데 실패했습니다.`)
+        console.log(err)
+      })
   }, [])
 
   const notice_type = props.noticeMeta.notice_type

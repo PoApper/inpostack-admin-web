@@ -1,34 +1,32 @@
 import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import Head from 'next/head'
 import axios from 'axios'
 import styled, { ThemeProvider } from 'styled-components'
-import theme from '../styles/theme'
 
+import theme from '../styles/theme'
 import Navbar from './navbar'
 import Footer from './footer'
-import { useRouter } from 'next/router'
 
 const Layout = ({ children }) => {
   const router = useRouter()
   const [user, setUser] = useState(null)
 
-  useEffect(async () => {
-    const res = await axios.get(
+  useEffect(() => {
+    axios.get(
       `${process.env.NEXT_PUBLIC_API}/auth/verifyToken`,
-      { withCredentials: true })
-
-    const _user = res.data
-    setUser(_user)
-
-    if (!_user) {
-      router.push('/login')
-    } else {
-      console.log(_user.account_type);
-      if (_user.account_type !== 'ADMIN') {
-        alert('관리자 계정이 아닙니다.')
+      { withCredentials: true }).
+      then((res) => {
+        if (res.data.account_type !== 'ADMIN') {
+          alert('관리자 계정이 아닙니다.')
+          router.push('/login')
+        }
+        setUser(res.data);
+      }).catch((err) => {
+        console.log(err)
+        alert('로그인 후 접속해주세요.')
         router.push('/login')
-      }
-    }
+      })
   }, [])
 
   return (

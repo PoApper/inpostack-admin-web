@@ -32,7 +32,7 @@ const MenuUpdateModal = (props) => {
       await axios.put(`${process.env.NEXT_PUBLIC_API}/menu/${menuInfo.uuid}`, formData,
         { withCredentials: true })
       alert('메뉴를 수정 했습니다.')
-      router.reload(window.location.pathname)
+      router.reload()
     } catch (err) {
       alert('메뉴 수정에 실패했습니다.')
     }
@@ -46,7 +46,7 @@ const MenuUpdateModal = (props) => {
         `${process.env.NEXT_PUBLIC_API}/menu/${menuInfo.uuid}`,
         { withCredentials: true })
       alert('메뉴를 삭제 했습니다.')
-      router.reload(window.location.pathname)
+      router.reload()
     } catch (err) {
       alert('메뉴 삭제에 실패했습니다.')
     }

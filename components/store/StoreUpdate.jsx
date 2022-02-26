@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
+import { useRouter } from 'next/router'
 import axios from 'axios'
 import styled from 'styled-components'
 import { Divider, Form, Icon, Image } from 'semantic-ui-react'
 import DatePicker from 'react-datepicker'
+
 import Postcode from '../../components/postcode'
-import { PC, Mobile, Tablet } from '../../components/MediaQuery'
+import { PC, Mobile, Tablet } from '../MediaQuery'
 
 const StoreUpdate = (props) => {
+  const router = useRouter()
+
   const storeInfo = props.storeInfo
   const uuid = props.storeInfo.uuid
   const [name, setName] = useState(storeInfo.name)
@@ -39,14 +43,19 @@ const StoreUpdate = (props) => {
     }
     axios.put(`${process.env.NEXT_PUBLIC_API}/store/${uuid}`,
       formData, { withCredentials: true }).
-      then(() => window.location.reload()).
+      then(() => router.reload()).
       catch(() => alert('가게 수정 API 오류!'))
   }
 
   function handleDelete (e) {
     e.preventDefault()
     axios.delete(`${process.env.NEXT_PUBLIC_API}/store/${uuid}`,
-      { withCredentials: true }).catch(() => alert('가게 삭제에 실패했습니다.'))
+      { withCredentials: true }).
+      then(() => {
+        alert('가게를 삭제했습니다.');
+        router.reload()
+      }).
+      catch(() => alert('가게 삭제에 실패했습니다.'))
   }
 
   const storeOptions = []
@@ -313,23 +322,6 @@ const StoreUpdate = (props) => {
                 />
               </div>
             </Form.Group>
-
-            {/*  TODO: API 안정화 후 적용
-        <Form.Select
-          label="점주 유저"
-          name="owner_uuid"
-          value={owner_uuid}
-          placeholder="점주 유저를 선택하세요"
-          options={props.owners}
-          onChange={(e, {value})=>setOwner_uuid(value?.toString())}
-        />
-        */}
-            <Form.Input disabled
-                        label="점주 유저 (NOT ALLOWED)"
-                        name="owner_uuid"
-              //value={owner_uuid}
-              //onChange={(e)=>setOwner_uuid(e.target.value)}
-            />
           </Left>
           <Right>
             <Form.Field required>
@@ -359,10 +351,12 @@ const StoreUpdate = (props) => {
         <Divider/>
 
         <Form.Group>
-          <FormButton onClick={handleUpdate}>Update <Icon
-            name="add circle"/></FormButton>
-          <DeleteButton onClick={handleDelete}>Delete <Icon
-            name="remove circle"/></DeleteButton>
+          <FormButton onClick={handleUpdate}>
+            Update <Icon name="add circle"/>
+          </FormButton>
+          <DeleteButton onClick={handleDelete}>
+            Delete <Icon name="remove circle"/>
+          </DeleteButton>
         </Form.Group>
       </Form>
     </Tablet>
@@ -390,7 +384,7 @@ const StoreUpdate = (props) => {
           </label>
         </FileBox>
       </Form.Field>
-        
+
         <Form.Input
           required
           label="상호명"
@@ -489,23 +483,6 @@ const StoreUpdate = (props) => {
           </div>
         </Form.Group>
 
-        {/*  TODO: API 안정화 후 적용
-    <Form.Select
-      label="점주 유저"
-      name="owner_uuid"
-      value={owner_uuid}
-      placeholder="점주 유저를 선택하세요"
-      options={props.owners}
-      onChange={(e, {value})=>setOwner_uuid(value?.toString())}
-    />
-    */}
-        <Form.Input disabled
-                    label="점주 유저 (NOT ALLOWED)"
-                    name="owner_uuid"
-          //value={owner_uuid}
-          //onChange={(e)=>setOwner_uuid(e.target.value)}
-        />
-
         <Divider/>
 
         <Form.Group>
@@ -514,7 +491,7 @@ const StoreUpdate = (props) => {
           <DeleteButton onClick={handleDelete}>Delete <Icon
             name="remove circle"/></DeleteButton>
         </Form.Group>
-        
+
       </Form>
     </Mobile>
     </>
