@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import axios from 'axios'
-import styled from 'styled-components'
 import { Button } from 'semantic-ui-react'
 
 import Layout from '../../../components/layout'
 import StoreInformation from '../../../components/store/StoreInformation'
-import { Mobile, PC, Tablet } from '../../../components/MediaQuery'
+import { Mobile, PC } from '../../../components/MediaQuery'
+import StoreImageAddModal from '../../../components/store/StoreImageAddModal'
 
 const StoreUpdatePage = () => {
   const router = useRouter()
@@ -30,8 +30,6 @@ const StoreUpdatePage = () => {
 
   return (
     <Layout>
-      {/* TODO: Just show static view, not show update <form> */}
-      {/* TODO: Make button to go `/store/[store_name]/information` and `/store/[store_name]/menu` */}
       {
         storeWithAll ? (
           <>
@@ -39,11 +37,11 @@ const StoreUpdatePage = () => {
               <div style={{
                 display: 'flex',
                 justifyContent: 'space-between',
-                marginRight: '220px',
                 AlignItems: 'flex-start',
               }}>
-                <Title>{store_name}</Title>
+                <h2>{store_name}</h2>
                 <Button.Group style={{ marginBottom: '9px' }}>
+                  <StoreImageAddModal storeInfo={storeWithAll}/>
                   <Link href={`/store/${store_name}/information`} passHref>
                     <Button>정보 수정</Button>
                   </Link>
@@ -52,27 +50,11 @@ const StoreUpdatePage = () => {
                   </Link>
                 </Button.Group>
               </div>
+
               <StoreInformation storeInfo={storeWithAll}/>
             </PC>
-            <Tablet>
-              <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                marginRight: '220px',
-                AlignItems: 'flex-start',
-              }}>
-                <Title>{store_name}</Title>
-                <Button.Group style={{ marginBottom: '9px' }}>
-                  <Link href={`/store/${store_name}/information`} passHref>
-                    <Button>정보 수정</Button>
-                  </Link>
-                  <Link href={`/store/${store_name}/menu`} passHref>
-                    <Button>메뉴 수정</Button>
-                  </Link>
-                </Button.Group>
-              </div>
-              <StoreInformation storeInfo={storeWithAll}/>
-            </Tablet>
+
+            {/* TODO: refactor legacy mobile view */}
             <Mobile>
               <div style={{
                 display: 'flex',
@@ -80,7 +62,7 @@ const StoreUpdatePage = () => {
                 AlignItems: 'center',
                 justifyContent: 'center',
               }}>
-                <Title>{store_name}</Title>
+                <h2>{store_name}</h2>
                 <Button.Group style={{ marginBottom: '9px' }}>
                   <Link href={`/store/${store_name}/information`} passHref>
                     <Button>정보 수정</Button>
@@ -104,7 +86,3 @@ const StoreUpdatePage = () => {
 }
 
 export default StoreUpdatePage
-
-const Title = styled.h2`
-  letter-spacing: -1px;
-`
