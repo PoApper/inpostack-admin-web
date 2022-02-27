@@ -7,10 +7,9 @@ import { Table, Dropdown } from 'semantic-ui-react'
 import Layout from '../../components/layout'
 import StoreCreateModal from '../../components/store/StoreCreateModal'
 
-const StoreIndexPage = (props) => {
+const StoreIndexPage = () => {
   const [stores, setStores] = useState([])
   const [order, setOrder] = useState('visit')
-  //const [ accounts, setAccounts ] = useState() - owner_uuid TODO: fix after api develope
 
   useEffect(() => {
     axios.get(`${process.env.NEXT_PUBLIC_API}/store`,
@@ -24,14 +23,12 @@ const StoreIndexPage = (props) => {
       })
   }, [])
 
-  const store_type = props.storeMeta.store_type
-
   return (
     <Layout>
       <div>
         <h2>가게 관리</h2>
         <div style={{display: 'flex', justifyContent: 'space-between'}}>
-          <StoreCreateModal storeType={store_type}/>
+          <StoreCreateModal />
           <Dropdown selection placeholder='방문자순'
                     options={[{key:'name', text:'이름순', value:'name'}, {key:'visit', text:'방문자순', value:'visit'}]}
                     onChange={(e, {value}) => setOrder(value?.toString())}
@@ -78,15 +75,6 @@ const StoreIndexPage = (props) => {
       </div>
     </Layout>
   )
-}
-
-StoreIndexPage.getInitialProps = async (context) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API}/store/meta`)
-  const data = await res.json()
-
-  return {
-    storeMeta: data,
-  }
 }
 
 export default StoreIndexPage
