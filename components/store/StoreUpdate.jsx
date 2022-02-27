@@ -6,12 +6,13 @@ import { Divider, Form, Icon } from 'semantic-ui-react'
 import DatePicker from 'react-datepicker'
 
 import Postcode from '../../components/postcode'
+import useStoreMetaType from '../../data/useStoreType'
 
-const StoreUpdate = (props) => {
+const StoreUpdate = ({ storeInfo }) => {
   const router = useRouter()
+  const { loading, storeMetaType } = useStoreMetaType()
 
-  const storeInfo = props.storeInfo
-  const uuid = props.storeInfo.uuid
+  const uuid = storeInfo.uuid
   const [name, setName] = useState(storeInfo.name)
   const [phone, setPhone] = useState(storeInfo.phone)
   const [description, setDescription] = useState(storeInfo.description)
@@ -46,17 +47,16 @@ const StoreUpdate = (props) => {
       { withCredentials: true }).
       then(() => {
         alert('가게를 삭제했습니다.')
-        router.reload()
+        router.push('/store')
       }).
       catch(() => alert('가게 삭제에 실패했습니다.'))
   }
 
-  const storeOptions = []
-  // TODO: store/meta와 연동하는 부분 체크할 것
-  // const StoreOptions = Object.entries(props.storeMeta.store_type).map((type) => {
-  //   const [key, value] = type
-  //   return { key: key, text: value, value: value }
-  // })
+  const storeOptions = loading ? [] : Object.entries(storeMetaType).
+    map((type) => {
+      const [key, value] = type
+      return { key: key, text: value, value: value }
+    })
 
   return (
     <Form>
@@ -169,15 +169,6 @@ const StoreUpdate = (props) => {
     </Form>
   )
 }
-
-// StoreUpdate.getInitialProps = async (context) => {
-//   const res = await fetch(`${process.env.NEXT_PUBLIC_API}/store/meta`)
-//   const data = await res.json()
-//
-//   return {
-//     storeMeta: data,
-//   }
-// }
 
 export default StoreUpdate
 
