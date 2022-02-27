@@ -154,7 +154,7 @@ const StoreCreateModal = () => {
           </p>
 
           <FormButton onClick={handleSubmit}>
-            <b>Create </b><Icon name="add circle"/>
+            <b>Create</b> <Icon name="add circle"/>
           </FormButton>
         </Form>
       </Modal.Content>
