@@ -10,7 +10,6 @@ import StoreCreateModal from '../../components/store/StoreCreateModal'
 const StoreIndexPage = (props) => {
   const [stores, setStores] = useState([])
   const [order, setOrder] = useState('visit')
-  //const [ accounts, setAccounts ] = useState() - owner_uuid TODO: fix after api develope
 
   useEffect(() => {
     axios.get(`${process.env.NEXT_PUBLIC_API}/store`,

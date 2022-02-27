@@ -6,7 +6,7 @@ import { Form, Icon, Modal } from 'semantic-ui-react'
 import DatePicker from 'react-datepicker'
 import Postcode from '../postcode'
 
-const StoreCreateModal = (props) => {
+const StoreCreateModal = ({ storeType }) => {
   const router = useRouter()
 
   const [open, setOpen] = useState(false)
@@ -43,7 +43,7 @@ const StoreCreateModal = (props) => {
       })
   }
 
-  const StoreOptions = Object.entries(props.storeType).map((type) => {
+  const StoreOptions = Object.entries(storeType).map((type) => {
     const [key, value] = type
     return { key: key, text: value, value: value }
   })
