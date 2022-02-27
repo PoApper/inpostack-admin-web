@@ -9,13 +9,13 @@ const Footer = () => {
             <Grid.Row colums={3}>
               <Grid.Column>
                 <FooterInfo>
-                  <Alink href="https://club.poapper.com" style={{marginRight:'40px'}}><h5>© 2021 PoApper</h5></Alink>
+                  <Alink href="https://poapper.club" style={{marginRight:'40px'}}><h5>© 2021 PoApper</h5></Alink>
                   <Alink href="mailto:poapper@gmail.com">Privacy</Alink>
                 </FooterInfo>
               </Grid.Column>
               <Grid.Column width={6}>
                 <div style={{display: 'flex', justifyContent:'center'}}>
-                  <a href="https://club.poapper.com"><Image src='/PoApper_Logo_cut.svg' size="mini" alt="poapper_logo"/></a>
+                  <a href="https://poapper.club"><Image src='/PoApper_Logo_cut.svg' size="mini" alt="poapper_logo"/></a>
                 </div>
               </Grid.Column>
               <Grid.Column>
