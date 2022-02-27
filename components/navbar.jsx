@@ -3,13 +3,14 @@ import axios from 'axios'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Mobile, PC, Tablet } from './MediaQuery'
-import { Button, Dropdown, Image, Menu, Icon, Accordion } from 'semantic-ui-react'
+import { Button, Dropdown, Image, Menu, Icon, Accordion, Sidebar } from 'semantic-ui-react'
 import styled from 'styled-components'
 
 const Navbar = () => {
   const router = useRouter()
   const [ user, setUser ] = useState()
   const [activeIndex, setActiveIndex] = useState(1)
+  const [isVisible, setIsVisible] = useState("")
   
   useEffect(async () => {
     try {
@@ -111,105 +112,32 @@ const Navbar = () => {
       </PC>
       <Tablet>
         <NavbarWrapper>
-          <NavbarMenu borderless>
-            <Link href={'/'} passHref>
-              <LogoMenuItem position="left">
-                <LogoDiv>
-                  <div style={{ marginRight: '1.2rem' }}>
-                    <Image centered src={'/inpostack-logo.svg'} alt="logo"
-                          style={{ width: '24px' }}/>
-                  </div>
-                  <LogoHeader>
-                    InPoStack
-                    <LogoSub>
-                      (Admin)
-                    </LogoSub>
-                  </LogoHeader>
-                </LogoDiv>
-              </LogoMenuItem>
-            </Link>
-            <Link href={'/store'} passHref
-                  style={{ color: 'black', paddingRight: '15px' }}>
-              <Menu.Item>
-                가게관리
-              </Menu.Item>
-            </Link>
-            <Link href={'/account'} passHref
-                  style={{ color: 'black', paddingRight: '15px' }}>
-              <Menu.Item>
-                계정관리
-              </Menu.Item>
-            </Link>
-            <Link href={'/notice'} passHref
-                  style={{ color: 'black', paddingRight: '15px' }}>
-              <Menu.Item>
-                공지관리
-              </Menu.Item>
-            </Link>
-            <Link href={'/statistics'} passHref
-                  style={{ color: 'black', paddingRight: '15px' }}>
-              <Menu.Item>
-                통계관리
-              </Menu.Item>
-            </Link>
-            {
-              user ?
-                <Menu.Item position={'right'}>
-                  <Dropdown item simple
-                            text={`[${user.account_type}] ${user.name}`}>
-                    <Dropdown.Menu style={{
-                      border: 'none',
-                      boxShadow: '0 2px 5px 0 rgba(0, 0, 0, 0.2)',
-                    }}>
-                      <Dropdown.Item text={'로그아웃'} onClick={() => {
-                        handleLogout()
-                        router.push('/login')
-                      }}/>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </Menu.Item>
-                :
-                <Menu.Item position={'right'}>
-                  <Button style={{ border: 'none', background: 'none' }}
-                          href={'/login'}>로그인</Button>
-                </Menu.Item>
-            }
-          </NavbarMenu>
-        </NavbarWrapper>
-      </Tablet>
-      <Mobile>
-        <NavbarWrapper>
         <NavbarMenu borderless>
-        <Accordion fluid>
-          <Accordion.Title
-            active={activeIndex === 0}
-            index={0}
-            onClick={handleClink}
-          >
-            <Icon name='bars' size='big' style={{margin: '10px'}}/>
-          </Accordion.Title>
-          <Accordion.Content
-            active={activeIndex === 0}
-          >
+          <button style={{all: 'unset'}} onClick={()=>setIsVisible('true')}><Icon name='bars' size='big' style={{margin: '10px'}}/></button>
+          <LogoDiv style={{verticalAlign: 'top'}}>
+            <Link href={'/'}>
+              <LogoHeader>InPoStack<LogoSub>(Admin)</LogoSub></LogoHeader>
+            </Link>
+          </LogoDiv>
+          <Sidebar animation="overlay" direction="top" icon='labeled' vertical visible={isVisible} style={{backgroundColor: 'white'}}>
+            <button style={{all:'unset'}} onClick={()=>setIsVisible("")}>
+              <Menu.Item>
+                <Icon name='times' />
+              </Menu.Item>
+            </button>
             <Link href="/store" style={{ color: 'black', paddingRight: '15px' }}>
-              <Menu.Item>가게관리</Menu.Item>
+              <Menu.Item><Icon name='home'/>가게관리</Menu.Item>
             </Link>
             <Link href="/account" style={{ color: 'black', paddingRight: '15px' }}>
-              <Menu.Item>계정관리</Menu.Item>
+              <Menu.Item><Icon name='address book outline'/>계정관리</Menu.Item>
             </Link>
             <Link href="/notice" style={{ color: 'black', paddingRight: '15px' }}>
-              <Menu.Item>공지관리</Menu.Item>
+              <Menu.Item><Icon name='file alternate outline'/>공지관리</Menu.Item>
             </Link>
             <Link href="/statistics" style={{ color: 'black', paddingRight: '15px' }}>
-              <Menu.Item>통계관리</Menu.Item>
+              <Menu.Item><Icon name='chart line'/>통계관리</Menu.Item>
             </Link>
-          </Accordion.Content>
-        </Accordion>
-        <LogoDiv style={{verticalAlign: 'top'}}>
-              <Link href={'/'}>
-                <LogoHeader>InPoStack<LogoSub>(Admin)</LogoSub></LogoHeader>
-              </Link>
-        </LogoDiv>
+          </Sidebar>
           {
             user ?
               <Menu.Item position={'right'}>
@@ -234,8 +162,63 @@ const Navbar = () => {
                         href={'/login'}>로그인</Button>
               </Menu.Item>
           }
-      </NavbarMenu>
-      </NavbarWrapper>
+        </NavbarMenu>
+        </NavbarWrapper>
+      </Tablet>
+      <Mobile>
+        <NavbarWrapper>
+        <NavbarMenu borderless>
+          <button style={{all: 'unset'}} onClick={()=>setIsVisible('true')}><Icon name='bars' size='big' style={{margin: '10px'}}/></button>
+          <LogoDiv style={{verticalAlign: 'top'}}>
+            <Link href={'/'}>
+              <LogoHeader>InPoStack<LogoSub>(Admin)</LogoSub></LogoHeader>
+            </Link>
+          </LogoDiv>
+          <Sidebar animation="overlay" direction="top" icon='labeled' vertical visible={isVisible} style={{backgroundColor: 'white'}}>
+            <button style={{all:'unset'}} onClick={()=>setIsVisible("")}>
+              <Menu.Item>
+                <Icon name='times' />
+              </Menu.Item>
+            </button>
+            <Link href="/store" style={{ color: 'black', paddingRight: '15px' }}>
+              <Menu.Item><Icon name='home'/>가게관리</Menu.Item>
+            </Link>
+            <Link href="/account" style={{ color: 'black', paddingRight: '15px' }}>
+              <Menu.Item><Icon name='address book outline'/>계정관리</Menu.Item>
+            </Link>
+            <Link href="/notice" style={{ color: 'black', paddingRight: '15px' }}>
+              <Menu.Item><Icon name='file alternate outline'/>공지관리</Menu.Item>
+            </Link>
+            <Link href="/statistics" style={{ color: 'black', paddingRight: '15px' }}>
+              <Menu.Item><Icon name='chart line'/>통계관리</Menu.Item>
+            </Link>
+          </Sidebar>
+          {
+            user ?
+              <Menu.Item position={'right'}>
+                <Dropdown item simple
+                          text={`${user.name}`}>
+                  <Dropdown.Menu style={{
+                    border: 'none',
+                    boxShadow: '0 2px 5px 0 rgba(0, 0, 0, 0.2)',
+                  }}>
+                    <Dropdown.Item text={`TYPE: ${user.account_type}`}/>
+                    <Dropdown.Item text={`ID: ${user.id}`}/>
+                    <Dropdown.Item text={'로그아웃'} onClick={() => {
+                      logout()
+                      router.push('/login')
+                    }}/>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </Menu.Item>
+              :
+              <Menu.Item position={'right'}>
+                <Button style={{ border: 'none', background: 'none' }}
+                        href={'/login'}>로그인</Button>
+              </Menu.Item>
+          }
+        </NavbarMenu>
+        </NavbarWrapper>
       </Mobile>
     </_Navbar>
   )
