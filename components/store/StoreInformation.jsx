@@ -44,7 +44,8 @@ const StoreInformation = ({ storeInfo }) => {
           <Segment>
             <h5>가게 주소</h5>
             {storeInfo.address1} <br/>
-            {storeInfo.address2}
+            {storeInfo.address2} <br/>
+            (우) {storeInfo.zipcode}
           </Segment>
           <Segment.Group horizontal>
             <Segment>

@@ -102,23 +102,17 @@ const StoreCreateModal = () => {
           <Form.Field required>
             <label>가게 주소</label>
             <Postcode
-              address1={address1} zipcode={zipcode}
-              handleAddress={(address1, zipcode) => {
-                setAddress1(address1)
+              zipcode={zipcode}
+              address1={address1}
+              handleAddress={(zipcode, address1) => {
                 setZipcode(zipcode)
+                setAddress1(address1)
               }}
-            />
-            <Form.Input
-              name="address1"
-              value={address1}
-              onChange={(e) => setAddress1(e.target.value)}
-              style={{ margin: '0', padding: '0' }}
             />
             <Form.Input
               name="address2"
               value={address2}
               onChange={(e) => setAddress2(e.target.value)}
-              style={{ margin: '0 0 1rem', padding: '0' }}
             />
           </Form.Field>
 
