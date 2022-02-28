@@ -8,7 +8,6 @@ import {
 } from 'semantic-ui-react'
 import React, { useState } from 'react'
 import axios from 'axios'
-import styled from 'styled-components'
 import { useRouter } from 'next/router'
 import Dropzone from 'react-dropzone'
 
@@ -19,6 +18,15 @@ const StoreImageAddModal = ({ storeInfo }) => {
   const [newStoreImg, setNewStoreImg] = useState()
 
   function uploadStoreImage () {
+    if (!newStoreImg) {
+      alert('이미지가 입력되지 않았습니다!')
+      return;
+    }
+    if (!storeInfo.uuid) {
+      alert('유효하지 않은 가게 정보입니다.')
+      return;
+    }
+
     const formData = new FormData()
     formData.append('store_image', newStoreImg)
     axios.post(`${process.env.NEXT_PUBLIC_API}/store-image/${storeInfo.uuid}`,
@@ -58,7 +66,7 @@ const StoreImageAddModal = ({ storeInfo }) => {
                       <Header icon>
                         <Icon name="image file outline" style={{ height: 60 }}/>
                         <p>
-                          가게에 추가할 이미지를 이곳에 놓으세요!
+                          가게에 추가할 이미지를 이곳에 놓으세요! (1:1 비율만 허용)
                         </p>
                       </Header>
                       <Button primary>Add Image</Button>
@@ -84,33 +92,3 @@ const StoreImageAddModal = ({ storeInfo }) => {
 }
 
 export default StoreImageAddModal
-
-const FileBox = styled.div`
-  margin-top: 4px;
-  display: flex;
-
-  label {
-    display: inline-block;
-    padding: .5em .75em;
-    line-height: normal;
-    vertical-align: middle;
-    cursor: pointer;
-    font-size: inherit;
-    border: 1px solid #ebebeb;
-    border-bottom-color: #e2e2e2;
-    border-radius: .5em;
-    color: #fff;
-    background-color: #6e757c;
-  }
-
-  input[type="file"] { //hidden tag
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
-  }
-`
