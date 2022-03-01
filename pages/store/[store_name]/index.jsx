@@ -56,7 +56,7 @@ const StoreUpdatePage = () => {
                       {store_name}
                     </h2>
 
-                    <p style={{ color: 'gray' }}>
+                    <div>
                       <Button basic>
                         <Icon fitted color={'orange'}
                               name={'star'}/>
@@ -72,7 +72,7 @@ const StoreUpdatePage = () => {
                             {Number(storeWithAll.visit_count).toLocaleString()}
                           </span>
                       </Button>
-                    </p>
+                    </div>
                   </div>
 
                   <div>
@@ -86,6 +86,10 @@ const StoreUpdatePage = () => {
                         <Button>메뉴 수정</Button>
                       </Link>
                     </Button.Group>
+                  </div>
+
+                  <div>
+                    가게 로고, 가게 이미지는 AWS CloudFront에 캐싱되기 때문에 사진 변경 후 몇 분 뒤에 반영됩니다!
                   </div>
                 </div>
               </StoreIndexHeader>
