@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { Divider, Form, Icon } from 'semantic-ui-react'
 import DatePicker from 'react-datepicker'
 
-import Postcode from '../../components/postcode'
+import Postcode from './postcode'
 import useStoreMetaType from '../../data/useStoreType'
 
 const StoreUpdate = ({ storeInfo }) => {
@@ -79,7 +79,7 @@ const StoreUpdate = ({ storeInfo }) => {
         placeholder={'010-0000-0000'}
         value={phone}
         onChange={(e) => {
-          if (e.target.value.length > 13) return
+          if (e.target.value.length > 14) return
           setPhone(e.target.value)
         }}
       />

@@ -4,7 +4,7 @@ import axios from 'axios'
 import styled from 'styled-components'
 import { Form, Icon, Modal } from 'semantic-ui-react'
 import DatePicker from 'react-datepicker'
-import Postcode from '../postcode'
+import Postcode from './postcode'
 import useStoreMetaType from '../../data/useStoreType'
 
 const StoreCreateModal = () => {

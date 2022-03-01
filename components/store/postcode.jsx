@@ -34,12 +34,14 @@ const Postcode = ({zipcode, address1, handleAddress}) => {
       <Input
         name="zipcode"
         defaultValue={zipcode}
+        value={zipcode}
         onClick={() => setOpen(true)}
         style={{marginBottom: 5, marginTop: 8}}
       />
       <Input
         name="address1"
         defaultValue={address1}
+        value={address1}
         onClick={() => setOpen(true)}
         style={{marginBottom: 5}}
       />
