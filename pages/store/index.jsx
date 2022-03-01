@@ -40,9 +40,9 @@ const StoreIndexPage = () => {
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell width={1}>#</Table.HeaderCell>
-              <Table.HeaderCell width={4}>가게명</Table.HeaderCell>
+              <Table.HeaderCell width={3}>가게명</Table.HeaderCell>
               <Table.HeaderCell width={2}>타입</Table.HeaderCell>
-              <Table.HeaderCell width={4}>위치</Table.HeaderCell>
+              <Table.HeaderCell width={5}>주소</Table.HeaderCell>
               <Table.HeaderCell width={2}>등록일</Table.HeaderCell>
               <Table.HeaderCell width={1}>조회수</Table.HeaderCell>
             </Table.Row>
@@ -62,8 +62,22 @@ const StoreIndexPage = () => {
                         {store.name}
                       </Link>
                     </Table.Cell>
-                    <Table.Cell>{store.store_type}</Table.Cell>
-                    <Table.Cell>{store.address1}</Table.Cell>
+                    <Table.Cell>
+                      {store.store_type}
+                    </Table.Cell>
+                    <Table.Cell>
+                      {
+                        store.naver_map_url ? (
+                          <a href={store.naver_map_url}>
+                            {store.address1}
+                          </a>
+                        ) : (
+                          <span>
+                             {store.address1}
+                          </span>
+                        )
+                      }
+                    </Table.Cell>
                     <Table.Cell>
                       {moment(store.created_at).format('YYYY-MM-DD HH:mm')}
                     </Table.Cell>
