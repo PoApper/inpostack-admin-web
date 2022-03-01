@@ -4,11 +4,9 @@ import { useState } from 'react'
 
 import MenuCreateModal from './menuCreateModal'
 import MenuCard from './menuCard'
-import { CategoryUpdateModal } from './categoryModals'
+import { CategoryUpdateModal } from './categoryUpdateModal'
 
-const MenuContainer = (props) => {
-  const categoryWithMenu = props.categoryWithMenu
-  const store_uuid = props.store_uuid
+const MenuContainer = ({ store_uuid, categoryWithMenu }) => {
   const categoryName = categoryWithMenu.name
   const menus = categoryWithMenu.menu
 
@@ -30,7 +28,7 @@ const MenuContainer = (props) => {
               categoryInfo={categoryWithMenu}
               trigger={
                 <Button className={'modal_button margin_left_8px'}
-                        style={{marginLeft: '10px'}}
+                        style={{ marginLeft: '10px' }}
                 >
                   카테고리 수정
                 </Button>
@@ -41,7 +39,8 @@ const MenuContainer = (props) => {
               categoryUUID={categoryWithMenu.uuid}
               categoryName={categoryWithMenu.name}
               trigger={
-                <Button className={'modal_button margin_left_8px create_button'}>
+                <Button
+                  className={'modal_button margin_left_8px create_button'}>
                   메뉴 추가
                 </Button>
               }

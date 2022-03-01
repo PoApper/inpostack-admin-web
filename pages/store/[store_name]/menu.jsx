@@ -10,14 +10,14 @@ import MenuGrid from '../../../components/menu/menuGrid'
 const StoreMenuPage = () => {
   const router = useRouter()
   const [storeWithAll, setStoreWithAll] = useState()
-  const storeName = router.query.store_name;
+  const storeName = router.query.store_name
 
   useEffect(() => {
-    if (!storeName) return;
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API}/store/name/${storeName}?category=true&menu=true`)
-      .then((res) => setStoreWithAll(res.data))
-      .catch((err) => alert('가게 정보를 불러오는데 실패했습니다.'))
+    if (!storeName) return
+    axios.get(
+      `${process.env.NEXT_PUBLIC_API}/store/name/${storeName}?category=true&menu=true`).
+      then((res) => setStoreWithAll(res.data)).
+      catch((err) => alert('가게 정보를 불러오는데 실패했습니다.'))
   }, [storeName])
 
   return (
@@ -29,8 +29,9 @@ const StoreMenuPage = () => {
             <Message>
               메뉴 아래의 <b>수정</b> 버튼을 클릭해 메뉴 정보를 수정할 수 있습니다.
             </Message>
-            <MenuGrid categoriesWithMenu={storeWithAll.category}
-                      store_uuid={storeWithAll.uuid}
+            <MenuGrid
+              store_uuid={storeWithAll.uuid}
+              categoriesWithMenu={storeWithAll.category}
             />
           </>
         ) : (

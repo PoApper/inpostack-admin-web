@@ -14,7 +14,9 @@ const Layout = ({ children }) => {
 
   if (!loading &&
     (isLogout || (!isLogout && user.account_type !== 'ADMIN'))) {
-    router.push('/login')
+    if (process.env.NODE_ENV === 'production') {
+      router.push('/login')
+    }
   }
 
   return (

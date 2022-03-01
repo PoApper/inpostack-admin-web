@@ -78,7 +78,7 @@ const StoreUpdatePage = () => {
                   <div>
                     <Button.Group style={{ marginBottom: '9px' }}>
                       <StoreLogoAddModal store_uuid={storeWithAll.uuid}/>
-                      <StoreImageAddModal storeInfo={storeWithAll.uuid}/>
+                      <StoreImageAddModal store_uuid={storeWithAll.uuid}/>
                       <Link href={`/store/${store_name}/information`} passHref>
                         <Button>정보 수정</Button>
                       </Link>

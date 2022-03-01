@@ -2,29 +2,29 @@ import MenuUpdateModal from './menuUpdateModal'
 import { Button } from 'semantic-ui-react'
 import styled from 'styled-components'
 
-const MenuCard = (props) => {
-  const menu = props.menu
-
+const MenuCard = ({ menu, categoryInfo }) => {
   return (
     <CardDiv key={menu.uuid}>
       <InfoColumn>
         <MenuText>{menu.name}</MenuText>
-        <DescriptionText>
-          {menu.description}
-        </DescriptionText>
         <PriceText>
-          {menu.price.toLocaleString()}원
+          {
+            (!menu.price || menu.price === 0) ? (
+              <span className={'blurry-text'}>
+                정보 수집중
+              </span>
+            ) : (
+              <span>
+                {menu.price.toLocaleString()}원
+              </span>
+            )
+          }
         </PriceText>
-        <Rating>
-          {/*  /!*<FaThumbsUp color="red"/> {menu.like}*!/*/}
-          &nbsp;&nbsp;
-          {/*  /!*<FaThumbsDown color="blue"/> {menu.hate}*!/*/}
-        </Rating>
         <div>
           <MenuUpdateModal
             menuInfo={menu}
-            categoryUUID={props.categoryInfo.uuid}
-            categoryName={props.categoryInfo.name}
+            categoryUUID={categoryInfo.uuid}
+            categoryName={categoryInfo.name}
             trigger={<Button className={'modal_button'}>
               메뉴 수정
             </Button>}
@@ -69,11 +69,6 @@ const PriceText = styled.p`
   margin: 0;
 `
 
-const DescriptionText = styled.p`
-  margin: 0;
-  color: grey;
-`
-
 const InfoColumn = styled.div`
   display: flex;
   flex-direction: column;
@@ -81,11 +76,4 @@ const InfoColumn = styled.div`
 
 const ImageColumn = styled.div`
   margin-left: auto;
-`
-
-const Rating = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  column-gap: 0.4rem;
 `
