@@ -1,26 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Mobile, PC, Tablet } from './MediaQuery'
 import { Button, Dropdown, Image, Menu, Icon, Accordion } from 'semantic-ui-react'
 import styled from 'styled-components'
+import useUser from '../data/useUser'
 
 const Navbar = () => {
   const router = useRouter()
-  const [ user, setUser ] = useState()
   const [activeIndex, setActiveIndex] = useState(1)
-  
-  useEffect(async () => {
-    try {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_API}/auth/verifyToken`, {
-        withCredentials: true,
-      });
-      setUser(res.data)
-    } catch (err) {
-      router.push('/login')
-    }
-  }, [])
+  const { user } = useUser();
 
   function handleClink (e, titleProps)  {
     const { index } = titleProps
