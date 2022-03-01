@@ -11,31 +11,31 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import Dropzone from 'react-dropzone'
 
-const StoreImageAddModal = ({ store_uuid }) => {
+const StoreLogoAddModal = ({ store_uuid }) => {
   const router = useRouter()
 
   const [open, setOpen] = useState(false)
-  const [newStoreImg, setNewStoreImg] = useState()
+  const [newStoreLogo, setNewStoreLogo] = useState()
 
-  function uploadStoreImage () {
-    if (!newStoreImg) {
+  function uploadStoreLogo () {
+    if (!newStoreLogo) {
       alert('이미지가 입력되지 않았습니다!')
-      return;
+      return
     }
     if (!store_uuid) {
       alert('유효하지 않은 가게 정보입니다.')
-      return;
+      return
     }
 
     const formData = new FormData()
-    formData.append('store_image', newStoreImg)
-    axios.post(`${process.env.NEXT_PUBLIC_API}/store-image/${store_uuid}`,
+    formData.append('store_logo', newStoreLogo)
+    axios.post(`${process.env.NEXT_PUBLIC_API}/store/logo/${store_uuid}`,
       formData, { withCredentials: true },
     ).then(() => {
-      alert('가게 이미지가 등록되었습니다!')
+      alert('가게 로고가 등록되었습니다!')
       router.reload()
     }).catch((err) => {
-      alert('가게 이미지 등록에 실패했습니다.')
+      alert('가게 로고 등록에 실패했습니다.')
       console.log(err)
     })
   }
@@ -46,15 +46,14 @@ const StoreImageAddModal = ({ store_uuid }) => {
       onOpen={() => setOpen(true)}
       open={open}
       trigger={
-      <Button>
-        사진 추가 <Icon name={'add circle'} style={{marginLeft: 4}}/>
-      </Button>
-    }
-    >
-      <Modal.Header>가게 사진 추가</Modal.Header>
+        <Button>
+          로고 변경 <Icon name={'redo'} style={{marginLeft: 4}}/>
+        </Button>
+      }>
+      <Modal.Header>가게 로고 추가/변경</Modal.Header>
       <Modal.Content>
         {
-          newStoreImg ? (
+          newStoreLogo ? (
             <div>
               {/* TODO: add preview image here! */}
               <Header>
@@ -62,7 +61,8 @@ const StoreImageAddModal = ({ store_uuid }) => {
               </Header>
             </div>
           ) : (
-            <Dropzone onDrop={acceptedFiles => setNewStoreImg(acceptedFiles[0])}>
+            <Dropzone
+              onDrop={acceptedFiles => setNewStoreLogo(acceptedFiles[0])}>
               {
                 ({ getRootProps, getInputProps }) => (
                   <section>
@@ -70,10 +70,10 @@ const StoreImageAddModal = ({ store_uuid }) => {
                       <Header icon>
                         <Icon name="image file outline" style={{ height: 60 }}/>
                         <p>
-                          가게에 추가할 이미지를 이곳에 놓으세요! (1:1 비율만 허용)
+                          가게 로고를 이곳에 놓으세요! (1:1 비율만 허용)
                         </p>
                       </Header>
-                      <Button primary>Add Image</Button>
+                      <Button primary>Logo here</Button>
                       <input {...getInputProps()} type={'file'}
                              accept={'image/*'}/>
                     </Segment>
@@ -86,7 +86,7 @@ const StoreImageAddModal = ({ store_uuid }) => {
         <Divider/>
 
         <div>
-          <Button onClick={uploadStoreImage}>
+          <Button onClick={uploadStoreLogo}>
             업로드
           </Button>
         </div>
@@ -95,4 +95,4 @@ const StoreImageAddModal = ({ store_uuid }) => {
   )
 }
 
-export default StoreImageAddModal
+export default StoreLogoAddModal

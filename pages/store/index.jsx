@@ -12,16 +12,16 @@ const StoreIndexPage = () => {
   const [order, setOrder] = useState('visit')
 
   useEffect(() => {
-    axios.get(`${process.env.NEXT_PUBLIC_API}/store`,
+    axios.get(`${process.env.NEXT_PUBLIC_API}/store?order=${order}`,
       { withCredentials: true }).
       then((res) => {
         setStores(res.data)
       }).
       catch((err) => {
-        alert('가게들을 불러오는데 실패했습니다.')
+        alert('가게 목록을 불러오는데 실패했습니다.')
         console.log(err)
       })
-  }, [])
+  }, [order])
 
   return (
     <Layout>
@@ -40,10 +40,11 @@ const StoreIndexPage = () => {
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell width={1}>#</Table.HeaderCell>
-              <Table.HeaderCell width={4}>가게명</Table.HeaderCell>
+              <Table.HeaderCell width={3}>가게명</Table.HeaderCell>
               <Table.HeaderCell width={2}>타입</Table.HeaderCell>
-              <Table.HeaderCell width={4}>위치</Table.HeaderCell>
+              <Table.HeaderCell width={5}>주소</Table.HeaderCell>
               <Table.HeaderCell width={2}>등록일</Table.HeaderCell>
+              <Table.HeaderCell width={1}>조회수</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
@@ -61,10 +62,27 @@ const StoreIndexPage = () => {
                         {store.name}
                       </Link>
                     </Table.Cell>
-                    <Table.Cell>{store.store_type}</Table.Cell>
-                    <Table.Cell>{store.address1}</Table.Cell>
+                    <Table.Cell>
+                      {store.store_type}
+                    </Table.Cell>
+                    <Table.Cell>
+                      {
+                        store.naver_map_url ? (
+                          <a href={store.naver_map_url} target={'_blank'} rel={'noreferrer'}>
+                            {store.address1}
+                          </a>
+                        ) : (
+                          <span>
+                             {store.address1}
+                          </span>
+                        )
+                      }
+                    </Table.Cell>
                     <Table.Cell>
                       {moment(store.created_at).format('YYYY-MM-DD HH:mm')}
+                    </Table.Cell>
+                    <Table.Cell>
+                      {Number(store.visit_count).toLocaleString()}
                     </Table.Cell>
                   </Table.Row>
                 )

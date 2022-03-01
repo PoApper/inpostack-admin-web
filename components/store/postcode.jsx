@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import DaumPostCode from 'react-daum-postcode'
 import { Button, Input, Modal } from 'semantic-ui-react'
-import styled from 'styled-components'
 
-const Postcode = (props) => {
+const Postcode = ({zipcode, address1, handleAddress}) => {
   const [open, setOpen] = useState(false)
 
   const handleComplete = (data) => {
@@ -20,15 +19,33 @@ const Postcode = (props) => {
       }
       fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '')
     }
-    props.handleAddress(fullAddress, data.zonecode)
+    handleAddress(data.zonecode, fullAddress)
     setOpen(false)
   }
 
   return(
     <div>
-      <Button onClick={()=>setOpen(true)}>주소 찾기</Button>
-      <AddressInput name="zipcode" id="zipcode"
-                    defaultValue={props.zipcode}/>
+      <div>
+        <Button onClick={() => setOpen(true)}>
+          주소 찾기
+        </Button>
+      </div>
+
+      <Input
+        name="zipcode"
+        defaultValue={zipcode}
+        value={zipcode}
+        onClick={() => setOpen(true)}
+        style={{marginBottom: 5, marginTop: 8}}
+      />
+      <Input
+        name="address1"
+        defaultValue={address1}
+        value={address1}
+        onClick={() => setOpen(true)}
+        style={{marginBottom: 5}}
+      />
+
       <Modal open={open}
              onClose={()=> setOpen(false)}
              onOpen={()=> setOpen(true)}
@@ -44,7 +61,3 @@ const Postcode = (props) => {
 }
 
 export default Postcode
-
-const AddressInput = styled(Input)`
-  margin: 0.5rem 0;
-`
