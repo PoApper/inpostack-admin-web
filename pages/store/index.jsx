@@ -68,7 +68,7 @@ const StoreIndexPage = () => {
                     <Table.Cell>
                       {
                         store.naver_map_url ? (
-                          <a href={store.naver_map_url}>
+                          <a href={store.naver_map_url} target={'_blank'} rel={'noreferrer'}>
                             {store.address1}
                           </a>
                         ) : (

@@ -22,7 +22,7 @@ const StoreInformation = ({ storeInfo }) => {
             <h5>가게 주소</h5>
             {
               storeInfo.naver_map_url ? (
-                <a href={storeInfo.naver_map_url}>
+                <a href={storeInfo.naver_map_url} target={'_blank'} rel={'noreferrer'}>
                   {storeInfo.address1} {storeInfo.address2}
                 </a>
               ) : (
