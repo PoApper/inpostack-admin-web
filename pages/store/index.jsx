@@ -12,16 +12,16 @@ const StoreIndexPage = () => {
   const [order, setOrder] = useState('visit')
 
   useEffect(() => {
-    axios.get(`${process.env.NEXT_PUBLIC_API}/store`,
+    axios.get(`${process.env.NEXT_PUBLIC_API}/store?order=${order}`,
       { withCredentials: true }).
       then((res) => {
         setStores(res.data)
       }).
       catch((err) => {
-        alert('가게들을 불러오는데 실패했습니다.')
+        alert('가게 목록을 불러오는데 실패했습니다.')
         console.log(err)
       })
-  }, [])
+  }, [order])
 
   return (
     <Layout>
