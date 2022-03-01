@@ -28,7 +28,7 @@ const StoreLogoAddModal = ({ store_uuid }) => {
     }
 
     const formData = new FormData()
-    formData.append('store_image', newStoreLogo)
+    formData.append('store_logo', newStoreLogo)
     axios.post(`${process.env.NEXT_PUBLIC_API}/store/logo/${store_uuid}`,
       formData, { withCredentials: true },
     ).then(() => {
@@ -70,7 +70,7 @@ const StoreLogoAddModal = ({ store_uuid }) => {
                       <Header icon>
                         <Icon name="image file outline" style={{ height: 60 }}/>
                         <p>
-                          가게 로고 이곳에 놓으세요! (1:1 비율만 허용)
+                          가게 로고를 이곳에 놓으세요! (1:1 비율만 허용)
                         </p>
                       </Header>
                       <Button primary>Logo here</Button>
