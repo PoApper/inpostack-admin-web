@@ -7,11 +7,18 @@ const MenuCard = ({ menu, categoryInfo }) => {
     <CardDiv key={menu.uuid}>
       <InfoColumn>
         <MenuText>{menu.name}</MenuText>
-        <DescriptionText>
-          {menu.description}
-        </DescriptionText>
         <PriceText>
-          {menu.price.toLocaleString()}원
+          {
+            (!menu.price || menu.price === 0) ? (
+              <span className={'blurry-text'}>
+                정보 수집중
+              </span>
+            ) : (
+              <span>
+                {menu.price.toLocaleString()}원
+              </span>
+            )
+          }
         </PriceText>
         <div>
           <MenuUpdateModal
@@ -60,11 +67,6 @@ const PriceText = styled.p`
   font-weight: 700;
   font-size: 14px;
   margin: 0;
-`
-
-const DescriptionText = styled.p`
-  margin: 0;
-  color: grey;
 `
 
 const InfoColumn = styled.div`

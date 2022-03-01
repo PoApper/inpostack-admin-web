@@ -39,11 +39,23 @@ const StoreInformation = ({ storeInfo }) => {
           <Segment.Group horizontal>
             <Segment>
               <h5>여는 시간</h5>
-              {storeInfo.open_time}
+              {
+                storeInfo.open_time ?? (
+                  <span className={'blurry-text'}>
+                    정보 수집중
+                  </span>
+                )
+              }
             </Segment>
             <Segment>
               <h5>닫는 시간</h5>
-              {storeInfo.close_time}
+              {
+                storeInfo.close_time ?? (
+                  <span className={'blurry-text'}>
+                    정보 수집중
+                  </span>
+                )
+              }
             </Segment>
           </Segment.Group>
           <Segment>
