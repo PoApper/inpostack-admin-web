@@ -21,6 +21,8 @@ const StoreCreateModal = () => {
   const [zipcode, setZipcode] = useState('')
   const [open_time, setOpen_time] = useState('')
   const [close_time, setClose_time] = useState('')
+  const [naverMapUrl, setNaverMapUrl] = useState()
+  const [kakaoMapUrl, setKakaoMapUrl] = useState()
 
   async function handleSubmit (e) {
     e.preventDefault()
@@ -63,17 +65,18 @@ const StoreCreateModal = () => {
         <Form>
           <Form.Input
             required
-            label="상호명"
-            name="name"
+            label={'상호명'}
+            name={'name'}
+            placeholder={'네이버 지도 기준으로 작성'}
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
 
           <Form.Input
             required
-            label="전화번호"
-            name="phone"
-            placeholder="010-0000-0000"
+            label={'전화번호'}
+            name={'phone'}
+            placeholder={'010-0000-0000'}
             value={phone}
             onChange={(e) => {
               if (e.target.value.length > 13) return
@@ -83,18 +86,18 @@ const StoreCreateModal = () => {
 
           <Form.TextArea
             required
-            label="가게 소개"
-            name="description"
+            label={'가게 소개'}
+            name={'description'}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
 
           <Form.Select
             required
-            label="가게 타입"
-            name="store_type"
+            label={'가게 타입'}
+            name={'store_type'}
             value={store_type}
-            placeholder="가게 타입을 선택하세요."
+            placeholder={'가게 타입을 선택하세요.'}
             options={storeOptions}
             onChange={(e, { value }) => setStore_type(value?.toString())}
           />
@@ -110,11 +113,28 @@ const StoreCreateModal = () => {
               }}
             />
             <Form.Input
-              name="address2"
+              name={'address2'}
               value={address2}
               onChange={(e) => setAddress2(e.target.value)}
             />
           </Form.Field>
+
+          <Form.Group widths={'equal'}>
+            <Form.Input
+              label={'네이버 지도 URL'}
+              name={'naver_map_url'}
+              value={naverMapUrl}
+              placeholder={'https://map.naver.com/v5/entry/place/xxxxxxxxxx'}
+              onChange={(e) => setNaverMapUrl(e.target.value)}
+            />
+            <Form.Input
+              label={'카카오 지도 URL'}
+              name={'kakao_map_url'}
+              value={kakaoMapUrl}
+              placeholder={'https://place.map.kakao.com/xxxxxxxx'}
+              onChange={(e) => setKakaoMapUrl(e.target.value)}
+            />
+          </Form.Group>
 
           <Form.Group style={{ width: '100%', margin: '0 0 14px 0' }}>
             <div className={'required field'}
