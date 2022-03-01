@@ -38,7 +38,7 @@ const StoreUpdatePage = () => {
           <>
             <PC>
               <StoreIndexHeader>
-                <div style={{marginRight: 40}}>
+                <div style={{ marginRight: 40 }}>
                   <Image
                     src={storeWithAll.image_url ??
                       'https://via.placeholder.com/160'}
@@ -47,9 +47,12 @@ const StoreUpdatePage = () => {
                   />
                 </div>
 
-                <div style={{width: '100%'}}>
-                  <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                    <h2 style={{fontSize: 32 }}>
+                <div style={{ width: '100%' }}>
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                  }}>
+                    <h2 style={{ fontSize: 32 }}>
                       {store_name}
                     </h2>
 
@@ -58,8 +61,16 @@ const StoreUpdatePage = () => {
                         <Icon fitted color={'orange'}
                               name={'star'}/>
                         <span style={{ marginLeft: 4 }}>
-                          {Number(storeWithAll.favorite_count).toLocaleString()}
-                        </span>
+                            {Number(storeWithAll.favorite_count).
+                              toLocaleString()}
+                          </span>
+                      </Button>
+                      <Button basic>
+                        <Icon fitted color={'orange'}
+                              name={'eye'}/>
+                        <span style={{ marginLeft: 4 }}>
+                            {Number(storeWithAll.visit_count).toLocaleString()}
+                          </span>
                       </Button>
                     </p>
                   </div>

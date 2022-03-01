@@ -68,7 +68,7 @@ const StoreIndexPage = () => {
                       {moment(store.created_at).format('YYYY-MM-DD HH:mm')}
                     </Table.Cell>
                     <Table.Cell>
-                      {store.visit_count}
+                      {Number(store.visit_count).toLocaleString()}
                     </Table.Cell>
                   </Table.Row>
                 )
