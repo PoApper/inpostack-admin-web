@@ -1,35 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Image, Segment } from 'semantic-ui-react'
 import { Mobile, PC } from '../MediaQuery'
-import axios from 'axios'
-import styled from 'styled-components'
 
 const StoreInformation = ({ storeInfo }) => {
-  const uuid = storeInfo.uuid
-  const [storeImageLinkList, setStoreImageLinkList] = useState([])
-
-  useEffect(() => {
-    axios.get(`${process.env.NEXT_PUBLIC_API}/store-image/${uuid}`).
-      then(res => setStoreImageLinkList(res.data)).
-      catch((err) => console.log(err))
-  }, [uuid])
 
   return (
     <>
       <PC>
-        <StoreImageGrid>
-          {
-            storeImageLinkList.map(link => {
-              return (
-                <div key={link}>
-                  <Image style={{ width: 170, height: 170, borderRadius: '5px' }}
-                         alt={'store_photo'}
-                         src={link ?? 'https://via.placeholder.com/170'}/>
-                </div>
-              )
-            })
-          }
-        </StoreImageGrid>
         <Segment.Group>
           <Segment.Group horizontal>
             <Segment style={{ flex: 1 }}>
@@ -125,14 +102,3 @@ const StoreInformation = ({ storeInfo }) => {
 }
 
 export default StoreInformation
-
-const StoreImageGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  @media only screen and (max-width: ${({ theme }) => theme.breakpoint.s}) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  margin-left: -10px;
-  margin-right: -10px;
-`
