@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { Image } from 'semantic-ui-react'
 
 const StoreImageGrid = ({ store_uuid }) => {
-  const [storeImageLinkList, setStoreImageLinkList] = useState()
+  const [storeImageLinkList, setStoreImageLinkList] = useState([])
 
   useEffect(() => {
     if (!store_uuid) return
@@ -17,17 +17,16 @@ const StoreImageGrid = ({ store_uuid }) => {
   return (
     <StoreImageDiv>
       {
-        storeImageLinkList ? (
+        storeImageLinkList.length ? (
           storeImageLinkList.map(link => {
             return (
               <div key={link}>
-                <Image style={{ width: 170, height: 170, borderRadius: '5px' }}
+                <Image style={{ width: 250, height: 250, borderRadius: '5px' }}
                        alt={'store_photo'}
-                       src={link ?? 'https://via.placeholder.com/170'}/>
+                       src={link ?? 'https://via.placeholder.com/240'}/>
               </div>
             )
           })
-
         ) : (
           <h3>
             등록된 이미지가 없습니다.
@@ -46,7 +45,4 @@ const StoreImageDiv = styled.div`
   @media only screen and (max-width: ${({ theme }) => theme.breakpoint.s}) {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  margin-left: -10px;
-  margin-right: -10px;
 `
