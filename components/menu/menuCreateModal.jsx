@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import styled from 'styled-components'
 
-const MenuCreateModal = (props) => {
+const MenuCreateModal = ({store_uuid, categoryUUID, categoryName, trigger}) => {
   const router = useRouter()
   const [isModalOpen, setModalOpen] = useState(false)
 
@@ -17,10 +17,18 @@ const MenuCreateModal = (props) => {
 
   async function handleCreate (e) {
     e.preventDefault()
+    if (!store_uuid) {
+      alert('유효하지 않은 가게 정보 입니다.')
+      return;
+    }
+    if (!categoryUUID) {
+      alert('유효하지 않은 카테고리 정보 입니다.')
+      return;
+    }
 
     const formData = new FormData()
-    formData.append('store_uuid', props.store_uuid)
-    formData.append('category_uuid', props.categoryUUID)
+    formData.append('store_uuid', store_uuid)
+    formData.append('category_uuid', categoryUUID)
     formData.append('name', name)
     formData.append('description', description)
     formData.append('price', price)
@@ -42,7 +50,7 @@ const MenuCreateModal = (props) => {
     <Modal
       size="small"
       open={isModalOpen}
-      trigger={props.trigger}
+      trigger={trigger}
       onClose={() => setModalOpen(false)}
       onOpen={() => setModalOpen(true)}
     >
@@ -54,62 +62,64 @@ const MenuCreateModal = (props) => {
           메뉴를 가지고 있습니다!
         </Message>
         <Form onSubmit={handleCreate}>
-          <div style={{display: 'flex', justifyContent:'space-between', marginBottom: '20px'}}>
-          <Left>
-          
-          <Form.Input
-            required
-            label={'메뉴 이름'}
-            placeholder={'생성할 메뉴 이름을 입력해주세요.'}
-            onChange={(e) => setName(e.target.value)}
-          />
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            marginBottom: '20px',
+          }}>
+            <Left>
 
-          <Form.Input
-            required
-            label={'가격'}
-            placeholder={'가격을 입력해주세요.'}
-            onChange={(e) => setPrice(e.target.value)}
-          />
+              <Form.Input
+                required
+                label={'메뉴 이름'}
+                placeholder={'생성할 메뉴 이름을 입력해주세요.'}
+                onChange={(e) => setName(e.target.value)}
+              />
 
-          <Form.TextArea
-            required
-            label={'메뉴 설명'}
-            placeholder={'ex. 2인분 이상 배달 가능\n원산지: 호주\n소: 5,000, 중: 8,000, 대: 12,000'}
-            onChange={(e) => setDescription(e.target.value)}
-          />
+              <Form.Input
+                label={'가격'}
+                placeholder={'가격을 입력해주세요.'}
+                onChange={(e) => setPrice(e.target.value)}
+              />
 
-          <Form.Input
-            label={'카테고리'}
-            value={props.categoryName}
-          />
-          </Left>
-          <Right>
-          <Form.Field>
-            <label>메뉴 사진</label>
-            <ImgBox>
-              <img width={150} height={150}
-                   src={imageUrl ??
-                   'https://via.placeholder.com/150?text=InPostack'}
-                   alt="menu_photo"/>
-            </ImgBox>
-            <FileBox>
-              <label>
-                <span>업로드</span>
-                <input
-                  type="file" accept="image/*" name="menu_image"
-                  onChange={(evt) => {
-                    const file = evt.target.files[0]
-                    const fileReader = new FileReader()
-                    fileReader.onloadend = () => {
-                      setImageUrl(fileReader.result)
-                      setNewMenuImg(file)
-                    }
-                    fileReader.readAsDataURL(file)
-                  }}/>
-              </label>
-            </FileBox>
-          </Form.Field>
-          </Right>
+              <Form.TextArea
+                label={'메뉴 설명'}
+                placeholder={'ex. 2인분 이상 배달 가능\n원산지: 호주\n소: 5,000, 중: 8,000, 대: 12,000'}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+
+              <Form.Input
+                label={'카테고리'}
+                value={categoryName}
+              />
+            </Left>
+            <Right>
+              <Form.Field>
+                <label>메뉴 사진</label>
+                <ImgBox>
+                  <img width={150} height={150}
+                       src={imageUrl ??
+                         'https://via.placeholder.com/150?text=InPostack'}
+                       alt="menu_photo"/>
+                </ImgBox>
+                <FileBox>
+                  <label>
+                    <span>업로드</span>
+                    <input
+                      type="file" accept="image/*" name="menu_image"
+                      onChange={(evt) => {
+                        const file = evt.target.files[0]
+                        const fileReader = new FileReader()
+                        fileReader.onloadend = () => {
+                          setImageUrl(fileReader.result)
+                          setNewMenuImg(file)
+                        }
+                        fileReader.readAsDataURL(file)
+                      }}/>
+                  </label>
+                </FileBox>
+              </Form.Field>
+            </Right>
           </div>
           <Form.Button>
             <Icon name="save" style={{ marginRight: '0.5rem' }}/>
@@ -131,7 +141,6 @@ const ImgBox = styled.div`
 const FileBox = styled.div`
   display: flex;
   margin-bottom: 10px;
-  
 
   label {
     z-index: 1;

@@ -5,11 +5,9 @@ import axios from 'axios'
 import theme from '../../styles/theme'
 import styled from 'styled-components'
 
-const MenuUpdateModal = (props) => {
+const MenuUpdateModal = ({categoryUUID, categoryName, trigger, menuInfo}) => {
   const router = useRouter()
   const [isModalOpen, setModalOpen] = useState(false)
-
-  const menuInfo = props.menuInfo
 
   const [name, setName] = useState(menuInfo.name)
   const [description, setDescription] = useState(menuInfo.description)
@@ -19,8 +17,13 @@ const MenuUpdateModal = (props) => {
 
   async function handleUpdate (e) {
     e.preventDefault()
+    if (!categoryUUID) {
+      alert('유효하지 않은 카테고리 정보 입니다.')
+      return;
+    }
+
     const formData = new FormData()
-    formData.append('category_uuid', props.categoryUUID)
+    formData.append('category_uuid', categoryUUID)
     formData.append('name', name)
     formData.append('description', description)
     formData.append('price', price)
@@ -56,7 +59,7 @@ const MenuUpdateModal = (props) => {
     <Modal
       size="small"
       open={isModalOpen}
-      trigger={props.trigger}
+      trigger={trigger}
       onClose={() => setModalOpen(false)}
       onOpen={() => setModalOpen(true)}
     >
@@ -91,7 +94,7 @@ const MenuUpdateModal = (props) => {
 
           <Form.Input disabled
             label={'카테고리'}
-            value={props.categoryName}
+            value={categoryName}
           />
           </Left>
           <Right>
