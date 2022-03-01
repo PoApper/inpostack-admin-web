@@ -44,6 +44,7 @@ const StoreIndexPage = () => {
               <Table.HeaderCell width={2}>타입</Table.HeaderCell>
               <Table.HeaderCell width={4}>위치</Table.HeaderCell>
               <Table.HeaderCell width={2}>등록일</Table.HeaderCell>
+              <Table.HeaderCell width={1}>조회수</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
@@ -65,6 +66,9 @@ const StoreIndexPage = () => {
                     <Table.Cell>{store.address1}</Table.Cell>
                     <Table.Cell>
                       {moment(store.created_at).format('YYYY-MM-DD HH:mm')}
+                    </Table.Cell>
+                    <Table.Cell>
+                      {store.visit_count}
                     </Table.Cell>
                   </Table.Row>
                 )
