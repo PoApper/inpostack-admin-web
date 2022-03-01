@@ -20,9 +20,21 @@ const StoreInformation = ({ storeInfo }) => {
           </Segment.Group>
           <Segment>
             <h5>가게 주소</h5>
-            {storeInfo.address1} <br/>
-            {storeInfo.address2} <br/>
-            (우) {storeInfo.zipcode}
+            {
+              storeInfo.naver_map_url ? (
+                <a href={storeInfo.naver_map_url}>
+                  {storeInfo.address1} {storeInfo.address2}
+                </a>
+              ) : (
+                <span>
+                  {storeInfo.address1} {storeInfo.address2}
+                </span>
+              )
+            }
+            <br/>
+            <span style={{color: 'gray'}}>
+              (우) {storeInfo.zipcode}
+            </span>
           </Segment>
           <Segment.Group horizontal>
             <Segment>
