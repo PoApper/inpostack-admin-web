@@ -77,7 +77,6 @@ const MenuUpdateModal = ({categoryUUID, categoryName, trigger, menuInfo}) => {
           />
 
           <Form.Input
-            required
             label={'가격'}
             value={price}
             placeholder={'가격을 입력해주세요.'}
@@ -85,7 +84,7 @@ const MenuUpdateModal = ({categoryUUID, categoryName, trigger, menuInfo}) => {
           />
 
           <Form.TextArea
-            required
+            disabled
             label={'메뉴 설명'}
             value={description}
             placeholder={'ex. 2인분 이상 배달 가능\n원산지: 호주\n소: 5,000, 중: 8,000, 대: 12,000'}
