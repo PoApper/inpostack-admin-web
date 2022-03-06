@@ -1,6 +1,7 @@
 import React from 'react'
 import { Image, Segment } from 'semantic-ui-react'
 import { Mobile, PC } from '../MediaQuery'
+import { isBlurry } from '../../utils/blurry-check'
 
 const StoreInformation = ({ storeInfo }) => {
 
@@ -11,24 +12,35 @@ const StoreInformation = ({ storeInfo }) => {
           <Segment.Group horizontal>
             <Segment style={{ flex: 1 }}>
               <h5>상호명</h5>
-              {storeInfo.name}
+              <span>{storeInfo.name}</span>
             </Segment>
             <Segment style={{ flex: 1 }}>
               <h5>전화번호</h5>
-              {storeInfo.phone}
+              {
+                isBlurry(storeInfo.phone) ? (
+                  <span className={'blurry-text'}>정보 수집중</span>
+                ) : (
+                  <span>{storeInfo.phone}</span>
+                )
+              }
             </Segment>
           </Segment.Group>
           <Segment>
             <h5>가게 주소</h5>
             {
-              storeInfo.naver_map_url ? (
-                <a href={storeInfo.naver_map_url} target={'_blank'} rel={'noreferrer'}>
-                  {storeInfo.address1} {storeInfo.address2}
-                </a>
+              isBlurry(storeInfo.address1) ? (
+                <span className={'blurry-text'}>정보 수집중</span>
               ) : (
-                <span>
-                  {storeInfo.address1} {storeInfo.address2}
-                </span>
+                storeInfo.naver_map_url ? (
+                  <a href={storeInfo.naver_map_url} target={'_blank'}
+                     rel={'noreferrer'}>
+                    {storeInfo.address1} {storeInfo.address2}
+                  </a>
+                ) : (
+                  <span>
+                    {storeInfo.address1} {storeInfo.address2}
+                  </span>
+                )
               )
             }
             <br/>
@@ -36,31 +48,25 @@ const StoreInformation = ({ storeInfo }) => {
               (우) {storeInfo.zipcode}
             </span>
           </Segment>
-          <Segment.Group horizontal>
-            <Segment>
-              <h5>여는 시간</h5>
-              {
-                storeInfo.open_time ?? (
-                  <span className={'blurry-text'}>
-                    정보 수집중
-                  </span>
-                )
-              }
-            </Segment>
-            <Segment>
-              <h5>닫는 시간</h5>
-              {
-                storeInfo.close_time ?? (
-                  <span className={'blurry-text'}>
-                    정보 수집중
-                  </span>
-                )
-              }
-            </Segment>
-          </Segment.Group>
+          <Segment>
+            <h5>운영 시간</h5>
+            {
+              isBlurry(storeInfo.open_time) || isBlurry(storeInfo.close_time) ? (
+                <span className={'blurry-text'}>정보 수집중</span>
+              ) : (
+                <span>{storeInfo.open_time} ~ {storeInfo.close_time}</span>
+              )
+            }
+          </Segment>
           <Segment>
             <h5>가게 소개</h5>
-            {storeInfo.description}
+            {
+              isBlurry(storeInfo.description) ? (
+                <span className={'blurry-text'}>정보 수집중</span>
+              ) : (
+                <span>{storeInfo.description}</span>
+              )
+            }
           </Segment>
           <Segment>
             <h5>가게 타입</h5>

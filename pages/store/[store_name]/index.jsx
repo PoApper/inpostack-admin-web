@@ -90,6 +90,10 @@ const StoreUpdatePage = () => {
 
                   <div>
                     가게 로고, 가게 이미지는 AWS CloudFront에 캐싱되기 때문에 사진 변경 후 몇 분 뒤에 반영됩니다!
+                    <br/>
+                    가게 로고는 새 이미지를 업로드하면 덮어씌워 집니다.
+                    <br/>
+                    가게 이미지는 <b>정확히</b> 4개만 업로드 합니다. (관리자 페이지에서 가게 이미지 삭제 기능은 추후 개발)
                   </div>
                 </div>
               </StoreIndexHeader>
