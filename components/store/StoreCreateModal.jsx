@@ -85,7 +85,6 @@ const StoreCreateModal = () => {
           />
 
           <Form.TextArea
-            required
             label={'가게 소개'}
             name={'description'}
             value={description}
@@ -102,7 +101,7 @@ const StoreCreateModal = () => {
             onChange={(e, { value }) => setStore_type(value?.toString())}
           />
 
-          <Form.Field required>
+          <Form.Field>
             <label>가게 주소</label>
             <Postcode
               zipcode={zipcode}
@@ -137,8 +136,7 @@ const StoreCreateModal = () => {
           </Form.Group>
 
           <Form.Group style={{ width: '100%', margin: '0 0 14px 0' }}>
-            <div className={'required field'}
-                 style={{ width: '100%', paddingLeft: 0 }}>
+            <div style={{ width: '100%', paddingLeft: 0 }}>
               <label>오픈 시간</label>
               <DatePicker
                 showTimeSelect showTimeSelectOnly timeIntervals={30}
@@ -149,8 +147,7 @@ const StoreCreateModal = () => {
                 onChange={(e) => setOpen_time(e)}
               />
             </div>
-            <div className={'required field'}
-                 style={{ width: '100%', paddingRight: 0 }}>
+            <div style={{ width: '100%', paddingRight: 0 }}>
               <label>닫는 시간</label>
               <DatePicker
                 showTimeSelect showTimeSelectOnly timeIntervals={30}

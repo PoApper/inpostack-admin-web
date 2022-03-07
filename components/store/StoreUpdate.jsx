@@ -24,6 +24,7 @@ const StoreUpdate = ({ storeInfo }) => {
   const [closeTime, setCloseTime] = useState(storeInfo.close_time)
   const [naverMapUrl, setNaverMapUrl] = useState(storeInfo.naver_map_url)
   const [kakaoMapUrl, setKakaoMapUrl] = useState(storeInfo.kakao_map_url)
+  const [label, setLabel] = useState(storeInfo.label)
 
   function handleUpdate (e) {
     e.preventDefault()
@@ -39,6 +40,7 @@ const StoreUpdate = ({ storeInfo }) => {
       close_time: closeTime,
       naver_map_url: naverMapUrl,
       kakao_map_url: kakaoMapUrl,
+      label: label
     }, { withCredentials: true }).
       then(() => router.push(`/store/${name}`)).
       catch(() => alert('가게 수정 API 오류!'))
@@ -85,7 +87,6 @@ const StoreUpdate = ({ storeInfo }) => {
       />
 
       <Form.TextArea
-        required
         label={'가게 소개'}
         name={'description'}
         value={description}
@@ -102,7 +103,9 @@ const StoreUpdate = ({ storeInfo }) => {
         onChange={(e, { value }) => setStoreType(value?.toString())}
       />
 
-      <Form.Field required>
+      <br/>
+
+      <Form.Field>
         <label>가게 주소</label>
         <Postcode
           zipcode={zipcode}
@@ -136,9 +139,10 @@ const StoreUpdate = ({ storeInfo }) => {
         />
       </Form.Group>
 
+      <br/>
+
       <Form.Group style={{ width: '100%', margin: '0 0 14px 0' }}>
-        <div className={'required field'}
-             style={{ width: '100%', paddingLeft: 0 }}>
+        <div style={{ width: '100%', paddingLeft: 0 }}>
           <label>오픈 시간</label>
           <DatePicker
             showTimeSelect showTimeSelectOnly timeIntervals={30}
@@ -154,8 +158,7 @@ const StoreUpdate = ({ storeInfo }) => {
             }}
           />
         </div>
-        <div className={'required field'}
-             style={{ width: '100%', paddingRight: 0 }}>
+        <div style={{ width: '100%', paddingRight: 0 }}>
           <label>닫는 시간</label>
           <DatePicker
             showTimeSelect showTimeSelectOnly timeIntervals={30}
@@ -172,6 +175,15 @@ const StoreUpdate = ({ storeInfo }) => {
           />
         </div>
       </Form.Group>
+
+      <br/>
+
+      <Form.Input
+        label={'가게 라벨'}
+        placeholder={'퍼블릭 페이지 가게 목록에 표시될 라벨. ex. 전통맛집, 강추'}
+        value={label}
+        onChange={(e) => setLabel(e.target.value)}
+      />
 
       <Divider/>
 
