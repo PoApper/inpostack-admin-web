@@ -7,7 +7,7 @@ import styled from 'styled-components'
 
 import Layout from '../../../components/layout'
 import StoreInformationBlock from '../../../components/store/StoreInformation'
-import { Mobile, PC } from '../../../components/MediaQuery'
+import { Mobile, PC, Tablet } from '../../../components/MediaQuery'
 import StoreImageAddModal from '../../../components/store/StoreImageAddModal'
 import StoreImageGrid from '../../../components/store/StoreImageGrid'
 import StoreLogoAddModal from '../../../components/store/StoreLogoAddModal'
@@ -105,14 +105,19 @@ const StoreUpdatePage = () => {
               <StoreInformationBlock storeInfo={storeWithAll}/>
             </PC>
 
-            {/* TODO: refactor legacy mobile view */}
-            <Mobile>
+            <Tablet>
               <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                AlignItems: 'center',
-                justifyContent: 'center',
-              }}>
+                  display: 'flex',
+                  flexDirection: 'column',
+                  AlignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Image
+                  src={storeWithAll.image_url ??
+                    'https://via.placeholder.com/160'}
+                  alt={'store_logo'}
+                  width={200}
+                />
                 <h2>{store_name}</h2>
                 <Button.Group style={{ marginBottom: '9px' }}>
                   <Link href={`/store/${store_name}/information`} passHref>
@@ -123,6 +128,34 @@ const StoreUpdatePage = () => {
                   </Link>
                 </Button.Group>
               </div>
+              <StoreImageGrid store_uuid={storeWithAll.uuid} />
+              <StoreInformationBlock storeInfo={storeWithAll}/>
+            </Tablet>
+
+            <Mobile>
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                AlignItems: 'center',
+                justifyContent: 'center',
+              }}>
+                <Image
+                    src={storeWithAll.image_url ??
+                      'https://via.placeholder.com/160'}
+                    alt={'store_logo'}
+                    width={200}
+                />
+                <h2>{store_name}</h2>
+                <Button.Group style={{ marginBottom: '9px' }}>
+                  <Link href={`/store/${store_name}/information`} passHref>
+                    <Button>정보 수정</Button>
+                  </Link>
+                  <Link href={`/store/${store_name}/menu`} passHref>
+                    <Button>메뉴 수정</Button>
+                  </Link>
+                </Button.Group>
+              </div>
+              <StoreImageGrid store_uuid={storeWithAll.uuid} />
               <StoreInformationBlock storeInfo={storeWithAll}/>
             </Mobile>
           </>
