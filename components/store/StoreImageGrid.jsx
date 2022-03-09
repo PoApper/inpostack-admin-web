@@ -20,8 +20,8 @@ const StoreImageGrid = ({ store_uuid }) => {
         storeImageLinkList.length ? (
           storeImageLinkList.map(link => {
             return (
-              <div key={link}>
-                <Image style={{ width: 250, height: 250, borderRadius: '5px' }}
+              <div key={link} style={{height: 250, borderRadius: '5px', overflow: 'hidden', margin: '5px'}}>
+                <Image style={{width:"100%", height:"100%", objectFit: "cover"}}
                        alt={'store_photo'}
                        src={link ?? 'https://via.placeholder.com/240'}/>
               </div>
