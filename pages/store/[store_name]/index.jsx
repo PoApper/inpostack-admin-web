@@ -119,6 +119,10 @@ const StoreUpdatePage = () => {
                   width={200}
                 />
                 <h2>{store_name}</h2>
+                <Button.Group>
+                  <StoreLogoAddModal store_uuid={storeWithAll.uuid}/>
+                  <StoreImageAddModal store_uuid={storeWithAll.uuid}/>
+                </Button.Group>
                 <Button.Group style={{ marginBottom: '9px' }}>
                   <Link href={`/store/${store_name}/information`} passHref>
                     <Button>정보 수정</Button>
@@ -146,6 +150,10 @@ const StoreUpdatePage = () => {
                     width={200}
                 />
                 <h2>{store_name}</h2>
+                <Button.Group>
+                  <StoreLogoAddModal store_uuid={storeWithAll.uuid}/>
+                  <StoreImageAddModal store_uuid={storeWithAll.uuid}/>
+                </Button.Group>
                 <Button.Group style={{ marginBottom: '9px' }}>
                   <Link href={`/store/${store_name}/information`} passHref>
                     <Button>정보 수정</Button>
