@@ -6,11 +6,11 @@ import { Divider, Form, Icon } from 'semantic-ui-react'
 import DatePicker from 'react-datepicker'
 
 import Postcode from './postcode'
-import useStoreMetaType from '../../data/useStoreType'
+import StoreType from '../../assets/StoreType'
+import StoreRegionType from '../../assets/StoreRegionType'
 
 const StoreUpdate = ({ storeInfo }) => {
   const router = useRouter()
-  const { loading, storeMetaType } = useStoreMetaType()
 
   const uuid = storeInfo.uuid
   const [name, setName] = useState(storeInfo.name)
@@ -25,6 +25,7 @@ const StoreUpdate = ({ storeInfo }) => {
   const [naverMapUrl, setNaverMapUrl] = useState(storeInfo.naver_map_url)
   const [kakaoMapUrl, setKakaoMapUrl] = useState(storeInfo.kakao_map_url)
   const [label, setLabel] = useState(storeInfo.label)
+  const [region, setRegion] = useState(storeInfo.region)
 
   function handleUpdate (e) {
     e.preventDefault()
@@ -40,7 +41,8 @@ const StoreUpdate = ({ storeInfo }) => {
       close_time: closeTime,
       naver_map_url: naverMapUrl,
       kakao_map_url: kakaoMapUrl,
-      label: label
+      label: label,
+      region: region,
     }, { withCredentials: true }).
       then(() => router.push(`/store/${name}`)).
       catch(() => alert('가게 수정 API 오류!'))
@@ -56,12 +58,6 @@ const StoreUpdate = ({ storeInfo }) => {
       }).
       catch(() => alert('가게 삭제에 실패했습니다.'))
   }
-
-  const storeOptions = loading ? [] : Object.entries(storeMetaType).
-    map((type) => {
-      const [key, value] = type
-      return { key: key, text: value, value: value }
-    })
 
   return (
     <Form>
@@ -99,7 +95,7 @@ const StoreUpdate = ({ storeInfo }) => {
         name={'store_type'}
         value={storeType}
         placeholder={'가게 타입을 선택하세요.'}
-        options={storeOptions}
+        options={StoreType}
         onChange={(e, { value }) => setStoreType(value?.toString())}
       />
 
@@ -183,6 +179,14 @@ const StoreUpdate = ({ storeInfo }) => {
         placeholder={'퍼블릭 페이지 가게 목록에 표시될 라벨. ex. 전통맛집, 강추'}
         value={label}
         onChange={(e) => setLabel(e.target.value)}
+      />
+
+      <Form.Select
+        label={'가게 지역'}
+        placeholder={'가게가 속한 지역을 선택하세요.'}
+        value={region}
+        options={StoreRegionType}
+        onChange={(e, { value }) => setRegion(value?.toString())}
       />
 
       <Divider/>

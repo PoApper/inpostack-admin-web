@@ -5,11 +5,10 @@ import styled from 'styled-components'
 import { Form, Icon, Modal } from 'semantic-ui-react'
 import DatePicker from 'react-datepicker'
 import Postcode from './postcode'
-import useStoreMetaType from '../../data/useStoreType'
+import StoreType from '../../assets/StoreType'
 
 const StoreCreateModal = () => {
   const router = useRouter()
-  const { loading, storeMetaType } = useStoreMetaType()
 
   const [open, setOpen] = useState(false)
   const [name, setName] = useState('')
@@ -46,12 +45,6 @@ const StoreCreateModal = () => {
         console.log(err)
       })
   }
-
-  const storeOptions = loading ? [] : Object.entries(storeMetaType).
-    map((type) => {
-      const [key, value] = type
-      return { key: key, text: value, value: value }
-    })
 
   return (
     <Modal
@@ -97,7 +90,7 @@ const StoreCreateModal = () => {
             name={'store_type'}
             value={store_type}
             placeholder={'가게 타입을 선택하세요.'}
-            options={storeOptions}
+            options={StoreType}
             onChange={(e, { value }) => setStore_type(value?.toString())}
           />
 
