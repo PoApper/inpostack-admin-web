@@ -5,11 +5,10 @@ import styled from 'styled-components'
 import { Form, Icon, Modal } from 'semantic-ui-react'
 import DatePicker from 'react-datepicker'
 import Postcode from './postcode'
-import useStoreMetaType from '../../data/useStoreType'
+import StoreType from '../../assets/StoreType'
 
 const StoreCreateModal = () => {
   const router = useRouter()
-  const { loading, storeMetaType } = useStoreMetaType()
 
   const [open, setOpen] = useState(false)
   const [name, setName] = useState('')
@@ -47,12 +46,6 @@ const StoreCreateModal = () => {
       })
   }
 
-  const storeOptions = loading ? [] : Object.entries(storeMetaType).
-    map((type) => {
-      const [key, value] = type
-      return { key: key, text: value, value: value }
-    })
-
   return (
     <Modal
       onClose={() => setOpen(false)}
@@ -85,7 +78,6 @@ const StoreCreateModal = () => {
           />
 
           <Form.TextArea
-            required
             label={'가게 소개'}
             name={'description'}
             value={description}
@@ -98,11 +90,11 @@ const StoreCreateModal = () => {
             name={'store_type'}
             value={store_type}
             placeholder={'가게 타입을 선택하세요.'}
-            options={storeOptions}
+            options={StoreType}
             onChange={(e, { value }) => setStore_type(value?.toString())}
           />
 
-          <Form.Field required>
+          <Form.Field>
             <label>가게 주소</label>
             <Postcode
               zipcode={zipcode}
@@ -137,8 +129,7 @@ const StoreCreateModal = () => {
           </Form.Group>
 
           <Form.Group style={{ width: '100%', margin: '0 0 14px 0' }}>
-            <div className={'required field'}
-                 style={{ width: '100%', paddingLeft: 0 }}>
+            <div style={{ width: '100%', paddingLeft: 0 }}>
               <label>오픈 시간</label>
               <DatePicker
                 showTimeSelect showTimeSelectOnly timeIntervals={30}
@@ -149,8 +140,7 @@ const StoreCreateModal = () => {
                 onChange={(e) => setOpen_time(e)}
               />
             </div>
-            <div className={'required field'}
-                 style={{ width: '100%', paddingRight: 0 }}>
+            <div style={{ width: '100%', paddingRight: 0 }}>
               <label>닫는 시간</label>
               <DatePicker
                 showTimeSelect showTimeSelectOnly timeIntervals={30}
