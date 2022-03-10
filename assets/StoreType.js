@@ -1,5 +1,5 @@
 // should be sync with enum defined in API
-const StoreType = [
+export const StoreTypeOption = [
   {
     key: 'korean',
     value: 'KOREAN',
@@ -67,4 +67,18 @@ const StoreType = [
   },
 ];
 
-export default StoreType;
+export const StoreTypeKorean = {
+  KOREAN: '한식',
+  JAPANESE: '일식',
+  CHINESE: '중식',
+  WESTERN: '양식',
+  CHICKEN: '치킨',
+  HAMBURGER: '햄버거',
+  PIZZA: '피자',
+  SNACK_SHOP: '분식',
+  SEA_FOOD: '해산물',
+  DESSERT: '디저트',
+  KOREAN_STEW: '찌개, 국밥',
+  BOSSAM: '고기, 보쌈',
+  ETC: 'OTHERS',
+};

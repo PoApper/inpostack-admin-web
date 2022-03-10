@@ -6,8 +6,8 @@ import { Divider, Form, Icon } from 'semantic-ui-react'
 import DatePicker from 'react-datepicker'
 
 import Postcode from './postcode'
-import StoreType from '../../assets/StoreType'
-import StoreRegionType from '../../assets/StoreRegionType'
+import { StoreTypeOption } from '../../assets/StoreType'
+import { StoreRegionTypeOption } from '../../assets/StoreRegionType'
 
 const StoreUpdate = ({ storeInfo }) => {
   const router = useRouter()
@@ -95,7 +95,7 @@ const StoreUpdate = ({ storeInfo }) => {
         name={'store_type'}
         value={storeType}
         placeholder={'가게 타입을 선택하세요.'}
-        options={StoreType}
+        options={StoreTypeOption}
         onChange={(e, { value }) => setStoreType(value?.toString())}
       />
 
@@ -185,7 +185,7 @@ const StoreUpdate = ({ storeInfo }) => {
         label={'가게 지역'}
         placeholder={'가게가 속한 지역을 선택하세요.'}
         value={region}
-        options={StoreRegionType}
+        options={StoreRegionTypeOption}
         onChange={(e, { value }) => setRegion(value?.toString())}
       />
 

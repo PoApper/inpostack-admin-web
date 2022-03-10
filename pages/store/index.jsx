@@ -7,6 +7,8 @@ import { Table, Dropdown } from 'semantic-ui-react'
 import Layout from '../../components/layout'
 import StoreCreateModal from '../../components/store/StoreCreateModal'
 
+import { StoreTypeKorean } from '../../assets/StoreType'
+
 const StoreIndexPage = () => {
   const [stores, setStores] = useState([])
   const [order, setOrder] = useState('visit')
@@ -63,7 +65,7 @@ const StoreIndexPage = () => {
                       </Link>
                     </Table.Cell>
                     <Table.Cell>
-                      {store.store_type}
+                      {StoreTypeKorean[store.store_type]}
                     </Table.Cell>
                     <Table.Cell>
                       {
