@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { Form, Icon, Modal } from 'semantic-ui-react'
 import DatePicker from 'react-datepicker'
 import Postcode from './postcode'
-import StoreType from '../../assets/StoreType'
+import { StoreTypeOption } from '../../assets/StoreType'
 
 const StoreCreateModal = () => {
   const router = useRouter()
@@ -90,7 +90,7 @@ const StoreCreateModal = () => {
             name={'store_type'}
             value={store_type}
             placeholder={'가게 타입을 선택하세요.'}
-            options={StoreType}
+            options={StoreTypeOption}
             onChange={(e, { value }) => setStore_type(value?.toString())}
           />
 
