@@ -6,7 +6,7 @@ import MenuCreateModal from './menuCreateModal'
 import MenuCard from './menuCard'
 import { CategoryUpdateModal } from '../category/categoryUpdateModal'
 
-const MenuContainer = ({ store_uuid, categoryWithMenu }) => {
+const MenuContainer = ({ storeUuid, categoryWithMenu }) => {
   const categoryName = categoryWithMenu.name
   const menus = categoryWithMenu.menu
 
@@ -35,7 +35,7 @@ const MenuContainer = ({ store_uuid, categoryWithMenu }) => {
               }
             />
             <MenuCreateModal
-              store_uuid={store_uuid}
+              store_uuid={storeUuid}
               categoryUUID={categoryWithMenu.uuid}
               categoryName={categoryWithMenu.name}
               trigger={

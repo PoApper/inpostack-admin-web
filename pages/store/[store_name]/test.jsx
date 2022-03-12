@@ -37,7 +37,7 @@ const StorePage = () => {
             <StoreInfoDiv storeInfo={storeWithAll}/>
 
             <MenuGrid
-                store_uuid={storeWithAll.uuid}
+                storeUuid={storeWithAll.uuid}
                 categoriesWithMenu={storeWithAll.category}
             />
 

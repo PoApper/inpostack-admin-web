@@ -14,12 +14,12 @@ const StoreCreateModal = () => {
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [description, setDescription] = useState('')
-  const [store_type, setStore_type] = useState('')
+  const [storeType, setStoreType] = useState('')
   const [address1, setAddress1] = useState('')
   const [address2, setAddress2] = useState('')
   const [zipcode, setZipcode] = useState('')
-  const [open_time, setOpen_time] = useState('')
-  const [close_time, setClose_time] = useState('')
+  const [openTime, setOpenTime] = useState('')
+  const [closeTime, setCloseTime] = useState('')
   const [naverMapUrl, setNaverMapUrl] = useState()
   const [kakaoMapUrl, setKakaoMapUrl] = useState()
 
@@ -30,12 +30,12 @@ const StoreCreateModal = () => {
         name: name,
         phone: phone,
         description: description,
-        store_type: store_type,
+        store_type: storeType,
         address1: address1,
         address2: address2,
         zipcode: zipcode,
-        open_time: open_time,
-        close_time: close_time,
+        open_time: openTime,
+        close_time: closeTime,
       }, { withCredentials: true }).
       then(() => {
         router.reload()
@@ -88,10 +88,10 @@ const StoreCreateModal = () => {
             required
             label={'가게 타입'}
             name={'store_type'}
-            value={store_type}
+            value={storeType}
             placeholder={'가게 타입을 선택하세요.'}
             options={StoreTypeOption}
-            onChange={(e, { value }) => setStore_type(value?.toString())}
+            onChange={(e, { value }) => setStoreType(value?.toString())}
           />
 
           <Form.Field>
@@ -135,9 +135,9 @@ const StoreCreateModal = () => {
                 showTimeSelect showTimeSelectOnly timeIntervals={30}
                 autoComplete="off"
                 name="open_time" dateFormat="hh:mm aa"
-                selected={open_time}
+                selected={openTime}
                 onKeyDown={e => e.preventDefault()}
-                onChange={(e) => setOpen_time(e)}
+                onChange={(e) => setOpenTime(e)}
               />
             </div>
             <div style={{ width: '100%', paddingRight: 0 }}>
@@ -146,9 +146,9 @@ const StoreCreateModal = () => {
                 showTimeSelect showTimeSelectOnly timeIntervals={30}
                 autoComplete="off"
                 name="close_time" dateFormat="hh:mm aa"
-                selected={close_time}
+                selected={closeTime}
                 onKeyDown={e => e.preventDefault()}
-                onChange={(e) => setClose_time(e)}
+                onChange={(e) => setCloseTime(e)}
               />
             </div>
           </Form.Group>

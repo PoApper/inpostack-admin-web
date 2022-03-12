@@ -16,7 +16,7 @@ const StoreUpdateModal = ({ storeInfo, trigger }) => {
   const [name, setName] = useState(storeInfo.name)
   const [phone, setPhone] = useState(storeInfo.phone)
   const [description, setDescription] = useState(storeInfo.description)
-  const [store_type, setStore_type] = useState(storeInfo.store_type)
+  const [storeType, setStoreType] = useState(storeInfo.store_type)
   const [address1, setAddress1] = useState(storeInfo.address1)
   const [address2, setAddress2] = useState(storeInfo.address2)
   const [zipcode, setZipcode] = useState(storeInfo.zipcode)
@@ -101,10 +101,10 @@ const StoreUpdateModal = ({ storeInfo, trigger }) => {
             required
             label={'가게 타입'}
             name={'store_type'}
-            value={store_type}
+            value={storeType}
             placeholder={'가게 타입을 선택하세요.'}
             options={StoreTypeOption}
-            onChange={(e, { value }) => setStore_type(value?.toString())}
+            onChange={(e, { value }) => setStoreType(value?.toString())}
           />
 
           <Form.Field>

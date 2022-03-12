@@ -30,7 +30,7 @@ const StoreMenuPage = () => {
               메뉴 아래의 <b>수정</b> 버튼을 클릭해 메뉴 정보를 수정할 수 있습니다.
             </Message>
             <MenuGrid
-              store_uuid={storeWithAll.uuid}
+              storeUuid={storeWithAll.uuid}
               categoriesWithMenu={storeWithAll.category}
             />
           </>
