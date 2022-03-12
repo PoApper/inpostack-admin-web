@@ -46,7 +46,7 @@ const StoreLogoAddModal = ({ store_uuid }) => {
       onOpen={() => setOpen(true)}
       open={open}
       trigger={
-        <Button>
+        <Button compact style={{width: '100%'}}>
           로고 변경 <Icon name={'redo'} style={{marginLeft: 4}}/>
         </Button>
       }>
