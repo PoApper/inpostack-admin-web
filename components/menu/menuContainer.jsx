@@ -4,7 +4,7 @@ import { Accordion, Button, Icon } from 'semantic-ui-react'
 
 import MenuCreateModal from './menuCreateModal'
 import MenuCard from './menuCard'
-import { CategoryUpdateModal } from './categoryUpdateModal'
+import { CategoryUpdateModal } from '../category/categoryUpdateModal'
 
 const MenuContainer = ({ store_uuid, categoryWithMenu }) => {
   const categoryName = categoryWithMenu.name
@@ -85,11 +85,11 @@ const CategoryTitle = styled.h3`
 
 const MenuGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   padding: 10px 1rem 20px;
   grid-gap: 1rem;
 
   @media only screen and (max-width: ${({ theme }) => theme.breakpoint.s}) {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 `

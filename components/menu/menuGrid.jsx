@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { Button } from 'semantic-ui-react'
 import MenuContainer from './menuContainer'
-import { CategoryCreateModal } from './categoryCreateModal'
+import { CategoryCreateModal } from '../category/categoryCreateModal'
 
 const MenuGrid = ({ store_uuid, categoriesWithMenu }) => {
   return (

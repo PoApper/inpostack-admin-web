@@ -1,79 +1,59 @@
-import MenuUpdateModal from './menuUpdateModal'
-import { Button } from 'semantic-ui-react'
 import styled from 'styled-components'
+import { Button, Image } from 'semantic-ui-react'
+import MenuUpdateModal from './menuUpdateModal'
 
 const MenuCard = ({ menu, categoryInfo }) => {
   return (
-    <CardDiv key={menu.uuid}>
-      <InfoColumn>
-        <MenuText>{menu.name}</MenuText>
-        <PriceText>
-          {
-            (!menu.price || menu.price === 0) ? (
-              <span className={'blurry-text'}>
-                정보 수집중
-              </span>
-            ) : (
-              <span>
-                {menu.price.toLocaleString()}원
-              </span>
-            )
-          }
-        </PriceText>
-        <div>
-          <MenuUpdateModal
-            menuInfo={menu}
-            categoryUUID={categoryInfo.uuid}
-            categoryName={categoryInfo.name}
-            trigger={<Button className={'modal_button'}>
-              메뉴 수정
-            </Button>}
-          />
-        </div>
-      </InfoColumn>
+    <MenuInfo key={menu.uuid}>
       <ImageColumn>
-        <img src={menu.image_url ?? 'https://via.placeholder.com/100'}
-             alt={`${menu.name}_photo`}
-             width={100} height={100}
-             style={{ marginBottom: '0.6rem' }}/>
+        <Image src={menu.image_url ??
+          'https://via.placeholder.com/200?text=InPoStack'}
+               alt={`${menu.name}_photo`}
+               width={240} height={240}
+               rounded
+               style={{ marginBottom: 10, minWidth: '160' }}/>
       </ImageColumn>
-    </CardDiv>
+
+      <div>
+        <h3 style={{ marginBottom: 0 }}>
+          {menu.name}
+          <br/>
+        </h3>
+        <PriceText>
+          {menu.price.toLocaleString()}원
+        </PriceText>
+
+        <MenuUpdateModal
+          menuInfo={menu}
+          categoryUUID={categoryInfo.uuid}
+          categoryName={categoryInfo.name}
+          trigger={
+            <Button className={'modal_button'}>
+              메뉴 수정
+            </Button>
+          }
+        />
+      </div>
+    </MenuInfo>
   )
 }
 
 export default MenuCard
 
-const CardDiv = styled.div`
+const MenuInfo = styled.div`
   display: flex;
-  flex-direction: row;
-  padding: 1rem;
+  flex-direction: column;
+  padding: 10px;
   background-color: white;
-
-  border-radius: 10px;
-  box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 6%);
-  transition: all 0.25s;
-
-  &:hover {
-    box-shadow: 3px 11px 28px 4px rgb(0 0 0 / 12%);
-  }
-`
-
-const MenuText = styled.h4`
-  font-size: 20px;
-  margin: 0 0 5px 0;
+  align-content: center;
+  justify-content: center;
 `
 
 const PriceText = styled.p`
-  font-weight: 700;
-  font-size: 14px;
-  margin: 0;
-`
-
-const InfoColumn = styled.div`
-  display: flex;
-  flex-direction: column;
+  font-size: 16px;
 `
 
 const ImageColumn = styled.div`
-  margin-left: auto;
+  margin-bottom: 12px;
+  width: 100%;
 `
