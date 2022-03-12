@@ -59,10 +59,16 @@ const StoreInfoDiv = ({ storeInfo }) => {
                 <a href={storeInfo.naver_map_url} target={'_blank'}
                    rel={'noreferrer'}>
                   {storeInfo.address1} {storeInfo.address2}
+                  <span style={{color: 'gray', marginLeft: 8}}>
+                    (우) {storeInfo.zipcode}
+                  </span>
                 </a>
               ) : (
                 <span>
                   {storeInfo.address1} {storeInfo.address2}
+                  <span style={{color: 'gray', marginLeft: 8}}>
+                    (우) {storeInfo.zipcode}
+                  </span>
                 </span>
               )
             )

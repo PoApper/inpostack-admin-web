@@ -1,7 +1,7 @@
 import { Button, Icon, Image } from 'semantic-ui-react'
 import StoreLogoAddModal from './StoreLogoAddModal'
 import StoreImageAddModal from './StoreImageAddModal'
-import Link from 'next/link'
+import StoreUpdateModal from './StoreUpdateModal'
 
 const StoreIndexHeader = ({ storeWithAll, store_name }) => {
   return (
@@ -47,9 +47,11 @@ const StoreIndexHeader = ({ storeWithAll, store_name }) => {
         <div>
           <Button.Group style={{ marginBottom: '9px' }}>
             <StoreImageAddModal store_uuid={storeWithAll.uuid}/>
-            <Link href={`/store/${store_name}/information`} passHref>
-              <Button>정보 수정</Button>
-            </Link>
+            <StoreUpdateModal storeInfo={storeWithAll} trigger={
+              <Button>
+                정보 수정
+              </Button>
+            }/>
           </Button.Group>
         </div>
 
