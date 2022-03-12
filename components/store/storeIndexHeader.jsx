@@ -1,19 +1,27 @@
 import { Button, Icon, Image } from 'semantic-ui-react'
+import styled from 'styled-components'
 import StoreLogoAddModal from './StoreLogoAddModal'
 import StoreImageAddModal from './StoreImageAddModal'
 import StoreUpdateModal from './StoreUpdateModal'
 
 const StoreIndexHeader = ({ storeWithAll, store_name }) => {
   return (
-    <div style={{display: 'flex', flexDirection: 'row', marginBottom: 20}}>
-      <div style={{ marginRight: 40 }}>
+    <StoreHeadWrapper>
+      <div style={{ marginRight: 40, marginBottom: 16 }}>
         <Image
           src={storeWithAll.image_url ??
             'https://via.placeholder.com/160'}
           alt={'store_logo'}
           width={200}
         />
-        <StoreLogoAddModal store_uuid={storeWithAll.uuid}/>
+        <StoreLogoAddModal
+          store_uuid={storeWithAll.uuid}
+          trigger={
+            <Button compact style={{width: 200}}>
+              로고 변경 <Icon name={'redo'} style={{marginLeft: 4}}/>
+            </Button>
+          }
+        />
       </div>
 
       <div style={{ width: '100%' }}>
@@ -25,7 +33,7 @@ const StoreIndexHeader = ({ storeWithAll, store_name }) => {
             {store_name}
           </h2>
 
-          <div>
+          <div style={{minWidth: 160}}>
             <Button basic>
               <Icon fitted color={'orange'}
                     name={'star'}/>
@@ -63,8 +71,18 @@ const StoreIndexHeader = ({ storeWithAll, store_name }) => {
           가게 이미지는 <b>정확히</b> 4개만 업로드 합니다. (관리자 페이지에서 가게 이미지 삭제 기능은 추후 개발)
         </div>
       </div>
-    </div>
+    </StoreHeadWrapper>
   )
 }
 
 export default StoreIndexHeader
+
+const StoreHeadWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+  
+  @media only screen and (max-width: ${({ theme }) => theme.breakpoint.s}) {
+    flex-direction: column;
+  }
+`
