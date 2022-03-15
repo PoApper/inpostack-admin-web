@@ -5,7 +5,7 @@ import { Form, Icon, Modal } from 'semantic-ui-react'
 
 import theme from '../../styles/theme'
 
-export const CategoryUpdateModal = ({ store_uuid, trigger, categoryInfo }) => {
+export const CategoryUpdateModal = ({ storeUuid, trigger, categoryInfo }) => {
   const router = useRouter()
 
   const [isModalOpen, setModalOpen] = useState(false)
@@ -13,7 +13,7 @@ export const CategoryUpdateModal = ({ store_uuid, trigger, categoryInfo }) => {
 
   async function handleUpdate (e) {
     e.preventDefault()
-    if (!store_uuid) {
+    if (!storeUuid) {
       alert('유효하지 않은 가게 정보 입니다.')
       return;
     }
@@ -22,7 +22,7 @@ export const CategoryUpdateModal = ({ store_uuid, trigger, categoryInfo }) => {
       await axios.put(
         `${process.env.NEXT_PUBLIC_API}/category/${categoryInfo.uuid}`, {
           name: name,
-          store_uuid: store_uuid,
+          store_uuid: storeUuid,
         }, { withCredentials: true })
       alert('카테고리 정보를 수정 했습니다.')
       router.reload()

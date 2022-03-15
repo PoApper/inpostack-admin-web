@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 import { Button } from 'semantic-ui-react'
 import MenuContainer from './menuContainer'
-import { CategoryCreateModal } from './categoryCreateModal'
+import { CategoryCreateModal } from '../category/categoryCreateModal'
 
-const MenuGrid = ({ store_uuid, categoriesWithMenu }) => {
+const MenuGrid = ({ storeUuid, categoriesWithMenu }) => {
   return (
     <MenuWrapper>
       <NewCategoryCard>
@@ -13,7 +13,7 @@ const MenuGrid = ({ store_uuid, categoriesWithMenu }) => {
           카테고리를 가지고 있습니다!
         </p>
         <CategoryCreateModal
-          store_uuid={store_uuid}
+          storeUuid={storeUuid}
           trigger={
             <Button className={'modal_button create_button'}>
               카테고리 생성
@@ -28,7 +28,7 @@ const MenuGrid = ({ store_uuid, categoriesWithMenu }) => {
               <MenuContainer
                 key={category.uuid}
                 categoryWithMenu={category}
-                store_uuid={store_uuid}/>
+                storeUuid={storeUuid}/>
             )
           })
         }

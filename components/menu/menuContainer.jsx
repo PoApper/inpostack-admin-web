@@ -1,12 +1,12 @@
+import { useState } from 'react'
 import styled from 'styled-components'
 import { Accordion, Button, Icon } from 'semantic-ui-react'
-import { useState } from 'react'
 
 import MenuCreateModal from './menuCreateModal'
 import MenuCard from './menuCard'
-import { CategoryUpdateModal } from './categoryUpdateModal'
+import { CategoryUpdateModal } from '../category/categoryUpdateModal'
 
-const MenuContainer = ({ store_uuid, categoryWithMenu }) => {
+const MenuContainer = ({ storeUuid, categoryWithMenu }) => {
   const categoryName = categoryWithMenu.name
   const menus = categoryWithMenu.menu
 
@@ -35,7 +35,7 @@ const MenuContainer = ({ store_uuid, categoryWithMenu }) => {
               }
             />
             <MenuCreateModal
-              store_uuid={store_uuid}
+              store_uuid={storeUuid}
               categoryUUID={categoryWithMenu.uuid}
               categoryName={categoryWithMenu.name}
               trigger={
@@ -85,7 +85,11 @@ const CategoryTitle = styled.h3`
 
 const MenuGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   padding: 10px 1rem 20px;
   grid-gap: 1rem;
+
+  @media only screen and (max-width: ${({ theme }) => theme.breakpoint.s}) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `

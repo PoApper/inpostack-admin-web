@@ -5,14 +5,14 @@ import { Form, Icon, Modal } from 'semantic-ui-react'
 
 import theme from '../../styles/theme'
 
-export const CategoryCreateModal = ({store_uuid, trigger}) => {
+export const CategoryCreateModal = ({storeUuid, trigger}) => {
   const router = useRouter()
 
   const [isModalOpen, setModalOpen] = useState(false)
   const [name, setName] = useState('')
 
   async function handleCreate (e) {
-    if (!store_uuid) {
+    if (!storeUuid) {
       alert('유효하지 않은 가게 정보 입니다.')
       return;
     }
@@ -21,7 +21,7 @@ export const CategoryCreateModal = ({store_uuid, trigger}) => {
     try {
       await axios.post(`${process.env.NEXT_PUBLIC_API}/category`, {
         name: name,
-        store_uuid: store_uuid,
+        store_uuid: storeUuid,
       }, { withCredentials: true })
       alert('카테고리를 생성 했습니다.')
       router.reload()

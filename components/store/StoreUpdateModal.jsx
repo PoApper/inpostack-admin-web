@@ -2,48 +2,61 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import styled from 'styled-components'
-import { Form, Icon, Modal } from 'semantic-ui-react'
+import { Divider, Form, Icon, Modal } from 'semantic-ui-react'
 import DatePicker from 'react-datepicker'
 import Postcode from './postcode'
 import { StoreTypeOption } from '../../assets/StoreType'
+import { StoreRegionTypeOption } from '../../assets/StoreRegionType'
 
-const StoreCreateModal = () => {
+const StoreUpdateModal = ({ storeInfo, trigger }) => {
   const router = useRouter()
-
   const [open, setOpen] = useState(false)
-  const [name, setName] = useState('')
-  const [phone, setPhone] = useState('')
-  const [description, setDescription] = useState('')
-  const [storeType, setStoreType] = useState('')
-  const [address1, setAddress1] = useState('')
-  const [address2, setAddress2] = useState('')
-  const [zipcode, setZipcode] = useState('')
-  const [openTime, setOpenTime] = useState('')
-  const [closeTime, setCloseTime] = useState('')
-  const [naverMapUrl, setNaverMapUrl] = useState()
-  const [kakaoMapUrl, setKakaoMapUrl] = useState()
 
-  async function handleSubmit (e) {
+  const uuid = storeInfo.uuid
+  const [name, setName] = useState(storeInfo.name)
+  const [phone, setPhone] = useState(storeInfo.phone)
+  const [description, setDescription] = useState(storeInfo.description)
+  const [storeType, setStoreType] = useState(storeInfo.store_type)
+  const [address1, setAddress1] = useState(storeInfo.address1)
+  const [address2, setAddress2] = useState(storeInfo.address2)
+  const [zipcode, setZipcode] = useState(storeInfo.zipcode)
+  const [openTime, setOpenTime] = useState(storeInfo.open_time)
+  const [closeTime, setCloseTime] = useState(storeInfo.close_time)
+  const [naverMapUrl, setNaverMapUrl] = useState(storeInfo.naver_map_url)
+  const [kakaoMapUrl, setKakaoMapUrl] = useState(storeInfo.kakao_map_url)
+  const [label, setLabel] = useState(storeInfo.label)
+  const [region, setRegion] = useState(storeInfo.region)
+
+  function handleUpdate (e) {
     e.preventDefault()
-    axios.post(`${process.env.NEXT_PUBLIC_API}/store`,
-      {
-        name: name,
-        phone: phone,
-        description: description,
-        store_type: storeType,
-        address1: address1,
-        address2: address2,
-        zipcode: zipcode,
-        open_time: openTime,
-        close_time: closeTime,
-      }, { withCredentials: true }).
+    axios.put(`${process.env.NEXT_PUBLIC_API}/store/${uuid}`, {
+      name: name,
+      phone: phone,
+      description: description,
+      store_type: storeType,
+      address1: address1,
+      address2: address2,
+      zipcode: zipcode,
+      open_time: openTime,
+      close_time: closeTime,
+      naver_map_url: naverMapUrl,
+      kakao_map_url: kakaoMapUrl,
+      label: label,
+      region: region,
+    }, { withCredentials: true }).
+      then(() => router.push(`/store/${name}`)).
+      catch(() => alert('가게 수정 API 오류!'))
+  }
+
+  function handleDelete (e) {
+    e.preventDefault()
+    axios.delete(`${process.env.NEXT_PUBLIC_API}/store/${uuid}`,
+      { withCredentials: true }).
       then(() => {
-        router.reload()
+        alert('가게를 삭제했습니다.')
+        router.push('/store')
       }).
-      catch((err) => {
-        alert('가게 생성에 실패했습니다.')
-        console.log(err)
-      })
+      catch(() => alert('가게 삭제에 실패했습니다.'))
   }
 
   return (
@@ -51,9 +64,9 @@ const StoreCreateModal = () => {
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
-      trigger={<CreateButton>Store <Icon name="add circle"/></CreateButton>}
+      trigger={trigger}
     >
-      <Modal.Header>가게 생성</Modal.Header>
+      <Modal.Header>가게 정보 수정</Modal.Header>
       <Modal.Content>
         <Form>
           <Form.Input
@@ -135,9 +148,14 @@ const StoreCreateModal = () => {
                 showTimeSelect showTimeSelectOnly timeIntervals={30}
                 autoComplete="off"
                 name="open_time" dateFormat="hh:mm aa"
-                selected={openTime}
+                value={openTime}
                 onKeyDown={e => e.preventDefault()}
-                onChange={(e) => setOpenTime(e)}
+                onChange={open_time => {
+                  setOpenTime(
+                    `${open_time.getHours()}:${open_time.getMinutes() === 0
+                      ? '00'
+                      : '30'}`)
+                }}
               />
             </div>
             <div style={{ width: '100%', paddingRight: 0 }}>
@@ -146,44 +164,50 @@ const StoreCreateModal = () => {
                 showTimeSelect showTimeSelectOnly timeIntervals={30}
                 autoComplete="off"
                 name="close_time" dateFormat="hh:mm aa"
-                selected={closeTime}
+                value={closeTime}
                 onKeyDown={e => e.preventDefault()}
-                onChange={(e) => setCloseTime(e)}
+                onChange={close_time => {
+                  setCloseTime(
+                    `${close_time.getHours()}:${close_time.getMinutes() === 0
+                      ? '00'
+                      : '30'}`)
+                }}
               />
             </div>
           </Form.Group>
 
-          <p>
-            메뉴 카테고리와 세부 메뉴 생성은 가게 생성 후 편집이 가능합니다!
-          </p>
+          <br/>
 
-          <FormButton onClick={handleSubmit}>
-            <b>Create</b> <Icon name="add circle"/>
-          </FormButton>
+          <Form.Input
+            label={'가게 라벨'}
+            placeholder={'퍼블릭 페이지 가게 목록에 표시될 라벨. ex. 전통맛집, 강추'}
+            value={label}
+            onChange={(e) => setLabel(e.target.value)}
+          />
+
+          <Form.Select
+            label={'가게 지역'}
+            placeholder={'가게가 속한 지역을 선택하세요.'}
+            value={region}
+            options={StoreRegionTypeOption}
+            onChange={(e, { value }) => setRegion(value?.toString())}
+          />
+
+          <Divider/>
+
+          <Form.Group>
+            <FormButton onClick={handleUpdate}>Update <Icon
+              name="add circle"/></FormButton>
+            <DeleteButton onClick={handleDelete}>Delete <Icon
+              name="remove circle"/></DeleteButton>
+          </Form.Group>
         </Form>
       </Modal.Content>
     </Modal>
   )
 }
 
-export default StoreCreateModal
-
-const CreateButton = styled.button`
-  cursor: pointer;
-  width: 90px;
-  height: 35px;
-  padding: 0 15px;
-  line-height: 35px;
-  background-color: #00758e;
-  color: #fff;
-  border: 0;
-  border-radius: 15px;
-  transition: 0.2s ease-in-out;
-
-  &:hover {
-    background-color: #005d73;
-  }
-`
+export default StoreUpdateModal
 
 const FormButton = styled.button`
   cursor: pointer;
@@ -198,5 +222,22 @@ const FormButton = styled.button`
 
   &:hover {
     background-color: #005d73;
+  }
+`
+
+const DeleteButton = styled.button`
+  cursor: pointer;
+  width: 100px;
+  height: 35px;
+  line-height: 35px;
+  margin-left: 10px;
+  background-color: #da1451;
+  color: #fff;
+  border: 0;
+  border-radius: 5px;
+  transition: 0.2s ease-in-out;
+
+  &:hover {
+    background-color: #b81f54;
   }
 `

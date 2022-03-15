@@ -11,7 +11,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import Dropzone from 'react-dropzone'
 
-const StoreLogoAddModal = ({ store_uuid }) => {
+const StoreLogoAddModal = ({ store_uuid, trigger }) => {
   const router = useRouter()
 
   const [open, setOpen] = useState(false)
@@ -45,11 +45,7 @@ const StoreLogoAddModal = ({ store_uuid }) => {
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
-      trigger={
-        <Button>
-          로고 변경 <Icon name={'redo'} style={{marginLeft: 4}}/>
-        </Button>
-      }>
+      trigger={trigger}>
       <Modal.Header>가게 로고 추가/변경</Modal.Header>
       <Modal.Content>
         {
