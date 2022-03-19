@@ -6,7 +6,6 @@ import { Divider, Form, Icon, Modal } from 'semantic-ui-react'
 import Postcode from './postcode'
 import { StoreTypeOption } from '../../assets/StoreType'
 import { StoreRegionTypeOption } from '../../assets/StoreRegionType'
-import StoreOpenHourPlaceHolder from '../../assets/StoreOpenHourPlaceHolder'
 
 const StoreUpdateModal = ({ storeInfo, trigger }) => {
   const router = useRouter()
@@ -42,7 +41,7 @@ const StoreUpdateModal = ({ storeInfo, trigger }) => {
       label: label,
       region: region,
     }, { withCredentials: true }).
-      then(() => router.push(`/store/${name}`)).
+      then(() => router.reload()).
       catch(() => alert('가게 수정 API 오류!'))
   }
 
@@ -142,7 +141,10 @@ const StoreUpdateModal = ({ storeInfo, trigger }) => {
           <Form.TextArea
             label={'가게 운영 시간'}
             value={openingHours}
-            placeholder={StoreOpenHourPlaceHolder}
+            placeholder={
+              'JSON format. ' +
+              'ex: { "월, 화, 수": [{"startTime": "09:00", "endTime": "14:00"}], "주말": "정기 휴일" }'
+            }
             onChange={(e) => setOpeningHours(e.target.value)}
           />
 
