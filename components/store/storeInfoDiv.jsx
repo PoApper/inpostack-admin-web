@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Divider, Icon, Image } from 'semantic-ui-react'
+import { Divider, Image, List } from 'semantic-ui-react'
 // import StoreMap from './storeMap';
 import axios from 'axios'
 import { isBlurry } from '../../utils/blurry-check'
+import StoreOpeningHours from './StoreOpeningHours'
 
 const StoreInfoDiv = ({ storeInfo }) => {
   const uuid = storeInfo.uuid
@@ -38,19 +39,22 @@ const StoreInfoDiv = ({ storeInfo }) => {
 
       <Divider/>
 
-      <div>
-        <p>
-          <Icon name={'call'}/>
-          {
-            isBlurry(storeInfo.phone) ? (
-              <span className={'blurry-text'}>정보 수집중</span>
-            ) : (
-              <span> {storeInfo.phone}</span>
-            )
-          }
-        </p>
-        <p>
-          <Icon name={'home'}/>
+      <List>
+        <List.Item>
+          <List.Icon name={'call'} />
+          <List.Content>
+            {
+              isBlurry(storeInfo.phone) ? (
+                <span className={'blurry-text'}>정보 수집중</span>
+              ) : (
+                <span> {storeInfo.phone}</span>
+              )
+            }
+          </List.Content>
+        </List.Item>
+        <List.Item>
+          <List.Icon name={'home'} />
+          <List.Content>
           {
             isBlurry(storeInfo.address1) ? (
               <span className={'blurry-text'}>정보 수집중</span>
@@ -73,21 +77,27 @@ const StoreInfoDiv = ({ storeInfo }) => {
               )
             )
           }
-
+          </List.Content>
           {/* TODO: 클릭하면 펼쳐보이게 */}
           {/*<StoreMap address1={storeInfo.address1} />*/}
-        </p>
-        <p>
-          <Icon name={'clock'}/>
-          {
-            isBlurry(storeInfo.open_time) || isBlurry(storeInfo.close_time) ? (
-              <span className={'blurry-text'}>정보 수집중</span>
-            ) : (
-              <span>{storeInfo.open_time} ~ {storeInfo.close_time}</span>
-            )
-          }
-        </p>
+        </List.Item>
+        <List.Item>
+          <List.Icon name={'clock'}/>
+          <List.Content>
+            {
+              isBlurry(storeInfo.opening_hours) ? (
+                <span className={'blurry-text'}>정보 수집중</span>
+              ) : (
+                <StoreOpeningHours
+                  openingHours={storeInfo.opening_hours}
+                />
+              )
+            }
+          </List.Content>
+        </List.Item>
+
         <Divider/>
+
         <p>
           {
             isBlurry(storeInfo.description) ? (
@@ -99,7 +109,7 @@ const StoreInfoDiv = ({ storeInfo }) => {
             )
           }
         </p>
-      </div>
+      </List>
     </div>
   )
 }
@@ -121,5 +131,4 @@ const StoreImageDiv = styled.div`
   padding: 10px;
   height: 250px;
   border-radius: 5px;
-  
 `

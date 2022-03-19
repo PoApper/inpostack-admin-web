@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import styled from 'styled-components'
 import { Divider, Form, Icon, Modal } from 'semantic-ui-react'
-import DatePicker from 'react-datepicker'
 import Postcode from './postcode'
 import { StoreTypeOption } from '../../assets/StoreType'
 import { StoreRegionTypeOption } from '../../assets/StoreRegionType'
@@ -20,8 +19,7 @@ const StoreUpdateModal = ({ storeInfo, trigger }) => {
   const [address1, setAddress1] = useState(storeInfo.address1)
   const [address2, setAddress2] = useState(storeInfo.address2)
   const [zipcode, setZipcode] = useState(storeInfo.zipcode)
-  const [openTime, setOpenTime] = useState(storeInfo.open_time)
-  const [closeTime, setCloseTime] = useState(storeInfo.close_time)
+  const [openingHours, setOpeningHours] = useState(storeInfo.opening_hours)
   const [naverMapUrl, setNaverMapUrl] = useState(storeInfo.naver_map_url)
   const [kakaoMapUrl, setKakaoMapUrl] = useState(storeInfo.kakao_map_url)
   const [label, setLabel] = useState(storeInfo.label)
@@ -37,14 +35,13 @@ const StoreUpdateModal = ({ storeInfo, trigger }) => {
       address1: address1,
       address2: address2,
       zipcode: zipcode,
-      open_time: openTime,
-      close_time: closeTime,
+      opening_hours: openingHours,
       naver_map_url: naverMapUrl,
       kakao_map_url: kakaoMapUrl,
       label: label,
       region: region,
     }, { withCredentials: true }).
-      then(() => router.push(`/store/${name}`)).
+      then(() => router.reload()).
       catch(() => alert('가게 수정 API 오류!'))
   }
 
@@ -141,40 +138,15 @@ const StoreUpdateModal = ({ storeInfo, trigger }) => {
             />
           </Form.Group>
 
-          <Form.Group style={{ width: '100%', margin: '0 0 14px 0' }}>
-            <div style={{ width: '100%', paddingLeft: 0 }}>
-              <label>오픈 시간</label>
-              <DatePicker
-                showTimeSelect showTimeSelectOnly timeIntervals={30}
-                autoComplete="off"
-                name="open_time" dateFormat="hh:mm aa"
-                value={openTime}
-                onKeyDown={e => e.preventDefault()}
-                onChange={open_time => {
-                  setOpenTime(
-                    `${open_time.getHours()}:${open_time.getMinutes() === 0
-                      ? '00'
-                      : '30'}`)
-                }}
-              />
-            </div>
-            <div style={{ width: '100%', paddingRight: 0 }}>
-              <label>닫는 시간</label>
-              <DatePicker
-                showTimeSelect showTimeSelectOnly timeIntervals={30}
-                autoComplete="off"
-                name="close_time" dateFormat="hh:mm aa"
-                value={closeTime}
-                onKeyDown={e => e.preventDefault()}
-                onChange={close_time => {
-                  setCloseTime(
-                    `${close_time.getHours()}:${close_time.getMinutes() === 0
-                      ? '00'
-                      : '30'}`)
-                }}
-              />
-            </div>
-          </Form.Group>
+          <Form.TextArea
+            label={'가게 운영 시간'}
+            value={openingHours}
+            placeholder={
+              'JSON format. ' +
+              'ex: { "월, 화, 수": [{"startTime": "09:00", "endTime": "14:00"}], "주말": "정기 휴일" }'
+            }
+            onChange={(e) => setOpeningHours(e.target.value)}
+          />
 
           <br/>
 

@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import styled from 'styled-components'
 import { Form, Icon, Modal } from 'semantic-ui-react'
-import DatePicker from 'react-datepicker'
 import Postcode from './postcode'
 import { StoreTypeOption } from '../../assets/StoreType'
 
@@ -18,8 +17,6 @@ const StoreCreateModal = () => {
   const [address1, setAddress1] = useState('')
   const [address2, setAddress2] = useState('')
   const [zipcode, setZipcode] = useState('')
-  const [openTime, setOpenTime] = useState('')
-  const [closeTime, setCloseTime] = useState('')
   const [naverMapUrl, setNaverMapUrl] = useState()
   const [kakaoMapUrl, setKakaoMapUrl] = useState()
 
@@ -34,8 +31,6 @@ const StoreCreateModal = () => {
         address1: address1,
         address2: address2,
         zipcode: zipcode,
-        open_time: openTime,
-        close_time: closeTime,
       }, { withCredentials: true }).
       then(() => {
         router.reload()
@@ -126,31 +121,6 @@ const StoreCreateModal = () => {
               placeholder={'https://place.map.kakao.com/xxxxxxxx'}
               onChange={(e) => setKakaoMapUrl(e.target.value)}
             />
-          </Form.Group>
-
-          <Form.Group style={{ width: '100%', margin: '0 0 14px 0' }}>
-            <div style={{ width: '100%', paddingLeft: 0 }}>
-              <label>오픈 시간</label>
-              <DatePicker
-                showTimeSelect showTimeSelectOnly timeIntervals={30}
-                autoComplete="off"
-                name="open_time" dateFormat="hh:mm aa"
-                selected={openTime}
-                onKeyDown={e => e.preventDefault()}
-                onChange={(e) => setOpenTime(e)}
-              />
-            </div>
-            <div style={{ width: '100%', paddingRight: 0 }}>
-              <label>닫는 시간</label>
-              <DatePicker
-                showTimeSelect showTimeSelectOnly timeIntervals={30}
-                autoComplete="off"
-                name="close_time" dateFormat="hh:mm aa"
-                selected={closeTime}
-                onKeyDown={e => e.preventDefault()}
-                onChange={(e) => setCloseTime(e)}
-              />
-            </div>
           </Form.Group>
 
           <p>

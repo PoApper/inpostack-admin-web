@@ -1,171 +1,49 @@
 import React, { useEffect, useState } from 'react'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import axios from 'axios'
-import { Button, Icon, Image } from 'semantic-ui-react'
-import styled from 'styled-components'
 
 import Layout from '../../../components/layout'
-import StoreInformationBlock from '../../../components/store/StoreInformation'
-import { Mobile, PC, Tablet } from '../../../components/MediaQuery'
-import StoreImageAddModal from '../../../components/store/StoreImageAddModal'
-import StoreImageGrid from '../../../components/store/StoreImageGrid'
-import StoreLogoAddModal from '../../../components/store/StoreLogoAddModal'
+import Head from 'next/head'
+import StoreInfoDiv from '../../../components/store/storeInfoDiv'
+import StoreIndexHeader from '../../../components/store/storeIndexHeader'
+import MenuGrid from '../../../components/menu/menuGrid'
+import ReviewList from '../../../components/review/reviewList'
+import { Divider } from 'semantic-ui-react'
 
-const StoreUpdatePage = () => {
+const StorePage = () => {
   const router = useRouter()
+  const { store_name } = router.query
   const [storeWithAll, setStoreWithAll] = useState()
-  const store_name = router.query.store_name
 
   useEffect(() => {
-    if (!store_name) return
-
-    axios.get(
-      `${process.env.NEXT_PUBLIC_API}/store/name/${store_name}?category=true&menu=true`).
-      then((res) => {
-        setStoreWithAll(res.data)
-      }).
-      catch(err => {
-        alert('가게 정보를 불러오는데 실패했습니다.')
-        console.log(err)
-      })
+    if (!store_name) return;
+    axios
+      .get(`${process.env.NEXT_PUBLIC_API}/store/name/${store_name}?category=true&menu=true`,
+        {withCredentials: true})
+      .then(res => setStoreWithAll(res.data))
+      .catch(() => alert(`가게 정보를 불러오는데 실패했습니다.`))
   }, [store_name])
 
   return (
     <Layout>
+      <Head>
+        <title>{store_name} | InPoStack</title>
+      </Head>
       {
         storeWithAll ? (
           <>
-            <PC>
-              <StoreIndexHeader>
-                <div style={{ marginRight: 40 }}>
-                  <Image
-                    src={storeWithAll.image_url ??
-                      'https://via.placeholder.com/160'}
-                    alt={'store_logo'}
-                    width={200}
-                  />
-                </div>
+            <StoreIndexHeader storeWithAll={storeWithAll} store_name={store_name} />
 
-                <div style={{ width: '100%' }}>
-                  <div style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                  }}>
-                    <h2 style={{ fontSize: 32 }}>
-                      {store_name}
-                    </h2>
+            <StoreInfoDiv storeInfo={storeWithAll}/>
 
-                    <div>
-                      <Button basic>
-                        <Icon fitted color={'orange'}
-                              name={'star'}/>
-                        <span style={{ marginLeft: 4 }}>
-                            {Number(storeWithAll.favorite_count).
-                              toLocaleString()}
-                          </span>
-                      </Button>
-                      <Button basic>
-                        <Icon fitted color={'orange'}
-                              name={'eye'}/>
-                        <span style={{ marginLeft: 4 }}>
-                            {Number(storeWithAll.visit_count).toLocaleString()}
-                          </span>
-                      </Button>
-                    </div>
-                  </div>
+            <MenuGrid
+                storeUuid={storeWithAll.uuid}
+                categoriesWithMenu={storeWithAll.category}
+            />
 
-                  <div>
-                    <Button.Group style={{ marginBottom: '9px' }}>
-                      <StoreLogoAddModal store_uuid={storeWithAll.uuid}/>
-                      <StoreImageAddModal store_uuid={storeWithAll.uuid}/>
-                      <Link href={`/store/${store_name}/information`} passHref>
-                        <Button>정보 수정</Button>
-                      </Link>
-                      <Link href={`/store/${store_name}/menu`} passHref>
-                        <Button>메뉴 수정</Button>
-                      </Link>
-                    </Button.Group>
-                  </div>
+            <Divider/>
 
-                  <div>
-                    가게 로고, 가게 이미지는 AWS CloudFront에 캐싱되기 때문에 사진 변경 후 몇 분 뒤에 반영됩니다!
-                    <br/>
-                    가게 로고는 새 이미지를 업로드하면 덮어씌워 집니다.
-                    <br/>
-                    가게 이미지는 <b>정확히</b> 4개만 업로드 합니다. (관리자 페이지에서 가게 이미지 삭제 기능은 추후 개발)
-                  </div>
-                </div>
-              </StoreIndexHeader>
-
-              <StoreImageGrid
-                store_uuid={storeWithAll.uuid}
-              />
-
-              <StoreInformationBlock storeInfo={storeWithAll}/>
-            </PC>
-
-            <Tablet>
-              <div style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  AlignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                <Image
-                  src={storeWithAll.image_url ??
-                    'https://via.placeholder.com/160'}
-                  alt={'store_logo'}
-                  width={200}
-                />
-                <h2>{store_name}</h2>
-                <Button.Group>
-                  <StoreLogoAddModal store_uuid={storeWithAll.uuid}/>
-                  <StoreImageAddModal store_uuid={storeWithAll.uuid}/>
-                </Button.Group>
-                <Button.Group style={{ marginBottom: '9px' }}>
-                  <Link href={`/store/${store_name}/information`} passHref>
-                    <Button>정보 수정</Button>
-                  </Link>
-                  <Link href={`/store/${store_name}/menu`} passHref>
-                    <Button>메뉴 수정</Button>
-                  </Link>
-                </Button.Group>
-              </div>
-              <StoreImageGrid store_uuid={storeWithAll.uuid} />
-              <StoreInformationBlock storeInfo={storeWithAll}/>
-            </Tablet>
-
-            <Mobile>
-              <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                AlignItems: 'center',
-                justifyContent: 'center',
-              }}>
-                <Image
-                    src={storeWithAll.image_url ??
-                      'https://via.placeholder.com/160'}
-                    alt={'store_logo'}
-                    width={200}
-                />
-                <h2>{store_name}</h2>
-                <Button.Group>
-                  <StoreLogoAddModal store_uuid={storeWithAll.uuid}/>
-                  <StoreImageAddModal store_uuid={storeWithAll.uuid}/>
-                </Button.Group>
-                <Button.Group style={{ marginBottom: '9px' }}>
-                  <Link href={`/store/${store_name}/information`} passHref>
-                    <Button>정보 수정</Button>
-                  </Link>
-                  <Link href={`/store/${store_name}/menu`} passHref>
-                    <Button>메뉴 수정</Button>
-                  </Link>
-                </Button.Group>
-              </div>
-              <StoreImageGrid store_uuid={storeWithAll.uuid} />
-              <StoreInformationBlock storeInfo={storeWithAll}/>
-            </Mobile>
+            <ReviewList store_uuid={storeWithAll.uuid}/>
           </>
         ) : (
           <>
@@ -177,10 +55,4 @@ const StoreUpdatePage = () => {
   )
 }
 
-export default StoreUpdatePage
-
-const StoreIndexHeader = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 20px;
-`
+export default StorePage
