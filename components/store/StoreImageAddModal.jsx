@@ -10,6 +10,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import Dropzone from 'react-dropzone'
+import { imageRatioCheck } from '../../utils/image-validate'
 
 const StoreImageAddModal = ({ store_uuid }) => {
   const router = useRouter()
@@ -62,7 +63,7 @@ const StoreImageAddModal = ({ store_uuid }) => {
               </Header>
             </div>
           ) : (
-            <Dropzone onDrop={acceptedFiles => setNewStoreImg(acceptedFiles[0])}>
+            <Dropzone onDrop={acceptedFiles => imageRatioCheck(acceptedFiles[0], setNewStoreImg)}>
               {
                 ({ getRootProps, getInputProps }) => (
                   <section>
