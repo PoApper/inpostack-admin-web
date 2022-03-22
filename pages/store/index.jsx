@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import axios from 'axios'
 import moment from 'moment'
-import { Table, Dropdown } from 'semantic-ui-react'
+import { Dropdown, Table } from 'semantic-ui-react'
 
 import Layout from '../../components/layout'
 import StoreCreateModal from '../../components/store/StoreCreateModal'
@@ -29,14 +29,19 @@ const StoreIndexPage = () => {
     <Layout>
       <div>
         <h2>가게 관리</h2>
-        <div style={{display: 'flex', justifyContent: 'space-between'}}>
-          <StoreCreateModal />
-          <Dropdown selection placeholder='방문자순'
-                    options={[{key:'name', text:'이름순', value:'name'}, {key:'visit', text:'방문자순', value:'visit'}]}
-                    onChange={(e, {value}) => setOrder(value?.toString())}
-                    style={{marginBottom: '10px'}}
-                    value={order}
-                    />
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <StoreCreateModal/>
+          <Dropdown
+            selection
+            options={[
+              { key: 'name', text: '이름순', value: 'name' },
+              { key: 'visit', text: '방문자순', value: 'visit' },
+              { key: 'distance', text: '거리순', value: 'distance' },
+            ]}
+            onChange={(e, { value }) => setOrder(value?.toString())}
+            style={{ marginBottom: '10px' }}
+            value={order}
+          />
         </div>
         <Table textAlign={'center'} celled selectable>
           <Table.Header>
@@ -57,7 +62,7 @@ const StoreIndexPage = () => {
                     <Table.Cell>{idx + 1}</Table.Cell>
                     <Table.Cell>
                       <Link
-                        href={"/store/[store_name]"}
+                        href={'/store/[store_name]'}
                         as={`/store/${store.name}`}
                         passHref
                       >
@@ -70,7 +75,8 @@ const StoreIndexPage = () => {
                     <Table.Cell>
                       {
                         store.naver_map_url ? (
-                          <a href={store.naver_map_url} target={'_blank'} rel={'noreferrer'}>
+                          <a href={store.naver_map_url} target={'_blank'}
+                             rel={'noreferrer'}>
                             {store.address1}
                           </a>
                         ) : (
