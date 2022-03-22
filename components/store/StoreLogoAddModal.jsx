@@ -29,7 +29,7 @@ const StoreLogoAddModal = ({ store_uuid, trigger }) => {
 
     const formData = new FormData()
     formData.append('store_logo', newStoreLogo)
-    axios.post(`${process.env.NEXT_PUBLIC_API}/store/logo/${store_uuid}`,
+    axios.post(`${process.env.NEXT_PUBLIC_API}/store-logo/${store_uuid}`,
       formData, { withCredentials: true },
     ).then(() => {
       alert('가게 로고가 등록되었습니다!')
