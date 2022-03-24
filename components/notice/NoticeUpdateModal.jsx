@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import styled from 'styled-components'
 import { Form, Icon, Modal } from 'semantic-ui-react'
+import TextareaAutosize from 'react-textarea-autosize'
 
 const NoticeUpdateModal = ({ noticeInfo, noticeType, trigger }) => {
   const router = useRouter()
@@ -59,15 +60,17 @@ const NoticeUpdateModal = ({ noticeInfo, noticeType, trigger }) => {
             label="제목"
             name="title"
             value={title}
-            onChange={(e) => setTitle(e.target.value)}/>
-          <div className="required field">
+            onChange={(e) => setTitle(e.target.value)}
+          />
+
+          <Form.Field required>
             <label>내용</label>
-            <Form.TextArea
+            <TextareaAutosize
               name="content"
               value={content}
               onChange={(e) => setContent(e.target.value)}
             />
-          </div>
+          </Form.Field>
 
           <Form.Select
             required

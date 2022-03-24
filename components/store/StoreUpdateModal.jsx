@@ -6,6 +6,7 @@ import { Divider, Form, Icon, Modal } from 'semantic-ui-react'
 import Postcode from './postcode'
 import { StoreTypeOption } from '../../assets/StoreType'
 import { StoreRegionTypeOption } from '../../assets/StoreRegionType'
+import TextareaAutosize from 'react-textarea-autosize';
 
 const StoreUpdateModal = ({ storeInfo, trigger }) => {
   const router = useRouter()
@@ -87,12 +88,14 @@ const StoreUpdateModal = ({ storeInfo, trigger }) => {
             }}
           />
 
-          <Form.TextArea
-            label={'가게 소개'}
-            name={'description'}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
+          <Form.Field>
+            <label>가게 소개</label>
+            <TextareaAutosize
+              name={'description'}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </Form.Field>
 
           <Form.Select
             required
@@ -104,7 +107,7 @@ const StoreUpdateModal = ({ storeInfo, trigger }) => {
             onChange={(e, { value }) => setStoreType(value?.toString())}
           />
 
-          <Form.Field>
+          <Form.Field required>
             <label>가게 주소</label>
             <Postcode
               zipcode={zipcode}
@@ -138,15 +141,21 @@ const StoreUpdateModal = ({ storeInfo, trigger }) => {
             />
           </Form.Group>
 
-          <Form.TextArea
-            label={'가게 운영 시간'}
-            value={openingHours}
-            placeholder={
-              'JSON format. ' +
-              'ex: { "월, 화, 수": [{"startTime": "09:00", "endTime": "14:00"}], "주말": "정기 휴일" }'
-            }
-            onChange={(e) => setOpeningHours(e.target.value)}
-          />
+          <Form.Field>
+            <label>가게 운영 시간</label>
+            <p>
+              {`ex: { "월, 화, 수": [{"startTime": "09:00", "endTime": "14:00"}], "주말": "정기 휴일" }`}
+            </p>
+            <TextareaAutosize
+              value={openingHours}
+              placeholder={
+                'JSON format. ' +
+                'ex: { "월, 화, 수": [{"startTime": "09:00", "endTime": "14:00"}], "주말": "정기 휴일" }'
+              }
+              onChange={(e) => setOpeningHours(e.target.value)}
+            />
+          </Form.Field>
+
 
           <br/>
 

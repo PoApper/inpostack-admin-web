@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import LoginLayout from '../components/login_layout'
 
 const Login = () => {
-  const callback_url = 'https://admin.inpo.poapper.club'
+  const callback_url = 'https://admin.inpostack.poapper.club'
 
   return (
     <LoginLayout>

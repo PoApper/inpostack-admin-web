@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { Form, Icon, Modal } from 'semantic-ui-react'
 import Postcode from './postcode'
 import { StoreTypeOption } from '../../assets/StoreType'
+import TextareaAutosize from 'react-textarea-autosize'
 
 const StoreCreateModal = () => {
   const router = useRouter()
@@ -72,12 +73,14 @@ const StoreCreateModal = () => {
             }}
           />
 
-          <Form.TextArea
-            label={'가게 소개'}
-            name={'description'}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
+          <Form.Field>
+            <label>가게 소개</label>
+            <TextareaAutosize
+              name={'description'}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </Form.Field>
 
           <Form.Select
             required
@@ -89,7 +92,7 @@ const StoreCreateModal = () => {
             onChange={(e, { value }) => setStoreType(value?.toString())}
           />
 
-          <Form.Field>
+          <Form.Field required>
             <label>가게 주소</label>
             <Postcode
               zipcode={zipcode}

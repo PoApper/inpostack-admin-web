@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import styled from 'styled-components'
 import { Form, Icon, Modal } from 'semantic-ui-react'
+import TextareaAutosize from 'react-textarea-autosize'
 
 const NoticeCreateModal = ({ noticeType }) => {
   const router = useRouter()
@@ -50,15 +51,14 @@ const NoticeCreateModal = ({ noticeType }) => {
             onChange={(e) => setTitle(e.target.value)}
           />
 
-          <div className="required field">
-            <Form.TextArea
-              required
-              label="내용"
+          <Form.Field required>
+            <label>내용</label>
+            <TextareaAutosize
               name="content"
               value={content}
               onChange={(e) => setContent(e.target.value)}
             />
-          </div>
+          </Form.Field>
 
           <Form.Select
             required
@@ -70,6 +70,7 @@ const NoticeCreateModal = ({ noticeType }) => {
             onChange={(e, { value }) => setNotice_type(
               value?.toString())}
           />
+
           <FormButton onClick={handleSubmit}>Create <Icon
             name="add circle"/></FormButton>
         </Form>
