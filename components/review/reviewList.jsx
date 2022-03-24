@@ -18,21 +18,27 @@ const ReviewList = ({ store_uuid }) => {
     <CommentDiv>
       <Header>리뷰</Header>
       {
-        reviewList.map(review => {
-          return (
-            <Comment key={review.uuid} style={{ marginTop: 8 }}>
-              <Comment.Content>
-                <Comment.Text>
-                  {review.content}
-                </Comment.Text>
-                <Comment.Metadata>
-                  <div>{moment(review.created_at).
-                    format('YYYY-MM-DD hh:mm')}</div>
-                </Comment.Metadata>
-              </Comment.Content>
-            </Comment>
-          )
-        })
+        reviewList.length ? (
+          reviewList.map(review => {
+            return (
+              <Comment key={review.uuid} style={{ marginTop: 8 }}>
+                <Comment.Content>
+                  <Comment.Text>
+                    {review.content}
+                  </Comment.Text>
+                  <Comment.Metadata>
+                    <div>{moment(review.created_at).
+                      format('YYYY-MM-DD hh:mm')}</div>
+                  </Comment.Metadata>
+                </Comment.Content>
+              </Comment>
+            )
+          })
+        ) : (
+          <div>
+            리뷰가 존재하지 않습니다.
+          </div>
+        )
       }
     </CommentDiv>
   )

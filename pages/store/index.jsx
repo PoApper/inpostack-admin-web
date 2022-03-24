@@ -43,6 +43,13 @@ const StoreIndexPage = () => {
             value={order}
           />
         </div>
+        <p>
+          생활관 자치회: &nbsp;
+          <a href={'https://delivery.postech.ac.kr/'}
+             target={'_blank'} rel={'noreferrer'}>
+            포스텍 배달음식
+          </a>
+        </p>
         <Table textAlign={'center'} celled selectable>
           <Table.Header>
             <Table.Row>

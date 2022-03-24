@@ -18,7 +18,7 @@ const StoreOpeningHours = ({ openingHours }) => {
                     Array.isArray(hoursJson[key]) ? (
                       hoursJson[key].map(({startTime, endTime}) => {
                         return (
-                          <span key={startTime}>
+                          <span key={startTime} style={{marginRight: 12}}>
                             {startTime} ~ {endTime}
                           </span>
                         )
