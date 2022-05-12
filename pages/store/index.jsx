@@ -43,13 +43,22 @@ const StoreIndexPage = () => {
             value={order}
           />
         </div>
-        <p>
-          생활관 자치회: &nbsp;
-          <a href={'https://delivery.postech.ac.kr/'}
-             target={'_blank'} rel={'noreferrer'}>
-            포스텍 배달음식
-          </a>
-        </p>
+
+        <ul style={{margin: 0}}>
+          <li>
+            <a href={'https://inpostack.poapper.club/store/'}
+               target={'_blank'} rel={'noreferrer'}>
+              InPoStack 가게 페이지
+            </a>
+          </li>
+          <li>
+            <a href={'https://delivery.postech.ac.kr/'}
+               target={'_blank'} rel={'noreferrer'}>
+              생활관 자치회: 포스텍 배달음식
+            </a>
+          </li>
+        </ul>
+
         <Table textAlign={'center'} celled selectable>
           <Table.Header>
             <Table.Row>
