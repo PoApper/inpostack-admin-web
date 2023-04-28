@@ -21,7 +21,10 @@ const StorePage = () => {
       .get(`${process.env.NEXT_PUBLIC_API}/store/name/${store_name}?category=true&menu=true`,
         {withCredentials: true})
       .then(res => setStoreWithAll(res.data))
-      .catch(() => alert(`가게 정보를 불러오는데 실패했습니다.`))
+      .catch((err) => {
+        const errMsg = err.response.data.message;
+        alert(`가게 정보를 불러오는데 실패했습니다.\n${errMsg}`);
+      })
   }, [store_name])
 
   return (

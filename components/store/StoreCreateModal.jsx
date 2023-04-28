@@ -37,8 +37,8 @@ const StoreCreateModal = () => {
         router.reload()
       }).
       catch((err) => {
-        alert('가게 생성에 실패했습니다.')
-        console.log(err)
+        const errMsg = err.response.data.message;
+        alert(`가게 생성에 실패했습니다.\n${errMsg}`);
       })
   }
 

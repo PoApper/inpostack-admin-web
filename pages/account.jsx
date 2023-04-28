@@ -16,9 +16,9 @@ const Account = (props) => {
       then(res => {
         setAccounts(res.data)
       }).
-      catch(err => {
-        alert(`계정 정보를 불러오는데 실패했습니다.\n`)
-        console.log(err)
+      catch((err) => {
+        const errMsg = err.response.data.message;
+        alert(`계정 정보를 불러오는데 실패했습니다.\n${errMsg}`);
       })
   }, [])
 

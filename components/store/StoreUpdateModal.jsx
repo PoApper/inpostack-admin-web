@@ -43,7 +43,10 @@ const StoreUpdateModal = ({ storeInfo, trigger }) => {
       region: region,
     }, { withCredentials: true }).
       then(() => router.reload()).
-      catch(() => alert('가게 수정 API 오류!'))
+      catch((err) => {
+        const errMsg = err.response.data.message;
+        alert(`가게 수정 API 오류!\n${errMsg}`);
+      })
   }
 
   function handleDelete (e) {
@@ -54,7 +57,10 @@ const StoreUpdateModal = ({ storeInfo, trigger }) => {
         alert('가게를 삭제했습니다.')
         router.push('/store')
       }).
-      catch(() => alert('가게 삭제에 실패했습니다.'))
+      catch((err) => {
+        const errMsg = err.response.data.message;
+        alert(`가게 삭제에 실패했습니다.\n${errMsg}`);
+      })
   }
 
   return (

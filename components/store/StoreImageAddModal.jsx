@@ -36,8 +36,8 @@ const StoreImageAddModal = ({ store_uuid }) => {
       alert('가게 이미지가 등록되었습니다!')
       router.reload()
     }).catch((err) => {
-      alert('가게 이미지 등록에 실패했습니다.')
-      console.log(err)
+      const errMsg = err.response.data.message;
+      alert(`가게 이미지 등록에 실패했습니다.\n${errMsg}`);
     })
   }
 
