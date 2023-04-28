@@ -25,6 +25,11 @@ export const StoreRegionTypeOption = [
     value: 'ji-gok',
     text: '지곡',
   },
+  {
+    key: 'others',
+    value: 'others',
+    text: '기타',
+  },
 ];
 
 export const StoreRegionKorean = {
@@ -33,6 +38,7 @@ export const StoreRegionKorean = {
   'yu-gang': '유강',
   'yi-dong': '이동',
   'ji-gok': '지곡',
+  others: '기타',
 };
 
 export const StoreRegionColor = {
@@ -41,4 +47,5 @@ export const StoreRegionColor = {
   'yu-gang': '#d29623',
   'yi-dong': '#0071bc',
   'ji-gok': '#ea8400',
+  others: 'gray',
 };
