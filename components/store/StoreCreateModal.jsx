@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { Form, Icon, Modal } from 'semantic-ui-react'
 import Postcode from './postcode'
 import { StoreTypeOption } from '../../assets/StoreType'
+import { StoreRegionTypeOption } from '../../assets/StoreRegionType'
 import TextareaAutosize from 'react-textarea-autosize'
 
 const StoreCreateModal = () => {
@@ -20,6 +21,8 @@ const StoreCreateModal = () => {
   const [zipcode, setZipcode] = useState('')
   const [naverMapUrl, setNaverMapUrl] = useState()
   const [kakaoMapUrl, setKakaoMapUrl] = useState()
+  const [label, setLabel] = useState(storeInfo.label)
+  const [region, setRegion] = useState(storeInfo.region)
 
   async function handleSubmit (e) {
     e.preventDefault()
@@ -32,6 +35,10 @@ const StoreCreateModal = () => {
         address1: address1,
         address2: address2,
         zipcode: zipcode,
+        naver_map_url: naverMapUrl,
+        kakao_map_url: kakaoMapUrl,
+        label: label,
+        region: region,
       }, { withCredentials: true }).
       then(() => {
         router.reload()
@@ -124,6 +131,22 @@ const StoreCreateModal = () => {
               placeholder={'https://place.map.kakao.com/xxxxxxxx'}
               onChange={(e) => setKakaoMapUrl(e.target.value)}
             />
+
+            <Form.Input
+              label={'가게 라벨'}
+              placeholder={'퍼블릭 페이지 가게 목록에 표시될 라벨 (총학생회 제휴 업체의 경우, UA로 기입). ex. 전통맛집, 강추'}
+              value={label}
+              onChange={(e) => setLabel(e.target.value)}
+            />
+
+            <Form.Select
+              label={'가게 지역'}
+              placeholder={'가게가 속한 지역을 선택하세요.'}
+              value={region}
+              options={StoreRegionTypeOption}
+              onChange={(e, { value }) => setRegion(value?.toString())}
+            />
+
           </Form.Group>
 
           <p>

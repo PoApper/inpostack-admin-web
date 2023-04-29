@@ -167,7 +167,7 @@ const StoreUpdateModal = ({ storeInfo, trigger }) => {
 
           <Form.Input
             label={'가게 라벨'}
-            placeholder={'퍼블릭 페이지 가게 목록에 표시될 라벨. ex. 전통맛집, 강추'}
+            placeholder={'퍼블릭 페이지 가게 목록에 표시될 라벨 (총학생회 제휴 업체의 경우, UA로 기입). ex. 전통맛집, 강추'}
             value={label}
             onChange={(e) => setLabel(e.target.value)}
           />
